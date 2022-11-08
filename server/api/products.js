@@ -20,3 +20,13 @@ productsRouter.get('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+productsRouter.delete('/:id', async (req, res, next) => {
+  try {
+    const productToDelete = await Product.findByPk(req.params.id);
+    await productToDelete.destroy();
+    res.send(productToDelete);
+  } catch (error) {
+    next(error);
+  }
+});
