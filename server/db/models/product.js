@@ -23,6 +23,7 @@ const Product = db.define('product', {
   },
   category: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 
