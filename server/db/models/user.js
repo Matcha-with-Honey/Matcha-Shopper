@@ -13,6 +13,40 @@ const User = db.define('user', {
   password: {
     type: DataTypes.STRING,
   },
+  email: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+        notEmpty: true,
+        isEmail: true
+      },
+    unique: true
+  },
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+        notEmpty: true
+      }
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+          notEmpty: true
+        }
+  }, 
+  phone: {
+    type: DataTypes.STRING(12),
+    allowNull: true,
+  }, 
+  role:{
+    type: DataTypes.ENUM('member', 'admin', 'engineer'), 
+    defaultValue:{
+      'member'
+    },
+    allowNull: false,
+  }
 });
 
 User.prototype.correctPassword = function (password) {
