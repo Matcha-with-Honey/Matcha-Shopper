@@ -1,10 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../db');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-require('dotenv').config();
+const { Sequelize, DataTypes } = require("sequelize");
+const db = require("../db");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
-const User = db.define('user', {
+const User = db.define("user", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -17,36 +17,34 @@ const User = db.define('user', {
     type: DataTypes.TEXT,
     allowNull: false,
     validate: {
-        notEmpty: true,
-        isEmail: true
-      },
-    unique: true
+      notEmpty: true,
+      isEmail: true,
+    },
+    unique: true,
   },
   first_name: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-        notEmpty: true
-      }
+      notEmpty: true,
+    },
   },
   last_name: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-          notEmpty: true
-        }
-  }, 
+      notEmpty: true,
+    },
+  },
   phone: {
     type: DataTypes.STRING(12),
     allowNull: true,
-  }, 
-  role:{
-    type: DataTypes.ENUM('member', 'admin', 'engineer'), 
-    defaultValue:{
-      'member'
-    },
+  },
+  role: {
+    type: DataTypes.ENUM("member", "admin", "engineer"),
+    defaultValue: "member",
     allowNull: false,
-  }
+  },
 });
 
 User.prototype.correctPassword = function (password) {
@@ -60,7 +58,7 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
-    const error = Error('Incorrect username/password');
+    const error = Error("Incorrect username/password");
     error.status = 401;
     throw error;
   }
@@ -72,11 +70,11 @@ User.findByToken = async (token) => {
     const { id } = await jwt.verify(token, process.env.SECRET_KEY);
     const user = User.findByPk(id);
     if (!user) {
-      throw 'no';
+      throw "no";
     }
     return user;
   } catch (err) {
-    const error = Error('bad token');
+    const error = Error("bad token");
     error.status = 401;
     throw error;
   }
@@ -88,7 +86,7 @@ User.findByToken = async (token) => {
 // });
 
 const hashPassword = async (user) => {
-  if (user.changed('password')) {
+  if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, 10);
   }
 };
