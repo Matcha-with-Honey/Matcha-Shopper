@@ -5,8 +5,8 @@ const Order = require("./models/order");
 const Order_Products = require("./models/orderProducts");
 
 //associations could go here!
-Order.belongsToMany(Product, { through: "order_products" });
-Product.belongsToMany(Order, { through: "order_products" });
+Order.belongsToMany(Product, { through: Order_Products });
+Product.belongsToMany(Order, { through: Order_Products });
 
 User.hasMany(Order);
 Order.belongsTo(User);
