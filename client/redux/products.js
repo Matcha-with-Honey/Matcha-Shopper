@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { combineReducers } from 'redux';
 
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
@@ -38,3 +39,26 @@ export const fetchSingleProduct = (id) => {
     }
   };
 };
+
+const allProductsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_PRODUCTS:
+      return action.products;
+    default:
+      return state;
+  }
+};
+
+const singleProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SINGLE_PRODUCT:
+      return action.product;
+    default:
+      return state;
+  }
+};
+
+const productsReducer = combineReducers({
+  allProducts: allProductsReducer,
+  singleProduct: singleProductReducer,
+});
