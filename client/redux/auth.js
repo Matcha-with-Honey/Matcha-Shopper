@@ -60,7 +60,7 @@ export const logout = () => {
 
 //reducer
 
-export default (state = {}, action) => {
+export default (state = { auth: { error: '' } }, action) => {
   switch (action.type) {
     case SET_AUTH:
       return action.auth;
