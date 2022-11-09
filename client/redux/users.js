@@ -1,8 +1,8 @@
 import axios from 'axios';
-
-const initialState = [];
+import { combineReducers } from 'redux';
 
 const FETCH_USERS = 'FETCH_USERS';
+const FETCH_SINGLE_USER = 'FETCH_SINGLE_USER';
 const CREATE_USER = 'CREATE_USER';
 const DELETE_USER = 'DELETE_USER';
 const EDIT_USER = 'EDIT_USER';
@@ -11,6 +11,13 @@ const getUsers = (users) => {
   return {
     type: FETCH_USERS,
     users,
+  };
+};
+
+const getSingleUser = (user) => {
+  return {
+    type: FETCH_SINGLE_USER,
+    user,
   };
 };
 
@@ -46,6 +53,16 @@ const fetchUsers = () => {
   };
 };
 
+const fetchSingleUser = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/users/${id}`);
+      dispatch(getSingleUser(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 const makeUser = (user) => {
   return async (dispatch) => {
     try {
@@ -78,10 +95,19 @@ const editUser = (user) => {
   };
 };
 
-const usersReducer = (state = initialState, action) => {
+const allUsersReducer = (state = [], action) => {
   switch (action.type) {
     case FETCH_USERS:
       return action.users;
+    default:
+      return state;
+  }
+};
+
+const singleUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FETCH_SINGLE_USER:
+      return action.user;
     case CREATE_USER:
       return [...state, action.user];
     case DELETE_USER:
@@ -94,5 +120,15 @@ const usersReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export { usersReducer, fetchUsers, makeUser, deleteUser, editUser };
+const usersReducer = combineReducers({
+  users: allUsersReducer,
+  singleUser: singleUserReducer,
+});
+export {
+  usersReducer,
+  fetchUsers,
+  fetchSingleUser,
+  makeUser,
+  deleteUser,
+  editUser,
+};
