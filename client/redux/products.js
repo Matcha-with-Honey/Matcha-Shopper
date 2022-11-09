@@ -16,3 +16,25 @@ const setSingleProduct = (product) => {
     product,
   };
 };
+
+export const fetchAllProducts = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/api/products');
+      dispatch(setProducts(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchSingleProduct = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/products/${id}`);
+      dispatch(setSingleProduct(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
