@@ -59,9 +59,7 @@ const makeUser = (user) => {
 const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      const { data: users } = await axios.delete(
-        `/api/users/${userId}`
-      );
+      const { data: users } = await axios.delete(`/api/users/${userId}`);
       dispatch(_deleteUser(users));
     } catch (error) {
       console.log(error);
@@ -70,14 +68,14 @@ const deleteUser = (userId) => {
 };
 
 const editUser = (user) => {
-    return async (dispatch) => {
-            try {
-            const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
-            dispatch(_editUser(updated));
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  return async (dispatch) => {
+    try {
+      const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
+      dispatch(_editUser(updated));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -88,9 +86,10 @@ const usersReducer = (state = initialState, action) => {
       return [...state, action.user];
     case DELETE_USER:
       return state.filter((user) => user.id !== action.user.id);
-      case EDIT_USER:
-        return state.map((user) =>
-          (user.id === action.user.id ? action.user : user));
+    case EDIT_USER:
+      return state.map((user) =>
+        user.id === action.user.id ? action.user : user
+      );
     default:
       return state;
   }

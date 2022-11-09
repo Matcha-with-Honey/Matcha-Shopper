@@ -29,7 +29,7 @@ usersRouter.get('/:userId', async (req, res, next) => {
   }
 });
 
-usersRouter.post("/", async (req, res, next) => {
+usersRouter.post('/', async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
     res.send(newUser);
@@ -51,7 +51,7 @@ usersRouter.delete('/:userId', async (req, res, next) => {
 usersRouter.put('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
-    const response = await user.update(req.body)
+    const response = await user.update(req.body);
     res.send(response);
   } catch (error) {
     next(error);
