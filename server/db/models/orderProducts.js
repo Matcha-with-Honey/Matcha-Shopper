@@ -1,8 +1,8 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const db = require("../db");
+const { Sequelize, DataTypes } = require('sequelize');
+const db = require('../db');
 
-const Order_Products = db.define("order_products", {
-  quanity: {
+const Order_Products = db.define('order_products', {
+  quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
