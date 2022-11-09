@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser } from '../redux/singleUser';
-import { Link } from 'react-router-dom';
+import { fetchSingleUser } from '../redux/usersReducer';
 
 export class SingleUser extends React.Component {
   constructor() {
     super();
-    this.state = [];
+    this.state = {};
   }
   componentDidMount() {
     try {
@@ -28,7 +27,7 @@ export class SingleUser extends React.Component {
           <li>email: {email}</li>
           <hr />
         </ul>
-        <h3>Past Orders</h3>
+        <h3>Order History</h3>
       </div>
     );
   }
