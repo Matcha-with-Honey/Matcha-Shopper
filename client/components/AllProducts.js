@@ -11,6 +11,7 @@ class AllProducts extends Component {
         <h2 id="products-title">ALL PRODUCTS</h2>
         {role === 'admin' ? (
           <div>
+            {/* ADD PRODUCT FORM GOES HERE */}
             <div id="products-container">
               {products.map((product) => {
                 return (
