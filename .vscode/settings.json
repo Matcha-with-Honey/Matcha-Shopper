@@ -2,5 +2,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.suggest.showStatusBar": true,
-    "eslint.alwaysShowStatus": false
+    "eslint.alwaysShowStatus": true,
+    "prettier.singleQuote": true
 }
