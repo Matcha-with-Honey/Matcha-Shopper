@@ -17,7 +17,7 @@ class AllProducts extends Component {
                     <p>{product.name}</p>
                   </Link>
                   <img id="product-image" src={product.image} />
-                  <p>{product.description}</p>
+                  <p>{product.price}</p>
                 </div>
               );
             })}
