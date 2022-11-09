@@ -19,6 +19,7 @@ class SingleProduct extends Component {
         <img src={product.image} />
         <p>{product.price}</p>
         <p>{product.description}</p>
+        <button id="add-to-cart">Add To Cart</button>
       </section>
     );
   }
