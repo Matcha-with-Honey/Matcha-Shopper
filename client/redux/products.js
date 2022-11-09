@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
+const ADD_PRODUCT = 'ADD_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
@@ -17,6 +18,13 @@ const setSingleProduct = (product) => {
   return {
     type: GET_SINGLE_PRODUCT,
     product,
+  };
+};
+
+const addProduct = (newProduct) => {
+  return {
+    type: ADD_PRODUCT,
+    newProduct,
   };
 };
 
@@ -50,6 +58,17 @@ export const fetchSingleProduct = (id) => {
     try {
       const { data } = await axios.get(`/api/products/${id}`);
       dispatch(setSingleProduct(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const persistAddedProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post('/api/products', product);
+      dispatch(addProduct(data));
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +110,8 @@ const singleProductReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_SINGLE_PRODUCT:
       return action.product;
+    case ADD_PRODUCT:
+      return action.newProduct;
     case UPDATE_PRODUCT:
       return action.updatedProduct;
     case DELETE_PRODUCT:
@@ -101,6 +122,8 @@ const singleProductReducer = (state = {}, action) => {
 };
 
 const productsReducer = combineReducers({
-  allProducts: allProductsReducer,
+  products: allProductsReducer,
   singleProduct: singleProductReducer,
 });
+
+export default productsReducer;
