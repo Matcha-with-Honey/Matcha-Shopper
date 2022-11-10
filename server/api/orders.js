@@ -1,12 +1,13 @@
-const ordersRouter = require("express").Router();
+const ordersRouter = require('express').Router();
 const {
-  models: { Product, Order },
-} = require("../db");
+  models: { Order },
+} = require('../db');
+const Order_Product = require('../db/models/orderProducts');
 
-ordersRouter.get("/:id", async (req, res, next) => {
+ordersRouter.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
-      include: { model: Product },
+      include: { model: Order_Product },
       where: {
         orderId: req.params.id,
       },
@@ -17,10 +18,10 @@ ordersRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-ordersRouter.get("/", async (req, res, next) => {
+ordersRouter.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
-      include: { model: Product },
+      include: { model: Order_Product },
     });
     res.status(200).send(orders);
   } catch (error) {
@@ -28,16 +29,16 @@ ordersRouter.get("/", async (req, res, next) => {
   }
 });
 
-ordersRouter.post("/", async (req, res, next) => {
+ordersRouter.post('/', async (req, res, next) => {
   try {
-    const order = await Order.create(req.body);
+    const order = await Order.create({});
     res.status(201).send(order);
   } catch (error) {
     next(error);
   }
 });
 
-ordersRouter.put("/:id", async (req, res, next) => {
+ordersRouter.put('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id);
     order.update(req.body);
@@ -47,7 +48,7 @@ ordersRouter.put("/:id", async (req, res, next) => {
   }
 });
 
-ordersRouter.delete("/:id", async (req, res, next) => {
+ordersRouter.delete('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id);
     await order.destroy();
