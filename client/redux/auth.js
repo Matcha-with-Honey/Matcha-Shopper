@@ -28,7 +28,7 @@ export const me = () => {
         });
         return dispatch(setAuth(data));
       }
-      // return dispatch(setAuth({}));
+      return dispatch(setAuth({}));
     } catch (error) {
       console.error(error);
     }
