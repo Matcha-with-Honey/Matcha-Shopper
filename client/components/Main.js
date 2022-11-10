@@ -6,6 +6,7 @@ import { me } from '../redux/auth';
 import Home from './Home';
 import AllProducts from './AllProducts';
 import { fetchAllProducts } from '../redux/products';
+import SingleProduct from './SingleProduct';
 
 class Main extends Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ class Main extends Component {
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
-            <Route path="/products" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<SingleProduct />} />
           </Routes>
         ) : (
           <Routes>
