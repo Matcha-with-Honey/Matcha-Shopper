@@ -32,14 +32,6 @@ export class AllUsers extends React.Component {
                   detail
                 </Link>
               </div>
-
-              <button
-                type="submit"
-                name={user.id}
-                onClick={() => this.props.deleteUser(user.id)}
-              >
-                Delete
-              </button>
             </div>
           );
         })}

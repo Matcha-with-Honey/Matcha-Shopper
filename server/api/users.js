@@ -36,7 +36,7 @@ usersRouter.post('/', async (req, res, next) => {
 usersRouter.delete('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
-    await userId.destroy();
+    await user.destroy();
     res.send(user);
   } catch (error) {
     next(error);
