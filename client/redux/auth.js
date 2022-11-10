@@ -5,6 +5,7 @@ const TOKEN = 'token';
 
 //action types
 const SET_AUTH = 'SET_AUTH';
+const LOG_OUT = 'LOG_OUT';
 
 //action creators
 const setAuth = (auth) => {

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/auth';
 
-const Navbar = ({ handleClick }) => (
+const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1>Sheyla's App</h1>
+    <h1>Matcha 🍵</h1>
     <nav>
-      {false ? (
+      {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
@@ -30,9 +30,11 @@ const Navbar = ({ handleClick }) => (
 /**
  * CONTAINER
  */
-// const mapState = (state) => {
-
-// };
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -42,4 +44,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(Navbar);
+export default connect(mapState, mapDispatch)(Navbar);

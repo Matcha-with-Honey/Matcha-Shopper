@@ -3,7 +3,7 @@ import { Login, SignUp } from './AuthForm';
 import { connect } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { me } from '../redux/auth';
-import { Home } from './Home';
+import Home from './Home';
 
 class Main extends Component {
   componentDidMount() {
@@ -11,6 +11,7 @@ class Main extends Component {
   }
   render() {
     const { isLoggedIn } = this.props;
+    console.log('ooooo', this.props);
     return (
       <div>
         {isLoggedIn ? (
