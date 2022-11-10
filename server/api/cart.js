@@ -3,6 +3,19 @@ const {
   models: { Product, Order, Order_Product },
 } = require('../db');
 
+cartRouter.get('/:orderId', async (req, res, next) => {
+  try {
+    const items = await Order_Product.findAll({
+      where: {
+        orderId: req.params.orderId,
+      },
+    });
+    res.status(200).send(items);
+  } catch (error) {
+    next(error);
+  }
+});
+
 cartRouter.post('/', async (req, res, next) => {
   try {
     const item = req.body;
@@ -15,25 +28,6 @@ cartRouter.post('/', async (req, res, next) => {
       ],
     });
     res.status(201).send(item);
-  } catch (error) {
-    next(error);
-  }
-});
-
-cartRouter.get('/:id', async (req, res, next) => {
-  try {
-    const order = await Order.findByPk(req.params.id, {
-      include: [
-        {
-          model: Product,
-        },
-        { model: Order },
-      ],
-      where: {
-        orderId: req.params.id,
-      },
-    });
-    res.status(200).send(order.products);
   } catch (error) {
     next(error);
   }
