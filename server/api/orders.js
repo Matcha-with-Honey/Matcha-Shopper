@@ -1,13 +1,16 @@
 const ordersRouter = require('express').Router();
 const {
-  models: { Order },
+  models: { Order, Product },
 } = require('../db');
 const Order_Product = require('../db/models/orderProducts');
 
 ordersRouter.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
-      include: { model: Order_Product },
+      include: [
+        { model: Order_Product },
+        { model: Product, attributes: ['name'] },
+      ],
       where: {
         orderId: req.params.id,
       },
