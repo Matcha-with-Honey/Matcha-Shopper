@@ -34,7 +34,7 @@ export const fetchSingleCart = (id) => {
   // note: order id -- get from state.order.id
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/orders/:${id}`);
+      const { data } = await axios.get(`/api/cart/${id}`);
       dispatch(setNewCart(data));
     } catch (error) {
       console.error(error);
@@ -65,6 +65,8 @@ const orderReducer = (state = initialState, action) => {
       const updatedItems = [...state.cartItems, action.item];
       return { ...state, cartItems: updatedItems };
     }
+    default:
+      return state;
   }
 };
 
