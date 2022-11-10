@@ -46,8 +46,8 @@ export class Cart extends Component {
                       <div id="item-price">{item.product.price}</div>
                     </div>
                     <form>
-                      <select name="quanity" id="quantity-select">
-                        <option value="item.quanity">{item.quantity}</option>
+                      <select name="quantity" id="quantity-select">
+                        <option value="item.quantity">{item.quantity}</option>
                       </select>
                     </form>
                   </div>
