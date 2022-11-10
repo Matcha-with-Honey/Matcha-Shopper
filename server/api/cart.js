@@ -6,6 +6,7 @@ const {
 cartRouter.get('/:orderId', async (req, res, next) => {
   try {
     const items = await Order_Product.findAll({
+      include: [{ model: Product }],
       where: {
         orderId: req.params.orderId,
       },

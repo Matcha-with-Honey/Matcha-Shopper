@@ -34,8 +34,8 @@ export const fetchSingleCart = (id) => {
   // note: order id -- get from state.order.id
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/orders/:${id}`);
-      dispatch(setNewCart(data));
+      const { data } = await axios.get(`/api/cart/${id}`);
+      dispatch(setSingleCart(data));
     } catch (error) {
       console.error(error);
     }
