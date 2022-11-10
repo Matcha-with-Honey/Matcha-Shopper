@@ -9,10 +9,10 @@ const Order_Product = require('./models/orderProducts');
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Order_Product.hasOne(Product);
-Order_Product.hasOne(Order);
-Order.belongsTo(Order_Product);
-Product.belongsTo(Order_Product);
+Order_Product.belongsTo(Product);
+Order_Product.belongsTo(Order);
+Order.hasMany(Order_Product);
+Product.hasMany(Order_Product);
 
 module.exports = {
   db,
