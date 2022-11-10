@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const db = require("../db");
+const { Sequelize, DataTypes } = require('sequelize');
+const db = require('../db');
 
-const Order = db.define("order", {
+const Order = db.define('order', {
   order_total: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
@@ -23,7 +23,6 @@ const Order = db.define("order", {
   },
   shipping_address: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
 });
 
