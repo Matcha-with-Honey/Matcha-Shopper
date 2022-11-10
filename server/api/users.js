@@ -6,12 +6,7 @@ module.exports = usersRouter;
 
 usersRouter.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and username fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'username'],
-    });
+    const users = await User.findAll();
     res.json(users);
   } catch (err) {
     next(err);
@@ -41,7 +36,7 @@ usersRouter.post('/', async (req, res, next) => {
 usersRouter.delete('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
-    await userId.destroy();
+    await user.destroy();
     res.send(user);
   } catch (error) {
     next(error);
