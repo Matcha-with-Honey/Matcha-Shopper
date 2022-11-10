@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'redux';
+import { connect } from 'react-redux';
 import { fetchSingleProduct, persistProductDelete } from '../redux/products';
+import { useParams } from 'react-router-dom';
+
+function withParams(Component) {
+  return (props) => <Component {...props} params={useParams()} />;
+}
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -9,7 +14,7 @@ class SingleProduct extends Component {
   }
   async componentDidMount() {
     try {
-      await this.props.fetchSingleProduct(this.props.match.params.productId);
+      await this.props.fetchSingleProduct(this.props.params.productId);
     } catch (error) {
       console.error(error);
     }
@@ -51,8 +56,9 @@ class SingleProduct extends Component {
 
 const mapState = (state) => {
   return {
-    product: state.product,
-    role: state.auth.role,
+    product: state.productsReducer.singleProduct,
+    role: 'admin',
+    // THIS IS HARDCODED. NEEDS TO CHANGE!!!
   };
 };
 
@@ -63,4 +69,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(SingleProduct);
+export default withParams(connect(mapState, mapDispatch)(SingleProduct));
