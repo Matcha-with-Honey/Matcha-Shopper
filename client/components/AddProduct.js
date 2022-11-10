@@ -39,7 +39,7 @@ class AddProduct extends Component {
   render() {
     return (
       <section>
-        <form>
+        <form id="add-product-form" onSubmit={this.handleSubmit}>
           <input
             name="name"
             placeholder="product name"
