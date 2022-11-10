@@ -75,10 +75,10 @@ export const persistAddedProduct = (product) => {
   };
 };
 
-export const persistProductUpdate = (product) => {
+export const persistProductUpdate = (productId, product) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/products/${product.id}`, product);
+      const { data } = await axios.put(`/api/products/${productId}`, product);
       dispatch(updateProduct(data));
     } catch (error) {
       console.error(error);

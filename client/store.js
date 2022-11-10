@@ -1,8 +1,16 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
-import appReducer from './redux/auth';
+import authRouter from './redux/auth';
+import productsReducer from './redux/products';
+import { usersReducer } from './redux/users';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+
+const appReducer = combineReducers({
+  authRouter,
+  productsReducer,
+  usersReducer,
+});
 
 let middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
 
