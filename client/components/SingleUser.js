@@ -32,9 +32,6 @@ export class SingleUser extends React.Component {
           <li>email: {email}</li>
           <hr />
         </ul>
-        <h3>Order History</h3>
-        {/* {PLUG IN ORDERS HERE} */}
-
         <button
           type="submit"
           name={id}
@@ -42,6 +39,8 @@ export class SingleUser extends React.Component {
         >
           Delete
         </button>
+        <h3>Order History</h3>
+        {/* {PLUG IN ORDERS HERE} */}
       </div>
     );
   }
