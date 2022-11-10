@@ -5,6 +5,7 @@ const TOKEN = 'token';
 
 //action types
 const SET_AUTH = 'SET_AUTH';
+const LOG_OUT = 'LOG_OUT';
 
 //action creators
 const setAuth = (auth) => {
@@ -27,7 +28,7 @@ export const me = () => {
         });
         return dispatch(setAuth(data));
       }
-      return dispatch(setAuth({}));
+      // return dispatch(setAuth({}));
     } catch (error) {
       console.error(error);
     }
