@@ -5,13 +5,17 @@ import { Route, Routes } from 'react-router-dom';
 import { me } from '../redux/auth';
 import Home from './Home';
 import AllProducts from './AllProducts';
-import { fetchAllProducts } from '../redux/products';
+import { fetchAllProducts, fetchSingleProduct } from '../redux/products';
+import { fetchNewCart, fetchSingleCart } from '../redux/orders';
 import SingleProduct from './SingleProduct';
+import Cart from './Cart';
 
 class Main extends Component {
   componentDidMount() {
     this.props.loadInitialData();
     this.props.fetchAllProducts();
+    //this.props.fetchNewCart();
+    this.props.fetchSingleCart(1);
   }
   render() {
     const { isLoggedIn } = this.props;
@@ -22,12 +26,14 @@ class Main extends Component {
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         ) : (
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         )}
       </div>
@@ -47,6 +53,8 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData: () => dispatch(me()),
     fetchAllProducts: () => dispatch(fetchAllProducts()),
+    fetchNewCart: () => dispatch(fetchNewCart()),
+    fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
   };
 };
 
