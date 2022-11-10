@@ -14,7 +14,7 @@ export class SingleUser extends React.Component {
   }
   componentDidMount() {
     try {
-      this.props.fetchSingleUser(this.props.match.params.userId);
+      this.props.fetchSingleUser(this.props.params.userId);
     } catch (error) {
       console.error(error);
     }
