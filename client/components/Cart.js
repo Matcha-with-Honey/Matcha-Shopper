@@ -17,36 +17,37 @@ export class Cart extends Component {
 
   componentDidMount() {
     try {
-      // const items = this.props.fetchSingleCart(this.props.params.cartId);
-      // this.setState({ ...this.state, cartItems: items });
-      // const order = localStorage.get;
-      // this.setState(cart);
+      this.setState({
+        ...this.state,
+        cartItems: this.props.order,
+      });
     } catch (error) {
       console.error(error);
     }
   }
 
   render() {
+    const items = this.props.order || [];
     return (
       <div id="cart">
         <h2>Ready to checkout?</h2>
         <div id="cart-container">
           <h3>Your Items</h3>
           <div id="item-list">
-            {this.state.cartItems.length > 0 ? (
-              this.state.cartItems.map((item) => {
+            {items.length > 0 ? (
+              items.map((item) => {
                 return (
-                  <div key="item.productId" className="cart-item">
+                  <div key={item.productId} className="cart-item">
                     <div id="cart-item-left">
-                      <h4>item.product.name</h4>
+                      <h4>{item.product.name}</h4>
                       <img src={item.image} />
                     </div>
                     <div id="cart-item-right">
-                      <div id="item-price">item.product.price</div>
+                      <div id="item-price">{item.product.price}</div>
                     </div>
                     <form>
-                      <select name="quanity" id="quantity-select">
-                        <option value="item.quanity">item.quantity</option>
+                      <select name="quantity" id="quantity-select">
+                        <option value="item.quantity">{item.quantity}</option>
                       </select>
                     </form>
                   </div>
