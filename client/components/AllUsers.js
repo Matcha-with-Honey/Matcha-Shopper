@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../redux/usersReducer';
+import { fetchUsers } from '../redux/users';
 import { Link } from 'react-router-dom';
 
 export class AllUsers extends React.Component {
@@ -24,12 +24,13 @@ export class AllUsers extends React.Component {
         {users.map((user) => {
           return (
             <div className="user" key={user.id}>
-              <Link to={`/users/${user.id}`} key={user.id}>
-                <ul>
-                  <li>{`First Name ${user.first_name}`}</li>
-                  <li>{`Last Name ${user.last_name}`}</li>
-                </ul>
-              </Link>
+              {/* <Link to={`/users/${user.id}`} key={user.id}> */}
+              <div>
+                <p>{`First Name ${user.first_name}`}</p>
+                <p>{`Last Name ${user.last_name}`}</p>
+                <p>{`email ${user.email}`}</p>
+              </div>
+              {/* </Link> */}
               <button
                 type="submit"
                 name={user.id}
@@ -47,13 +48,13 @@ export class AllUsers extends React.Component {
 
 const mapState = (state) => {
   return {
-    users: state.users,
+    users: state.usersReducer.users,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchUsers: (id) => {
+    fetchUsers: () => {
       dispatch(fetchUsers());
     },
   };

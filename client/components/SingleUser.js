@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser } from '../redux/usersReducer';
+import { fetchSingleUser } from '../redux/users';
+import { useParams } from 'react-router-dom';
+
+function withParams(Component) {
+  return (props) => <Component {...props} params={useParams()} />;
+}
 
 export class SingleUser extends React.Component {
   constructor() {
@@ -28,6 +33,7 @@ export class SingleUser extends React.Component {
           <hr />
         </ul>
         <h3>Order History</h3>
+        {/* {PLUG IN ORDERS HERE} */}
       </div>
     );
   }
@@ -35,7 +41,7 @@ export class SingleUser extends React.Component {
 
 const mapState = (state) => {
   return {
-    user: state.user,
+    user: state.usersReducer.singleUser,
   };
 };
 
@@ -46,4 +52,4 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-export default connect(mapState, mapDispatch)(SingleUser);
+export default withParams(connect(mapState, mapDispatch)(SingleUser));
