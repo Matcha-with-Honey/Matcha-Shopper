@@ -69,6 +69,7 @@ export const persistAddedProduct = (product) => {
     try {
       const { data } = await axios.post('/api/products', product);
       dispatch(addProduct(data));
+      dispatch(fetchAllProducts());
     } catch (error) {
       console.error(error);
     }

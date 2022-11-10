@@ -8,9 +8,9 @@ class AddProduct extends Component {
     this.state = {
       name: '',
       description: '',
-      quantity: null,
+      quantity: '',
       image: '',
-      price: null,
+      price: '',
       category: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,9 +23,9 @@ class AddProduct extends Component {
     this.setState({
       name: '',
       description: '',
-      quantity: null,
+      quantity: '',
       image: '',
-      price: null,
+      price: '',
       category: '',
     });
   }
@@ -77,7 +77,7 @@ class AddProduct extends Component {
             value={this.state.category}
             onChange={this.handleChange}
           ></input>
-          <input type={submit}>ADD</input>
+          <button type="submit">ADD PRODUCT</button>
         </form>
       </section>
     );
