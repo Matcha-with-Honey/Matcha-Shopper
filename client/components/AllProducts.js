@@ -50,8 +50,8 @@ class AllProducts extends Component {
 
 const mapState = (state) => {
   return {
-    products: state.products,
-    role: state.auth.role,
+    products: state.productsReducer.products,
+    role: 'admin',
   };
 };
 
