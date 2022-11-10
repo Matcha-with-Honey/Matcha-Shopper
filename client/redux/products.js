@@ -69,6 +69,7 @@ export const persistAddedProduct = (product) => {
     try {
       const { data } = await axios.post('/api/products', product);
       dispatch(addProduct(data));
+      dispatch(fetchAllProducts());
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +92,7 @@ export const persistProductDelete = (id) => {
     try {
       const { data } = await axios.delete(`/api/products/${id}`);
       dispatch(deleteProduct(data));
+      dispatch(fetchAllProducts());
     } catch (error) {
       console.error(error);
     }

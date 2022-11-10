@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleProduct, persistProductDelete } from '../redux/products';
+import { fetchSingleProduct } from '../redux/products';
 import { useParams } from 'react-router-dom';
 import UpdateProduct from './UpdateProduct';
 
@@ -11,18 +11,9 @@ function withParams(Component) {
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
-    this.handleDelete = this.handleDelete.bind(this);
   }
-  async componentDidMount() {
-    try {
-      await this.props.fetchSingleProduct(this.props.params.productId);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  handleDelete() {
-    this.props.persistProductDelete(this.props.product.id);
+  componentDidMount() {
+    this.props.fetchSingleProduct(this.props.params.productId);
   }
 
   render() {
@@ -39,9 +30,7 @@ class SingleProduct extends Component {
             <p>Price: {product.price}</p>
             <p>Description: {product.description}</p>
             <p>Category: {product.category}</p>
-            <button id="delete-product" onClick={this.handleDelete}>
-              Delete
-            </button>
+
             <UpdateProduct />
           </section>
         ) : (
@@ -69,7 +58,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    persistProductDelete: (id) => dispatch(persistProductDelete(id)),
   };
 };
 

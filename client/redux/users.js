@@ -76,8 +76,8 @@ const makeUser = (user) => {
 const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      const { data: users } = await axios.delete(`/api/users/${userId}`);
-      dispatch(_deleteUser(users));
+      const { data: user } = await axios.delete(`/api/users/${userId}`);
+      dispatch(_deleteUser(user));
     } catch (error) {
       console.log(error);
     }
@@ -111,7 +111,7 @@ const singleUserReducer = (state = {}, action) => {
     case CREATE_USER:
       return [...state, action.user];
     case DELETE_USER:
-      return state.filter((user) => user.id !== action.user.id);
+      return action.deleteUser;
     case EDIT_USER:
       return state.map((user) =>
         user.id === action.user.id ? action.user : user

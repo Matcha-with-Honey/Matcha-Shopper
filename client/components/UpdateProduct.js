@@ -39,7 +39,6 @@ class UpdateProduct extends Component {
   }
 
   render() {
-    console.log(this.state.body);
     return (
       <section>
         <form id="update-product-form" onSubmit={this.handleSubmit}>
