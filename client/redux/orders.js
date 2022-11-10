@@ -65,6 +65,8 @@ const orderReducer = (state = initialState, action) => {
       const updatedItems = [...state.cartItems, action.item];
       return { ...state, cartItems: updatedItems };
     }
+    default:
+      return state;
   }
 };
 
