@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AddProduct from './AddProduct';
 
 class AllProducts extends Component {
   render() {
@@ -11,7 +12,7 @@ class AllProducts extends Component {
         <h2 id="products-title">ALL PRODUCTS</h2>
         {role === 'admin' ? (
           <div>
-            {/* ADD PRODUCT FORM GOES HERE */}
+            <AddProduct />
             <div id="products-container">
               {products.map((product) => {
                 return (
