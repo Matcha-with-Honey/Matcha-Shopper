@@ -26,6 +26,7 @@ class SingleProduct extends Component {
       <div>
         {role === 'admin' ? (
           <section id="single-product-container">
+            {/* {UPDATE FORM GOES HERE} */}
             <h2 id="product-name">{product.name}</h2>
             <img src={product.image} />
             <p>{product.price}</p>
