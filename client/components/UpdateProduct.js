@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { persistProductUpdate } from '../redux/products';
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class UpdateProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+    this.props.persistProductUpdate(this.props.singleProduct.id, this.state);
     this.setState({
       name: '',
       description: '',
@@ -81,5 +83,18 @@ class UpdateProduct extends Component {
     );
   }
 }
+
+mapState = (state) => {
+  return {
+    singleProduct: state.singleProduct,
+  };
+};
+
+mapDispatch = (dispatch) => {
+  return {
+    persistProductUpdate: (productId, product) =>
+      dispatch(persistProductUpdate(productId, product)),
+  };
+};
 
 export default connect()(UpdateProduct);
