@@ -92,6 +92,7 @@ export const persistProductDelete = (id) => {
     try {
       const { data } = await axios.delete(`/api/products/${id}`);
       dispatch(deleteProduct(data));
+      dispatch(fetchAllProducts());
     } catch (error) {
       console.error(error);
     }
