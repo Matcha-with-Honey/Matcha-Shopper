@@ -33,4 +33,20 @@ cartRouter.post('/', async (req, res, next) => {
   }
 });
 
+cartRouter.put('/:orderId/:productId', async (req, res, next) => {
+  try {
+    const data = await Order_Product.findAll({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      },
+    });
+    const item = data[0];
+    await item.update(req.body);
+    res.status(200).send(item);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = cartRouter;
