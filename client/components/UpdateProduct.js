@@ -84,17 +84,17 @@ class UpdateProduct extends Component {
   }
 }
 
-mapState = (state) => {
+const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
   };
 };
 
-mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
     persistProductUpdate: (productId, product) =>
       dispatch(persistProductUpdate(productId, product)),
   };
 };
 
-export default connect()(UpdateProduct);
+export default connect(mapState, mapDispatch)(UpdateProduct);
