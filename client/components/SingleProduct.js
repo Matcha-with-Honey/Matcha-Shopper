@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct, persistProductDelete } from '../redux/products';
 import { useParams } from 'react-router-dom';
+import UpdateProduct from './UpdateProduct';
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;
@@ -27,18 +28,21 @@ class SingleProduct extends Component {
   render() {
     const { product } = this.props;
     const { role } = this.props;
+
     return (
       <div>
         {role === 'admin' ? (
           <section id="single-product-container">
-            {/* {UPDATE FORM GOES HERE} */}
             <h2 id="product-name">{product.name}</h2>
             <img src={product.image} />
-            <p>{product.price}</p>
-            <p>{product.description}</p>
+            <p>Quantity: {product.quantity}</p>
+            <p>Price: {product.price}</p>
+            <p>Description: {product.description}</p>
+            <p>Category: {product.category}</p>
             <button id="delete-product" onClick={this.handleDelete}>
               Delete
             </button>
+            <UpdateProduct />
           </section>
         ) : (
           <section id="single-product-container">

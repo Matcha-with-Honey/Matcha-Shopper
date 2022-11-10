@@ -8,10 +8,11 @@ class UpdateProduct extends Component {
     this.state = {
       name: '',
       description: '',
-      quantity: null,
+      quantity: '',
       image: '',
-      price: null,
+      price: '',
       category: '',
+      body: {},
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,13 +20,14 @@ class UpdateProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+
     this.props.persistProductUpdate(this.props.singleProduct.id, this.state);
     this.setState({
       name: '',
       description: '',
-      quantity: null,
+      quantity: '',
       image: '',
-      price: null,
+      price: '',
       category: '',
     });
   }
@@ -37,6 +39,7 @@ class UpdateProduct extends Component {
   }
 
   render() {
+    console.log(this.state.body);
     return (
       <section>
         <form id="update-product-form" onSubmit={this.handleSubmit}>
@@ -77,7 +80,7 @@ class UpdateProduct extends Component {
             value={this.state.category}
             onChange={this.handleChange}
           ></input>
-          <input type={submit}>UPDATE</input>
+          <button type="submit">UPDATE</button>
         </form>
       </section>
     );
@@ -86,7 +89,7 @@ class UpdateProduct extends Component {
 
 const mapState = (state) => {
   return {
-    singleProduct: state.singleProduct,
+    singleProduct: state.productsReducer.singleProduct,
   };
 };
 
