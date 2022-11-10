@@ -13,12 +13,8 @@ class SingleProduct extends Component {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
   }
-  async componentDidMount() {
-    try {
-      await this.props.fetchSingleProduct(this.props.params.productId);
-    } catch (error) {
-      console.error(error);
-    }
+  componentDidMount() {
+    this.props.fetchSingleProduct(this.props.params.productId);
   }
 
   handleDelete() {
