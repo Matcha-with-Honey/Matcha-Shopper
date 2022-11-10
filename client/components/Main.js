@@ -11,7 +11,6 @@ class Main extends Component {
   }
   render() {
     const { isLoggedIn } = this.props;
-    console.log('ooooo', this.props);
     return (
       <div>
         {isLoggedIn ? (
