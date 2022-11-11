@@ -1,13 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../redux/users';
+import { fetchUsers, deleteUser } from '../redux/users';
 import { Link } from 'react-router-dom';
 
 export class AllUsers extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
   componentDidMount() {
     try {
       this.props.fetchUsers();
@@ -31,6 +27,15 @@ export class AllUsers extends React.Component {
                 <Link to={`/users/${user.id}`} key={user.id}>
                   detail
                 </Link>
+
+                <button
+                  onClick={() => {
+                    this.props.deleteUser(user.id);
+                    this.props.fetchUsers();
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           );
@@ -50,6 +55,9 @@ const mapDispatch = (dispatch) => {
   return {
     fetchUsers: () => {
       dispatch(fetchUsers());
+    },
+    deleteUser: (userId) => {
+      dispatch(deleteUser(userId));
     },
   };
 };
