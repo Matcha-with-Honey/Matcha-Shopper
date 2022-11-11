@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleCart } from '../redux/orders';
-import { useParams } from 'react-router-dom';
-
-function withParams(Component) {
-  return (props) => <Component {...props} params={useParams()} />;
-}
+import { fetchSingleCart, updateItem } from '../redux/orders';
 
 export class Cart extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      focusItem: null,
+      newQuantity: null,
+    };
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.handlePurchase = this.handlePurchase.bind(this);
   }
 
   makeOpts(item) {
@@ -24,6 +25,10 @@ export class Cart extends Component {
     return opts;
   }
 
+  handleQuantityChange(e, item) {}
+
+  handlePurchase() {}
+
   render() {
     const items = this.props.cartItems || [];
     return (
@@ -32,8 +37,10 @@ export class Cart extends Component {
         <div id="cart-container">
           <h3>Your Items</h3>
           <div id="item-list">
+            {console.log('BEFORE MAP', this.props.cartItems)}
             {items.length > 0 ? (
               items.map((item) => {
+                console.log('ITEM', item);
                 return (
                   <div key={item.productId} className="cart-item">
                     <div id="cart-item-left">
@@ -44,7 +51,19 @@ export class Cart extends Component {
                       <div id="item-price">{item.product.price}</div>
                     </div>
                     <form>
-                      <select name="quantity" id="quantity-select">
+                      <select
+                        name="quantity"
+                        id="quantity-select"
+                        onChange={(e) => {
+                          console.log('IN CHANGE', item);
+                          const quantity = parseInt(e.target.value);
+                          const updatedItem = {
+                            ...item,
+                            quantity,
+                          };
+                          this.props.updateItem(updatedItem);
+                        }}
+                      >
                         <option value="item.quantity">{item.quantity}</option>
                         {this.makeOpts(item)}
                       </select>
@@ -73,7 +92,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleCart: dispatch(() => fetchSingleCart()),
-    fetch,
+    updateItem: (updatedItem) => dispatch(updateItem(updatedItem)),
   };
 };
-export default withParams(connect(mapState, mapDispatch)(Cart));
+export default connect(mapState, mapDispatch)(Cart);
