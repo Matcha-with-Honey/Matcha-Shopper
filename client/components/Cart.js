@@ -6,9 +6,9 @@ export class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      focusItem: null,
-      newQuantity: null,
+      cartTotalPrice: '',
     };
+    this.sumTotal = this.sumTotal.bind(this);
     this.handlePurchase = this.handlePurchase.bind(this);
   }
 
@@ -22,6 +22,41 @@ export class Cart extends Component {
       );
     }
     return opts;
+  }
+
+  preciseCurrencyAddition(valPairArr) {
+    const splitVals = valPairArr.map((val) => {
+      return val.split('');
+    });
+    const digitScalingInt = splitVals.map((splitDigits) => {
+      const intDigits = splitDigits.indexOf('.');
+      return splitDigits.splice(0, intDigits);
+    });
+
+    const int1 = parseInt(digitScalingInt[0].join(''));
+    const int2 = parseInt(digitScalingInt[1].join(''));
+    const addedInt = int1 + int2;
+
+    const scaledDec1 = parseFloat(splitVals[0].join('')) * 100;
+    const scaledDec2 = parseFloat(splitVals[1].join('')) * 100;
+    const addedDec = (scaledDec1 + scaledDec2) / 100;
+
+    const preciseTotal = (addedInt + addedDec).toFixed(2);
+
+    return preciseTotal;
+  }
+
+  sumTotal(itemsArr) {
+    const priceArr = itemsArr.map((item) => item.product.price);
+
+    const total = priceArr.reduce((acc, price) => {
+      return this.preciseCurrencyAddition([acc, price]);
+    }, '0.00');
+
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(total);
   }
 
   handlePurchase() {}
@@ -69,6 +104,7 @@ export class Cart extends Component {
               <div>No items in cart</div>
             )}
           </div>
+          <h3>Total: {this.sumTotal(items)}</h3>
           <button>Complete Purchase</button>
         </div>
       </div>
