@@ -17,7 +17,7 @@ export class AllUsers extends React.Component {
   }
 
   render() {
-    const { users, id } = this.props;
+    const { users } = this.props;
     return (
       <div className="all-users">
         <h1>User List</h1>
@@ -35,7 +35,7 @@ export class AllUsers extends React.Component {
                 <button
                   type="submit"
                   // name={id}
-                  onClick={() => this.props.deleteUser(id)}
+                  onClick={() => this.props.deleteUser(user.id)}
                 >
                   Delete
                 </button>
