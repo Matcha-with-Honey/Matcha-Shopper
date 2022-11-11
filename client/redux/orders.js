@@ -4,6 +4,7 @@ const SET_NEW_CART = 'SET_NEW_CART';
 const SET_SINGLE_ORDER = 'SET_SINGLE_ORDER';
 const SET_SINGLE_CART = 'GET_SINGLE_CART';
 const ADD_ITEM = 'ADD_ITEM';
+const UPDATE_ITEM = 'UPDATE_ITEM';
 
 export const setNewCart = (order) => ({
   type: SET_NEW_CART,
@@ -23,6 +24,11 @@ export const setSingleCart = (cart) => ({
 export const setItem = (item) => ({
   type: ADD_ITEM,
   item,
+});
+
+export const updatedItem = (items) => ({
+  type: UPDATE_ITEM,
+  items,
 });
 
 export const fetchNewCart = () => {
@@ -62,13 +68,30 @@ export const fetchSingleCart = (id) => {
 
 export const addItem = (productId, orderId, qty) => {
   // note: item {orderId:, productId:, quantity:}
-  console.log('in item thunk');
   return async (dispatch) => {
     try {
       const item = { productId, orderId, quantity: qty };
-      console.log('item', item);
       const { data } = await axios.post('/api/cart', item);
       dispatch(setItem(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const updateItem = (item) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(
+        `/api/cart/${item.orderId}/${item.productId}`,
+        {
+          quantity: item.quantity,
+        }
+      );
+      if (data) {
+        const cartItems = await axios.get(`/api/cart/${item.orderId}`);
+        dispatch(updatedItem(cartItems.data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +111,8 @@ const orderReducer = (state = initialState, action) => {
       const updatedItems = [...state.cartItems, action.item];
       return { ...state, cartItems: updatedItems };
     }
+    case UPDATE_ITEM:
+      return { ...state, cartItems: action.items };
     default:
       return state;
   }
