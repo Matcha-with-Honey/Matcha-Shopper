@@ -6,7 +6,11 @@ import { me } from '../redux/auth';
 import Home from './Home';
 import AllProducts from './AllProducts';
 import { fetchAllProducts, fetchSingleProduct } from '../redux/products';
-import { fetchNewCart, fetchSingleCart } from '../redux/orders';
+import {
+  fetchNewCart,
+  fetchSingleCart,
+  fetchSingleOrder,
+} from '../redux/orders';
 import SingleProduct from './SingleProduct';
 import Cart from './Cart';
 import AllUsers from './AllUsers';
@@ -17,7 +21,10 @@ class Main extends Component {
     this.props.loadInitialData();
     this.props.fetchAllProducts();
     //this.props.fetchNewCart();
-    this.props.fetchSingleCart(1);
+    const cart = this.props.fetchSingleCart(1);
+    if (cart) {
+      this.props.fetchSingleOrder(1);
+    }
   }
   render() {
     const { isLoggedIn } = this.props;
@@ -59,6 +66,7 @@ const mapDispatch = (dispatch) => {
     fetchAllProducts: () => dispatch(fetchAllProducts()),
     fetchNewCart: () => dispatch(fetchNewCart()),
     fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
+    fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
   };
 };
 
