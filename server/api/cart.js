@@ -6,7 +6,7 @@ const {
 cartRouter.get('/:orderId', async (req, res, next) => {
   try {
     const items = await Order_Product.findAll({
-      include: [{ model: Product }],
+      include: [{ model: Product }, { model: Order }],
       where: {
         orderId: req.params.orderId,
       },
@@ -18,6 +18,7 @@ cartRouter.get('/:orderId', async (req, res, next) => {
 });
 
 cartRouter.post('/', async (req, res, next) => {
+  console.log('in cart post', req.body);
   try {
     const item = req.body;
     await Order_Product.create(item, {
