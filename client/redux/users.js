@@ -78,7 +78,6 @@ const deleteUser = (userId) => {
     try {
       const { data: user } = await axios.delete(`/api/users/${userId}`);
       dispatch(_deleteUser(user));
-      console.log(`Deleted ${userId}`);
     } catch (error) {
       console.log(error);
     }
