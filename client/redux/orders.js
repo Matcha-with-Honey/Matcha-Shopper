@@ -44,6 +44,7 @@ export const fetchSingleCart = (id) => {
 
 export const addItem = (item) => {
   // note: item {orderId:, productId:, quantity:}
+  console.log('in item thunk', item);
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/cart', item);
