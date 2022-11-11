@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleProduct, persistProductDelete } from '../redux/products';
+import { fetchSingleProduct } from '../redux/products';
+import { addItem } from '../redux/orders';
 import { useParams } from 'react-router-dom';
 import UpdateProduct from './UpdateProduct';
 
@@ -11,14 +12,9 @@ function withParams(Component) {
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
-    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.params.productId);
-  }
-
-  handleDelete() {
-    this.props.persistProductDelete(this.props.product.id);
   }
 
   render() {
@@ -35,9 +31,7 @@ class SingleProduct extends Component {
             <p>Price: {product.price}</p>
             <p>Description: {product.description}</p>
             <p>Category: {product.category}</p>
-            <button id="delete-product" onClick={this.handleDelete}>
-              Delete
-            </button>
+
             <UpdateProduct />
           </section>
         ) : (
@@ -46,7 +40,12 @@ class SingleProduct extends Component {
             <img src={product.image} />
             <p>{product.price}</p>
             <p>{product.description}</p>
-            <button id="add-to-cart">Add To Cart</button>
+            <button
+              id="add-to-cart"
+              onClick={() => this.props.addItem(product.id, 1, 1)}
+            >
+              Add To Cart
+            </button>
           </section>
         )}
       </div>
@@ -57,15 +56,17 @@ class SingleProduct extends Component {
 const mapState = (state) => {
   return {
     product: state.productsReducer.singleProduct,
-    role: 'admin',
+    role: 'member',
     // THIS IS HARDCODED. NEEDS TO CHANGE!!!
+    order: state.orderReducer.order,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    persistProductDelete: (id) => dispatch(persistProductDelete(id)),
+    addItem: (productId, orderId, qty) =>
+      dispatch(addItem(productId, orderId, qty)),
   };
 };
 

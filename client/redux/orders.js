@@ -34,8 +34,8 @@ export const fetchSingleCart = (id) => {
   // note: order id -- get from state.order.id
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/orders/:${id}`);
-      dispatch(setNewCart(data));
+      const { data } = await axios.get(`/api/cart/${id}`);
+      dispatch(setSingleCart(data));
     } catch (error) {
       console.error(error);
     }
@@ -44,6 +44,7 @@ export const fetchSingleCart = (id) => {
 
 export const addItem = (item) => {
   // note: item {orderId:, productId:, quantity:}
+  console.log('in item thunk', item);
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/cart', item);

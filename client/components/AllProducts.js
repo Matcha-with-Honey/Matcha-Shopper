@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddProduct from './AddProduct';
+import { persistProductDelete } from '../redux/products';
 
 class AllProducts extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { products } = this.props;
     const { role } = this.props;
@@ -26,6 +31,14 @@ class AllProducts extends Component {
                     <p>Price: {product.price}</p>
                     <p>Description: {product.description}</p>
                     <p>Category: {product.quantity}</p>
+                    <button
+                      id="delete-product"
+                      onClick={() => {
+                        this.props.persistProductDelete(product.id);
+                      }}
+                    >
+                      DELETE
+                    </button>
                   </div>
                 );
               })}
@@ -57,8 +70,14 @@ class AllProducts extends Component {
 const mapState = (state) => {
   return {
     products: state.productsReducer.products,
-    role: 'admin',
+    role: 'member',
   };
 };
 
-export default connect(mapState)(AllProducts);
+const mapDispatch = (dispatch) => {
+  return {
+    persistProductDelete: (id) => dispatch(persistProductDelete(id)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(AllProducts);
