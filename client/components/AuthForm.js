@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { authenticate } from '../redux/auth';
 
 const AuthForm = (props) => {
-  const { name, displayName, handleSubmit } = props;
+  const { name, displayName, handleSubmit, error } = props;
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <input type="text" name="username" placeholder="username" />
         <input type="text" name="password" placeholder="password" />
         <button type="submit">{displayName}</button>
-        {/* {error && error.response && <div> {error.response.data} </div>} */}
+        {error && error.response && <div> {error.response.data} </div>}
       </form>
     </div>
   );
@@ -20,8 +20,7 @@ const mapLogin = (state) => {
   return {
     name: 'login',
     displayName: 'Login',
-    // error: state.auth.error ? state.auth.error : '',
-    // error: 'error',
+    error: state.authReducer.error ? state.authReducer.error : '',
   };
 };
 
@@ -29,8 +28,7 @@ const mapSignup = (state) => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    // error: state.auth.error ? state.auth.error : '',
-    // error: 'error',
+    error: state.authReducer.error ? state.authReducer.error : '',
   };
 };
 
