@@ -9,7 +9,6 @@ export class Cart extends Component {
       focusItem: null,
       newQuantity: null,
     };
-    this.handleQuantityChange = this.handleQuantityChange.bind(this);
     this.handlePurchase = this.handlePurchase.bind(this);
   }
 
@@ -24,8 +23,6 @@ export class Cart extends Component {
     }
     return opts;
   }
-
-  handleQuantityChange(e, item) {}
 
   handlePurchase() {}
 
