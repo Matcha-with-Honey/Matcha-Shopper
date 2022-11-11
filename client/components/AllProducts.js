@@ -70,7 +70,7 @@ class AllProducts extends Component {
 const mapState = (state) => {
   return {
     products: state.productsReducer.products,
-    role: state.authRouter.role,
+    role: state.authReducer.role,
   };
 };
 

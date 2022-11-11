@@ -59,8 +59,6 @@ export const logout = () => {
   };
 };
 
-//reducer
-
 export default (state = { auth: { error: '' } }, action) => {
   switch (action.type) {
     case SET_AUTH:

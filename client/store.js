@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
-import authRouter from './redux/auth';
+import authReducer from './redux/auth';
 import productsReducer from './redux/products';
 import { usersReducer } from './redux/users';
 import orderReducer from './redux/orders';
@@ -8,7 +8,7 @@ import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 const appReducer = combineReducers({
-  authRouter,
+  authReducer,
   productsReducer,
   usersReducer,
   orderReducer,

@@ -46,7 +46,7 @@ class Main extends Component {
 }
 const mapState = (state) => {
   return {
-    isLoggedIn: state.authRouter.id ? true : false,
+    isLoggedIn: state.authReducer.id ? true : false,
   };
 };
 
