@@ -54,19 +54,20 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      const first_name = evt.target.first_name.value;
-      const last_name = evt.target.last_name.value;
-      const email = evt.target.email.value;
-      const phone = evt.target.phone.value;
-      const role = 'member';
-      formName === 'signup'
-        ? dispatch(
-            authenticate(
-              { username, password, first_name, last_name, email, role, phone },
-              formName
-            )
+      if (formName === 'signup') {
+        const first_name = evt.target.first_name.value;
+        const last_name = evt.target.last_name.value;
+        const email = evt.target.email.value;
+        const phone = evt.target.phone.value;
+        const role = 'member';
+        dispatch(
+          authenticate(
+            { username, password, first_name, last_name, email, role, phone },
+            formName
           )
-        : dispatch(authenticate({ username, password }, formName));
+        );
+      }
+      dispatch(authenticate({ username, password }, formName));
     },
   };
 };
