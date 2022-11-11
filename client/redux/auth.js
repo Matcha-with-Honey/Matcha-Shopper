@@ -35,13 +35,10 @@ export const me = () => {
   };
 };
 
-export const authenticate = (username, password, method) => {
+export const authenticate = (userInfo, method) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/auth/${method}`, {
-        username,
-        password,
-      });
+      const { data } = await axios.post(`/auth/${method}`, userInfo);
       window.localStorage.setItem(TOKEN, data.token);
       dispatch(me());
     } catch (authError) {
@@ -58,8 +55,6 @@ export const logout = () => {
     auth: {},
   };
 };
-
-//reducer
 
 export default (state = { auth: { error: '' } }, action) => {
   switch (action.type) {
