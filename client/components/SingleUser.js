@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser, deleteUser } from '../redux/users';
+import { fetchSingleUser } from '../redux/users';
 import { useParams, Link } from 'react-router-dom';
-import { UpdateUser } from './UpdateUser';
+import UpdateUser from './UpdateUser';
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;

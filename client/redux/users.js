@@ -113,9 +113,7 @@ const singleUserReducer = (state = {}, action) => {
     case CREATE_USER:
       return [...state, action.user];
     case EDIT_USER:
-      return state.map((user) =>
-        user.id === action.user.id ? action.user : user
-      );
+      return action.user;
     default:
       return state;
   }
