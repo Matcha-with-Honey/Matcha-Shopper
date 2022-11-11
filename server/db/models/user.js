@@ -37,7 +37,6 @@ const User = db.define('user', {
   },
   phone: {
     type: DataTypes.STRING(12),
-    allowNull: true,
   },
   role: {
     type: DataTypes.ENUM('member', 'admin', 'engineer'),
