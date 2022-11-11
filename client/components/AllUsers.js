@@ -4,10 +4,6 @@ import { fetchUsers, deleteUser } from '../redux/users';
 import { Link } from 'react-router-dom';
 
 export class AllUsers extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
   componentDidMount() {
     try {
       this.props.fetchUsers();
@@ -33,9 +29,10 @@ export class AllUsers extends React.Component {
                 </Link>
 
                 <button
-                  type="submit"
-                  // name={id}
-                  onClick={() => this.props.deleteUser(user.id)}
+                  onClick={() => {
+                    this.props.deleteUser(user.id);
+                    this.props.fetchUsers();
+                  }}
                 >
                   Delete
                 </button>

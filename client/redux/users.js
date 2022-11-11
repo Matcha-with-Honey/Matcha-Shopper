@@ -78,7 +78,7 @@ const deleteUser = (userId) => {
     try {
       const { data: user } = await axios.delete(`/api/users/${userId}`);
       dispatch(_deleteUser(user));
-      dispatch(fetchUsers());
+      console.log(`Deleted ${userId}`);
     } catch (error) {
       console.log(error);
     }
@@ -100,6 +100,8 @@ const allUsersReducer = (state = [], action) => {
   switch (action.type) {
     case FETCH_USERS:
       return action.users;
+    case DELETE_USER:
+      return state.filter((user) => user.id !== action.user.id);
     default:
       return state;
   }
@@ -111,8 +113,6 @@ const singleUserReducer = (state = {}, action) => {
       return action.user;
     case CREATE_USER:
       return [...state, action.user];
-    case DELETE_USER:
-      return action.deleteUser;
     case EDIT_USER:
       return state.map((user) =>
         user.id === action.user.id ? action.user : user
