@@ -22,7 +22,8 @@ export class SingleUser extends React.Component {
   }
 
   render() {
-    const { id, first_name, last_name, username, email } = this.props.user;
+    const { id, first_name, last_name, username, phone, email } =
+      this.props.user;
     return (
       <div>
         <h1>Welcome {first_name}</h1>
@@ -32,8 +33,9 @@ export class SingleUser extends React.Component {
             Name: {first_name} {last_name}
           </li>
           <li>Username: {username}</li>
-          <li>Email: {email}</li>
           <li>Password: **********</li>
+          <li>Email: {email}</li>
+          <li>Phone Number: {phone}</li>
           {/* click to edit */}
         </ul>
         <h3>Order History</h3>

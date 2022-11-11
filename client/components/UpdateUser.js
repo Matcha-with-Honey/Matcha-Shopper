@@ -10,6 +10,7 @@ class UpdateUser extends React.Component {
       last_name: '',
       username: '',
       email: '',
+      phone: '',
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -27,56 +28,65 @@ class UpdateUser extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { first_name, last_name, username, phone, password, email } =
+      this.props.singleUser;
     if (prevProps.singleUser.id !== this.props.singleUser.id) {
       this.setState({
-        first_name: this.props.singleUser.first_name,
-        last_name: this.props.singleUser.last_name,
-        username: this.props.singleUser.username,
-        password: this.props.singleUser.password,
-        email: this.props.singleUser.email,
+        first_name,
+        last_name,
+        username,
+        password,
+        email,
+        phone,
       });
     }
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
-
+    const { first_name, last_name, username, phone, password, email } =
+      this.state;
     return (
       <section>
         <form onSubmit={this.handleSubmit}>
           <label>First Name</label>
           <input
             name="first_name"
-            value={this.state.first_name}
+            value={first_name}
             onChange={this.handleChange}
           ></input>
           <label>Last Name</label>
           <input
             name="last_name"
             placeholder="last_name"
-            value={this.state.last_name}
+            value={last_name}
             onChange={this.handleChange}
           ></input>
           <label>Username</label>
           <input
             name="username"
             placeholder="username"
-            value={this.state.username}
+            value={username}
             onChange={this.handleChange}
           ></input>
           <label>Password</label>
           <input
             name="password"
             placeholder="password"
-            value={this.state.password}
+            value={password}
             onChange={this.handleChange}
           ></input>
           <label>Email</label>
           <input
             name="email"
             placeholder="email"
-            value={this.state.email}
+            value={email}
+            onChange={this.handleChange}
+          ></input>
+          <label>Phone Number</label>
+          <input
+            name="phone"
+            placeholder="phone"
+            value={phone}
             onChange={this.handleChange}
           ></input>
           <button type="submit">Update</button>
