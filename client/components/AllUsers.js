@@ -14,32 +14,39 @@ export class AllUsers extends React.Component {
 
   render() {
     const { users } = this.props;
+    const { role } = this.props;
     return (
       <div className="all-users">
-        <h1>User List</h1>
-        {users.map((user) => {
-          return (
-            <div className="user" key={user.id}>
-              <div>
-                <p>{`First Name: ${user.first_name}`}</p>
-                <p>{`Last Name: ${user.last_name}`}</p>
-                <p>{`email: ${user.email}`}</p>
-                <Link to={`/users/${user.id}`} key={user.id}>
-                  detail
-                </Link>
+        {role === 'admin' ? (
+          <div>
+            <h1>User List</h1>
+            {users.map((user) => {
+              return (
+                <div className="user" key={user.id}>
+                  <div>
+                    <p>{`First Name: ${user.first_name}`}</p>
+                    <p>{`Last Name: ${user.last_name}`}</p>
+                    <p>{`email: ${user.email}`}</p>
+                    <Link to={`/users/${user.id}`} key={user.id}>
+                      detail
+                    </Link>
 
-                <button
-                  onClick={() => {
-                    this.props.deleteUser(user.id);
-                    this.props.fetchUsers();
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          );
-        })}
+                    <button
+                      onClick={() => {
+                        this.props.deleteUser(user.id);
+                        this.props.fetchUsers();
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div>Oh no! You don't have permission to access this page.</div>
+        )}
       </div>
     );
   }
@@ -48,6 +55,7 @@ export class AllUsers extends React.Component {
 const mapState = (state) => {
   return {
     users: state.usersReducer.users,
+    role: state.authReducer.role,
   };
 };
 
