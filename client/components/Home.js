@@ -19,7 +19,7 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
   return {
-    username: 'jane',
+    username: state.authReducer.first_name,
   };
 };
 
