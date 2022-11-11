@@ -18,7 +18,6 @@ cartRouter.get('/:orderId', async (req, res, next) => {
 });
 
 cartRouter.post('/', async (req, res, next) => {
-  console.log('in cart post', req.body);
   try {
     const item = req.body;
     await Order_Product.create(item, {
