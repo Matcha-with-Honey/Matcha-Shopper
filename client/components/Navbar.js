@@ -12,7 +12,7 @@ const Navbar = (props) => {
         {isLoggedIn && props.role === 'admin' && (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="/products">Products</Link>
             <Link to="/users">Users</Link>
             <Link to="/cart">Cart</Link>
@@ -22,7 +22,7 @@ const Navbar = (props) => {
         {isLoggedIn && props.role === 'member' && (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="/products">Products</Link>
             <Link to="/account">Account</Link>
             <Link to="/cart">Cart</Link>
