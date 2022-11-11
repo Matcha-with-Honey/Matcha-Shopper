@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser, deleteUser } from '../redux/users';
+import { fetchSingleUser } from '../redux/users';
 import { useParams } from 'react-router-dom';
 
 function withParams(Component) {
@@ -21,7 +21,7 @@ export class SingleUser extends React.Component {
   }
 
   render() {
-    const { id, first_name, last_name, email } = this.props.user;
+    const { first_name, last_name, email } = this.props.user;
     return (
       <div>
         <h1>Welcome {first_name}</h1>
@@ -34,14 +34,6 @@ export class SingleUser extends React.Component {
         </ul>
         <h3>Order History</h3>
         {/* {PLUG IN ORDERS HERE} */}
-
-        <button
-          type="submit"
-          name={id}
-          onClick={() => this.props.deleteUser(id)}
-        >
-          Delete
-        </button>
       </div>
     );
   }
@@ -57,9 +49,6 @@ const mapDispatch = (dispatch) => {
   return {
     fetchSingleUser: (id) => {
       dispatch(fetchSingleUser(id));
-    },
-    deleteUser: (userId) => {
-      dispatch(deleteUser(userId));
     },
   };
 };
