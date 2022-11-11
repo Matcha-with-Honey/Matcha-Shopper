@@ -10,24 +10,10 @@ function withParams(Component) {
 export class Cart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cartItems: [],
-    };
-  }
-
-  componentDidMount() {
-    try {
-      this.setState({
-        ...this.state,
-        cartItems: this.props.order,
-      });
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   render() {
-    const items = this.props.order || [];
+    const items = this.props.cartItems || [];
     return (
       <div id="cart">
         <h2>Ready to checkout?</h2>
@@ -67,12 +53,14 @@ export class Cart extends Component {
 const mapState = (state) => {
   return {
     order: state.orderReducer.order,
+    cartItems: state.orderReducer.cartItems,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleCart: dispatch(() => fetchSingleCart()),
+    fetch,
   };
 };
 export default withParams(connect(mapState, mapDispatch)(Cart));
