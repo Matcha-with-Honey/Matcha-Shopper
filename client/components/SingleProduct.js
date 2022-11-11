@@ -56,8 +56,7 @@ class SingleProduct extends Component {
 const mapState = (state) => {
   return {
     product: state.productsReducer.singleProduct,
-    role: 'member',
-    // THIS IS HARDCODED. NEEDS TO CHANGE!!!
+    role: state.authRouter.role,
     order: state.orderReducer.order,
   };
 };

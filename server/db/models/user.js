@@ -2,7 +2,6 @@ const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
 
 const User = db.define('user', {
   username: {
@@ -79,11 +78,6 @@ User.findByToken = async (token) => {
     throw error;
   }
 };
-
-// User.beforeCreate(async (user) => {
-//   const hashedPassword = await bcrypt.hash(user.password, 10);
-//   user.password = hashedPassword;
-// });
 
 const hashPassword = async (user) => {
   if (user.changed('password')) {
