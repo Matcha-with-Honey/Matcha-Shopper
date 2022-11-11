@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser } from '../redux/users';
-import { useParams } from 'react-router-dom';
 import { fetchSingleUser, deleteUser } from '../redux/users';
 import { useParams, Link } from 'react-router-dom';
 
@@ -23,7 +21,6 @@ export class SingleUser extends React.Component {
   }
 
   render() {
-    const { first_name, last_name, email } = this.props.user;
     const { id, first_name, last_name, username, email } = this.props.user;
     return (
       <div>
