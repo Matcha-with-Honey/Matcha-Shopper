@@ -34,7 +34,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: true,
+    isLoggedIn: state.authRouter.id ? true : false,
   };
 };
 
