@@ -12,6 +12,18 @@ export class Cart extends Component {
     super(props);
   }
 
+  makeOpts(item) {
+    const opts = [];
+    for (let i = 0; i <= item.product.quantity; i++) {
+      opts.push(
+        <option key={`${item.id}-opt-${i}`} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return opts;
+  }
+
   render() {
     const items = this.props.cartItems || [];
     return (
@@ -34,6 +46,7 @@ export class Cart extends Component {
                     <form>
                       <select name="quantity" id="quantity-select">
                         <option value="item.quantity">{item.quantity}</option>
+                        {this.makeOpts(item)}
                       </select>
                     </form>
                   </div>
