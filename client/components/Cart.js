@@ -37,10 +37,8 @@ export class Cart extends Component {
         <div id="cart-container">
           <h3>Your Items</h3>
           <div id="item-list">
-            {console.log('BEFORE MAP', this.props.cartItems)}
             {items.length > 0 ? (
               items.map((item) => {
-                console.log('ITEM', item);
                 return (
                   <div key={item.productId} className="cart-item">
                     <div id="cart-item-left">
@@ -55,7 +53,6 @@ export class Cart extends Component {
                         name="quantity"
                         id="quantity-select"
                         onChange={(e) => {
-                          console.log('IN CHANGE', item);
                           const quantity = parseInt(e.target.value);
                           const updatedItem = {
                             ...item,
