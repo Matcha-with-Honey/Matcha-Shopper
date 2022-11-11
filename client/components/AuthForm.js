@@ -59,7 +59,6 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value;
       const phone = evt.target.phone.value;
       const role = 'member';
-      console.log(phone);
       formName === 'signup'
         ? dispatch(
             authenticate(
