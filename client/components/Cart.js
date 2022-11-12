@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  deleteItem,
   fetchNewCart,
   fetchSingleCart,
+  fetchUserLatestOrder,
   updateItem,
   updateOrder,
 } from '../redux/orders';
@@ -16,6 +18,16 @@ export class Cart extends Component {
     this.sumTotal = this.sumTotal.bind(this);
     this.handlePurchase = this.handlePurchase.bind(this);
   }
+
+  // componentDidUpdate() {
+  //   if (this.props.isLoggedIn) {
+  //     try {
+  //       this.props.fetchUserLatestOrder(this.props.cartFetcher);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // }
 
   makeOpts(item) {
     const opts = [];
@@ -64,8 +76,7 @@ export class Cart extends Component {
     }).format(total);
   }
 
-  handlePurchase(e) {
-    // e.preventDefault();
+  handlePurchase() {
     try {
       this.props.updateOrderOnPurchase({
         ...this.props.order,
@@ -94,7 +105,7 @@ export class Cart extends Component {
                 {items.length > 0 ? (
                   <div>
                     <h3>Your Items</h3>
-                    {items.map((item) => {
+                    {this.props.cartItems.map((item) => {
                       return (
                         <div key={item.productId} className="cart-item">
                           <div id="cart-item-left">
@@ -123,6 +134,13 @@ export class Cart extends Component {
                               {this.makeOpts(item)}
                             </select>
                           </form>
+                          <button
+                            onClick={() => {
+                              this.props.deleteItem(item);
+                            }}
+                          >
+                            Remove
+                          </button>
                         </div>
                       );
                     })}
@@ -130,7 +148,7 @@ export class Cart extends Component {
                     <form>
                       <button
                         type="submit"
-                        onClick={(e) => this.handlePurchase(e)}
+                        onClick={() => this.handlePurchase()}
                       >
                         Complete Purchase
                       </button>
@@ -152,15 +170,18 @@ const mapState = (state) => {
   return {
     order: state.orderReducer.order,
     cartItems: state.orderReducer.cartItems,
+    isLoggedIn: state.authReducer.id ? true : false,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleCart: dispatch(() => fetchSingleCart()),
+    fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchNewCart: () => dispatch(fetchNewCart()),
     updateOrderOnPurchase: (order) => dispatch(updateOrder(order)),
     updateItem: (updatedItem) => dispatch(updateItem(updatedItem)),
+    deleteItem: (item) => dispatch(deleteItem(item)),
   };
 };
 export default connect(mapState, mapDispatch)(Cart);
