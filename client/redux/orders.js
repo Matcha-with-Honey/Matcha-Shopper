@@ -45,7 +45,7 @@ export const deletedItem = (item) => ({
 export const fetchNewCart = (userId = null) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/orders', userId);
+      const { data } = await axios.post('/api/orders', { userId });
       dispatch(setNewCart(data));
     } catch (error) {
       console.error(error);
