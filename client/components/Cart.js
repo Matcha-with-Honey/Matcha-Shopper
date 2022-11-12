@@ -4,6 +4,7 @@ import {
   deleteItem,
   fetchNewCart,
   fetchSingleCart,
+  fetchSingleOrder,
   fetchUserLatestOrder,
   updateItem,
   updateOrder,
@@ -19,15 +20,16 @@ export class Cart extends Component {
     this.handlePurchase = this.handlePurchase.bind(this);
   }
 
-  // componentDidUpdate() {
-  //   if (this.props.isLoggedIn) {
-  //     try {
-  //       this.props.fetchUserLatestOrder(this.props.cartFetcher);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // }
+  async componentDidMount() {
+    if (this.props.isLoggedIn) {
+      try {
+        await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+        await this.props.fetchSingleOrder(this.props.order.id);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   makeOpts(item) {
     const opts = [];
@@ -170,6 +172,7 @@ const mapState = (state) => {
   return {
     order: state.orderReducer.order,
     cartItems: state.orderReducer.cartItems,
+    cartFetcher: state.authReducer.id,
     isLoggedIn: state.authReducer.id ? true : false,
   };
 };
@@ -179,6 +182,7 @@ const mapDispatch = (dispatch) => {
     fetchSingleCart: dispatch(() => fetchSingleCart()),
     fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchNewCart: () => dispatch(fetchNewCart()),
+    fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
     updateOrderOnPurchase: (order) => dispatch(updateOrder(order)),
     updateItem: (updatedItem) => dispatch(updateItem(updatedItem)),
     deleteItem: (item) => dispatch(deleteItem(item)),
