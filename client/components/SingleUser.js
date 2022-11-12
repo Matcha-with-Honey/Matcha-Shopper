@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchSingleUser, deleteUser } from '../redux/users';
+import { fetchSingleUser } from '../redux/users';
 import { useParams, Link } from 'react-router-dom';
+import UpdateUser from './UpdateUser';
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;
@@ -21,7 +22,8 @@ export class SingleUser extends React.Component {
   }
 
   render() {
-    const { id, first_name, last_name, username, email } = this.props.user;
+    const { id, first_name, last_name, username, phone, email } =
+      this.props.user;
     return (
       <div>
         <h1>Welcome {first_name}</h1>
@@ -31,8 +33,9 @@ export class SingleUser extends React.Component {
             Name: {first_name} {last_name}
           </li>
           <li>Username: {username}</li>
-          <li>Email: {email}</li>
           <li>Password: **********</li>
+          <li>Email: {email}</li>
+          <li>Phone Number: {phone}</li>
           {/* click to edit */}
         </ul>
         <h3>Order History</h3>
@@ -42,13 +45,8 @@ export class SingleUser extends React.Component {
           <button type="button">Order History</button>
         </Link>
         <hr />
-        <button
-          type="submit"
-          name={id}
-          onClick={() => this.props.deleteUser(id)}
-        >
-          Delete User
-        </button>
+        <button>Edit</button>
+        <UpdateUser />
       </div>
     );
   }

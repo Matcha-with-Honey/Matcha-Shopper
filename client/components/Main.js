@@ -52,7 +52,7 @@ class Main extends Component {
       <div>
         {isLoggedIn ? (
           <Routes>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} />
@@ -61,9 +61,11 @@ class Main extends Component {
           </Routes>
         ) : (
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/products" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         )}
