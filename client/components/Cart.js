@@ -93,45 +93,49 @@ export class Cart extends Component {
               <h3>Your Items</h3>
               <div id="item-list">
                 {items.length > 0 ? (
-                  items.map((item) => {
-                    return (
-                      <div key={item.productId} className="cart-item">
-                        <div id="cart-item-left">
-                          <h4>{item.product.name}</h4>
-                          <img src={item.image} />
+                  <div>
+                    {items.map((item) => {
+                      return (
+                        <div key={item.productId} className="cart-item">
+                          <div id="cart-item-left">
+                            <h4>{item.product.name}</h4>
+                            <img src={item.image} />
+                          </div>
+                          <div id="cart-item-right">
+                            <div id="item-price">{item.product.price}</div>
+                          </div>
+                          <form>
+                            <select
+                              name="quantity"
+                              id="quantity-select"
+                              onChange={(e) => {
+                                const quantity = parseInt(e.target.value);
+                                const updatedItem = {
+                                  ...item,
+                                  quantity,
+                                };
+                                this.props.updateItem(updatedItem);
+                              }}
+                            >
+                              <option value={item.quantity}>
+                                {item.quantity}
+                              </option>
+                              {this.makeOpts(item)}
+                            </select>
+                          </form>
                         </div>
-                        <div id="cart-item-right">
-                          <div id="item-price">{item.product.price}</div>
-                        </div>
-                        <form>
-                          <select
-                            name="quantity"
-                            id="quantity-select"
-                            onChange={(e) => {
-                              const quantity = parseInt(e.target.value);
-                              const updatedItem = {
-                                ...item,
-                                quantity,
-                              };
-                              this.props.updateItem(updatedItem);
-                            }}
-                          >
-                            <option value={item.quantity}>
-                              {item.quantity}
-                            </option>
-                            {this.makeOpts(item)}
-                          </select>
-                          <h3>Total: {this.sumTotal(items)}</h3>
-                          <button
-                            type="submit"
-                            onClick={(e) => this.handlePurchase(e)}
-                          >
-                            Complete Purchase
-                          </button>
-                        </form>
-                      </div>
-                    );
-                  })
+                      );
+                    })}
+                    <h3>Total: {this.sumTotal(items)}</h3>
+                    <form>
+                      <button
+                        type="submit"
+                        onClick={(e) => this.handlePurchase(e)}
+                      >
+                        Complete Purchase
+                      </button>
+                    </form>
+                  </div>
                 ) : (
                   <div>No items in cart</div>
                 )}
