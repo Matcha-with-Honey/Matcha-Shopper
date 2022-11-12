@@ -121,6 +121,13 @@ export class Cart extends Component {
                             </option>
                             {this.makeOpts(item)}
                           </select>
+                          <h3>Total: {this.sumTotal(items)}</h3>
+                          <button
+                            type="submit"
+                            onClick={(e) => this.handlePurchase(e)}
+                          >
+                            Complete Purchase
+                          </button>
                         </form>
                       </div>
                     );
@@ -129,10 +136,6 @@ export class Cart extends Component {
                   <div>No items in cart</div>
                 )}
               </div>
-              <h3>Total: {this.sumTotal(items)}</h3>
-              <button type="submit" onClick={(e) => this.handlePurchase(e)}>
-                Complete Purchase
-              </button>
             </div>
           </div>
         )}
