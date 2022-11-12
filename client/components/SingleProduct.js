@@ -22,7 +22,7 @@ class SingleProduct extends Component {
 
   makeOpts(product) {
     const opts = [];
-    for (let i = 0; i <= product.quantity; i++) {
+    for (let i = 1; i <= product.quantity; i++) {
       opts.push(
         <option key={`${product.id}-opt-${i}`} value={i}>
           {i}

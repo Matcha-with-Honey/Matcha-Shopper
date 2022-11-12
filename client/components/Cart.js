@@ -19,7 +19,7 @@ export class Cart extends Component {
 
   makeOpts(item) {
     const opts = [];
-    for (let i = 0; i <= item.product.quantity; i++) {
+    for (let i = 1; i <= item.product.quantity; i++) {
       opts.push(
         <option key={`${item.id}-opt-${i}`} value={i}>
           {i}
