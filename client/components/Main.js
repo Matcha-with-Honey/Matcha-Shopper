@@ -10,6 +10,7 @@ import {
   fetchNewCart,
   fetchSingleCart,
   fetchSingleOrder,
+  fetchUserLatestOrder,
 } from '../redux/orders';
 import SingleProduct from './SingleProduct';
 import Cart from './Cart';
@@ -20,10 +21,28 @@ class Main extends Component {
   componentDidMount() {
     this.props.loadInitialData();
     this.props.fetchAllProducts();
-    //this.props.fetchNewCart();
-    const cart = this.props.fetchSingleCart(1);
-    if (cart) {
-      this.props.fetchSingleOrder(1);
+    if (this.props.isLoggedIn) {
+      try {
+        this.props.fetchUserLatestOrder(this.props.cartFetcher);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  async componentDidUpdate() {
+    if (this.props.isLoggedIn) {
+      try {
+        if (this.props.order === null) {
+          await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+
+          const cart = this.props.order;
+          if (cart && cart.purchase_status === true) {
+            this.props.fetchNewCart(this.props.cartFetcher);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
   render() {
@@ -54,6 +73,8 @@ class Main extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: state.authReducer.id ? true : false,
+    cartFetcher: state.authReducer.id,
+    order: state.orderReducer.order,
   };
 };
 
@@ -63,6 +84,7 @@ const mapDispatch = (dispatch) => {
     fetchAllProducts: () => dispatch(fetchAllProducts()),
     fetchNewCart: () => dispatch(fetchNewCart()),
     fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
+    fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
   };
 };
