@@ -6,6 +6,7 @@ const SET_SINGLE_ORDER = 'SET_SINGLE_ORDER';
 const SET_SINGLE_CART = 'GET_SINGLE_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const UPDATE_ITEM = 'UPDATE_ITEM';
+const DELETE_ITEM = 'DELETE_ITEM';
 
 export const setNewCart = (order) => ({
   type: SET_NEW_CART,
@@ -35,6 +36,10 @@ export const setItems = (items) => ({
 export const updatedItem = (items) => ({
   type: UPDATE_ITEM,
   items,
+});
+export const deletedItem = (item) => ({
+  type: DELETE_ITEM,
+  item,
 });
 
 export const fetchNewCart = (userId = null) => {
@@ -102,8 +107,19 @@ export const addItem = (productId, orderId, qty) => {
   return async (dispatch) => {
     try {
       const item = { productId, orderId, quantity: qty };
-      const { data } = await axios.post('/api/cart', item);
-      if (data) {
+      const check = await axios.get(`/api/cart/${orderId}/${productId}`);
+      let added;
+      if (!check.data) {
+        const { data } = await axios.post('/api/cart', item);
+        added = data;
+      } else {
+        const { data } = await axios.put(
+          `/api/cart/${item.orderId}/${item.productId}`,
+          item
+        );
+        added = data;
+      }
+      if (added) {
         const items = await axios.get(`/api/cart/${orderId}`);
         dispatch(setItems(items.data));
       }
@@ -132,6 +148,19 @@ export const updateItem = (item) => {
   };
 };
 
+export const deleteItem = (item) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/cart/${item.orderId}/${item.productId}`
+      );
+      dispatch(deletedItem(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 const initialState = { order: null, cartItems: [] };
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -147,6 +176,12 @@ const orderReducer = (state = initialState, action) => {
       return { ...state, cartItems: action.items };
     case UPDATE_ITEM:
       return { ...state, cartItems: action.items };
+    case DELETE_ITEM: {
+      const filtered = state.cartItems.filter(
+        (item) => item.id !== action.item.id
+      );
+      return { ...state, cartitems: filtered };
+    }
     default:
       return state;
   }
