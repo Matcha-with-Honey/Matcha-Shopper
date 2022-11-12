@@ -79,7 +79,6 @@ class AllProducts extends Component {
                         const quantityToAdd = parseInt(e.target.value);
                         const quantities = this.state.quantities;
                         quantities.set(product.id, quantityToAdd);
-                        console.log(quantities);
                         this.setState({ ...this.state, quantities });
                       }}
                     >
