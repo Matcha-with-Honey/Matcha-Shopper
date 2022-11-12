@@ -34,10 +34,11 @@ class Main extends Component {
       try {
         if (this.props.order === null) {
           await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+          await this.props.fetchSingleCart(this.props.order.id);
 
           const cart = this.props.order;
           if (cart && cart.purchase_status === true) {
-            this.props.fetchNewCart(this.props.cartFetcher);
+            await this.props.fetchNewCart(this.props.cartFetcher);
           }
         }
       } catch (error) {
@@ -82,7 +83,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData: () => dispatch(me()),
     fetchAllProducts: () => dispatch(fetchAllProducts()),
-    fetchNewCart: () => dispatch(fetchNewCart()),
+    fetchNewCart: (id) => dispatch(fetchNewCart(id)),
     fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
     fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
