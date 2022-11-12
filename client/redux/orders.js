@@ -57,8 +57,12 @@ export const fetchUserLatestOrder = (userId) => {
   // note: order id -- get from state.auth.userid
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/orders/recent/${userId}`);
-      dispatch(setUserLatestOrder(data));
+      const check = await axios.get(`/api/orders/recent/${userId}`);
+      if (check.data) {
+        dispatch(setUserLatestOrder(check.data));
+      } else {
+        console.log('User does not have active cart');
+      }
     } catch (error) {
       console.error(error);
     }
