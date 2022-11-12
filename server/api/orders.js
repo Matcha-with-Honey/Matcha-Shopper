@@ -4,6 +4,22 @@ const {
 } = require('../db');
 const Order_Product = require('../db/models/orderProducts');
 
+ordersRouter.get('/recent/:userId', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+      },
+      group: 'order.id',
+      order: [['createdAt', 'DESC']],
+    });
+
+    res.status(200).send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
 ordersRouter.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id);
@@ -26,7 +42,7 @@ ordersRouter.get('/', async (req, res, next) => {
 
 ordersRouter.post('/', async (req, res, next) => {
   try {
-    const order = await Order.create({});
+    const order = await Order.create(req.body);
     res.status(201).send(order);
   } catch (error) {
     next(error);
