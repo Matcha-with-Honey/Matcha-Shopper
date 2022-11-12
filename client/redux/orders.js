@@ -180,7 +180,7 @@ const orderReducer = (state = initialState, action) => {
       const filtered = state.cartItems.filter(
         (item) => item.id !== action.item.id
       );
-      return { ...state, cartitems: filtered };
+      return { ...state, cartItems: filtered };
     }
     default:
       return state;
