@@ -12,7 +12,6 @@ class UpdateProduct extends Component {
       image: '',
       price: '',
       category: '',
-      body: {},
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,22 +19,28 @@ class UpdateProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-
-    this.props.persistProductUpdate(this.props.singleProduct.id, this.state);
-    this.setState({
-      name: '',
-      description: '',
-      quantity: '',
-      image: '',
-      price: '',
-      category: '',
-    });
+    this.props.persistProductUpdate(this.props.singleProduct, this.state);
   }
 
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { name, description, quantity, image, price, category } =
+      this.props.singleProduct;
+    if (prevProps.singleProduct.id !== this.props.singleProduct.id) {
+      this.setState({
+        name,
+        description,
+        quantity,
+        image,
+        price,
+        category,
+      });
+    }
   }
 
   render() {
