@@ -90,10 +90,10 @@ export class Cart extends Component {
           <div>
             <h2>Ready to checkout?</h2>
             <div id="cart-container">
-              <h3>Your Items</h3>
               <div id="item-list">
                 {items.length > 0 ? (
                   <div>
+                    <h3>Your Items</h3>
                     {items.map((item) => {
                       return (
                         <div key={item.productId} className="cart-item">
