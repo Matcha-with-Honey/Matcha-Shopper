@@ -2,6 +2,7 @@
 
 const app = require('./server');
 const { db } = require('./server/db');
+require('dotenv').config();
 const PORT = 3000;
 
 const init = async () => {
