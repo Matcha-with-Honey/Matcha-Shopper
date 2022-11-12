@@ -3,6 +3,21 @@ const {
   models: { Product, Order, Order_Product },
 } = require('../db');
 
+cartRouter.get('/:orderId/:productId', async (req, res, next) => {
+  try {
+    const data = await Order_Product.findOne({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      },
+    });
+    const item = data;
+    res.status(200).send(item);
+  } catch (error) {
+    next(error);
+  }
+});
+
 cartRouter.get('/:orderId', async (req, res, next) => {
   try {
     const items = await Order_Product.findAll({
@@ -36,13 +51,13 @@ cartRouter.post('/', async (req, res, next) => {
 
 cartRouter.put('/:orderId/:productId', async (req, res, next) => {
   try {
-    const data = await Order_Product.findAll({
+    const data = await Order_Product.findOne({
       where: {
         orderId: req.params.orderId,
         productId: req.params.productId,
       },
     });
-    const item = data[0];
+    const item = data;
     await item.update(req.body);
     res.status(200).send(item);
   } catch (error) {
@@ -52,13 +67,13 @@ cartRouter.put('/:orderId/:productId', async (req, res, next) => {
 
 cartRouter.delete('/:orderId/:productId', async (req, res, next) => {
   try {
-    const data = await Order_Product.findAll({
+    const data = await Order_Product.findOne({
       where: {
         orderId: req.params.orderId,
         productId: req.params.productId,
       },
     });
-    const item = data[0];
+    const item = data;
     await item.destroy();
     res.status(200).send(item);
   } catch (error) {

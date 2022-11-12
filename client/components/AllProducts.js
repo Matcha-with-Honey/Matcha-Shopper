@@ -3,10 +3,26 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddProduct from './AddProduct';
 import { persistProductDelete } from '../redux/products';
+import { addItem } from '../redux/orders';
 
 class AllProducts extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      quantities: new Map(),
+    };
+  }
+
+  makeOpts(product) {
+    const opts = [];
+    for (let i = 1; i <= product.quantity; i++) {
+      opts.push(
+        <option key={`${product.id}-opt-${i}`} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return opts;
   }
 
   render() {
@@ -55,8 +71,33 @@ class AllProducts extends Component {
                     <img id="product-image" src={product.image} />
                   </Link>
                   <p>{product.price}</p>
+                  <form>
+                    <select
+                      name="quantity"
+                      id={`quantity-select-${product.id}`}
+                      onChange={(e) => {
+                        const quantityToAdd = parseInt(e.target.value);
+                        const quantities = this.state.quantities;
+                        quantities.set(product.id, quantityToAdd);
+                        this.setState({ ...this.state, quantities });
+                      }}
+                    >
+                      {this.makeOpts(product)}
+                    </select>
+                  </form>
                   <button>BUY NOW</button>
-                  <button>ADD TO CART</button>
+                  <button
+                    onClick={() => {
+                      const quantity = this.state.quantities.get(product.id);
+                      this.props.addItem(
+                        product.id,
+                        this.props.order.id,
+                        quantity
+                      );
+                    }}
+                  >
+                    ADD TO CART
+                  </button>
                 </div>
               );
             })}
@@ -71,12 +112,15 @@ const mapState = (state) => {
   return {
     products: state.productsReducer.products,
     role: state.authReducer.role,
+    order: state.orderReducer.order,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     persistProductDelete: (id) => dispatch(persistProductDelete(id)),
+    addItem: (productId, orderId, qty) =>
+      dispatch(addItem(productId, orderId, qty)),
   };
 };
 

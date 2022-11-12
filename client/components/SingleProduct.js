@@ -12,9 +12,24 @@ function withParams(Component) {
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      quantityToAdd: 0,
+    };
   }
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.params.productId);
+  }
+
+  makeOpts(product) {
+    const opts = [];
+    for (let i = 1; i <= product.quantity; i++) {
+      opts.push(
+        <option key={`${product.id}-opt-${i}`} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return opts;
   }
 
   render() {
@@ -40,9 +55,27 @@ class SingleProduct extends Component {
             <img src={product.image} />
             <p>{product.price}</p>
             <p>{product.description}</p>
+            <form>
+              <select
+                name="quantity"
+                id="quantity-select"
+                onChange={(e) => {
+                  const quantityToAdd = parseInt(e.target.value);
+                  this.setState({ ...this.state, quantityToAdd });
+                }}
+              >
+                {this.makeOpts(this.props.product)}
+              </select>
+            </form>
             <button
               id="add-to-cart"
-              onClick={() => this.props.addItem(product.id, 1, 1)}
+              onClick={() =>
+                this.props.addItem(
+                  product.id,
+                  this.props.order.id,
+                  this.state.quantityToAdd
+                )
+              }
             >
               Add To Cart
             </button>
