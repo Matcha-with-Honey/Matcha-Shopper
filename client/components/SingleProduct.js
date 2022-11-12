@@ -42,7 +42,9 @@ class SingleProduct extends Component {
             <p>{product.description}</p>
             <button
               id="add-to-cart"
-              onClick={() => this.props.addItem(product.id, 1, 1)}
+              onClick={() =>
+                this.props.addItem(product.id, this.props.order.id, 1)
+              }
             >
               Add To Cart
             </button>
@@ -56,7 +58,7 @@ class SingleProduct extends Component {
 const mapState = (state) => {
   return {
     product: state.productsReducer.singleProduct,
-    role: state.authRouter.role,
+    role: state.authReducer.role,
     order: state.orderReducer.order,
   };
 };
