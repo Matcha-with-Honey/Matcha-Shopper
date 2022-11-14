@@ -11,6 +11,7 @@ class AllProducts extends Component {
     this.state = {
       quantities: new Map(),
     };
+    this.handleAddItem = this.handleAddItem.bind(this);
   }
 
   makeOpts(product) {
@@ -23,6 +24,26 @@ class AllProducts extends Component {
       );
     }
     return opts;
+  }
+
+  async handleAddItem(product) {
+    try {
+      let quantity = this.state.quantities.get(product.id);
+      quantity = quantity ? quantity : 1;
+      if (!this.props.order) {
+        if (!this.props.isLoggedIn) {
+          await this.props.fetchNewCart();
+          this.props.addItem(product.id, this.props.order.id, quantity);
+        } else {
+          await this.props.fetchNewCart(this.props.cartFetcher);
+          this.props.addItem(product.id, this.props.order.id, quantity);
+        }
+      } else {
+        this.props.addItem(product.id, this.props.order.id, quantity);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
@@ -86,29 +107,7 @@ class AllProducts extends Component {
                     </select>
                   </form>
                   <button>BUY NOW</button>
-                  <button
-                    onClick={async () => {
-                      try {
-                        const quantity = this.state.quantities.get(product.id);
-                        if (!this.state.order) {
-                          if (!this.props.isLoggedIn) {
-                            await this.props.fetchNewCart();
-                          } else {
-                            await this.props.fetchNewCart(
-                              this.props.cartFetcher
-                            );
-                          }
-                        }
-                        this.props.addItem(
-                          product.id,
-                          this.props.order.id,
-                          quantity
-                        );
-                      } catch (error) {
-                        console.error(error);
-                      }
-                    }}
-                  >
+                  <button onClick={() => this.handleAddItem(product)}>
                     ADD TO CART
                   </button>
                 </div>
