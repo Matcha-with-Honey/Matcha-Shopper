@@ -61,7 +61,7 @@ export const fetchUserLatestOrder = (userId) => {
       if (check.data) {
         dispatch(setUserLatestOrder(check.data));
       } else {
-        console.log('User does not have active cart');
+        console.log(new Error('User does not have active cart'));
       }
     } catch (error) {
       console.error(error);

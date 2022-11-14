@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../redux/products';
-import { addItem } from '../redux/orders';
+import { addItem, fetchNewCart } from '../redux/orders';
 import { useParams } from 'react-router-dom';
 import UpdateProduct from './UpdateProduct';
 
@@ -13,8 +13,9 @@ class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantityToAdd: 0,
+      quantityToAdd: 1,
     };
+    this.handleAddItem = this.handleAddItem.bind(this);
   }
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.params.productId);
@@ -30,6 +31,25 @@ class SingleProduct extends Component {
       );
     }
     return opts;
+  }
+
+  async handleAddItem(product) {
+    try {
+      let quantity = this.state.quantityToAdd;
+      if (!this.props.order) {
+        if (!this.props.isLoggedIn) {
+          await this.props.fetchNewCart();
+          this.props.addItem(product.id, this.props.order.id, quantity);
+        } else {
+          await this.props.fetchNewCart(this.props.cartFetcher);
+          this.props.addItem(product.id, this.props.order.id, quantity);
+        }
+      } else {
+        this.props.addItem(product.id, this.props.order.id, quantity);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
@@ -69,13 +89,7 @@ class SingleProduct extends Component {
             </form>
             <button
               id="add-to-cart"
-              onClick={() =>
-                this.props.addItem(
-                  product.id,
-                  this.props.order.id,
-                  this.state.quantityToAdd
-                )
-              }
+              onClick={() => this.handleAddItem(product)}
             >
               Add To Cart
             </button>
@@ -89,7 +103,9 @@ class SingleProduct extends Component {
 const mapState = (state) => {
   return {
     product: state.productsReducer.singleProduct,
+    isLoggedIn: state.authReducer.id ? true : false,
     role: state.authReducer.role,
+    cartFetcher: state.authReducer.id,
     order: state.orderReducer.order,
   };
 };
@@ -99,6 +115,7 @@ const mapDispatch = (dispatch) => {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
     addItem: (productId, orderId, qty) =>
       dispatch(addItem(productId, orderId, qty)),
+    fetchNewCart: (id) => dispatch(fetchNewCart(id)),
   };
 };
 
