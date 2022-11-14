@@ -26,6 +26,8 @@ usersRouter.get('/:userId', async (req, res, next) => {
 
 usersRouter.post('/', async (req, res, next) => {
   try {
+    const { username, password, first_name, last_name, email, phone } =
+      req.body;
     const newUser = await User.create(req.body);
     res.send(newUser);
   } catch (error) {
@@ -45,6 +47,8 @@ usersRouter.delete('/:userId', async (req, res, next) => {
 
 usersRouter.put('/:userId', async (req, res, next) => {
   try {
+    const { username, password, first_name, last_name, email, phone } =
+      req.body;
     const user = await User.findByPk(req.params.userId);
     const response = await user.update(req.body);
     res.send(response);
