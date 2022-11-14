@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddProduct from './AddProduct';
 import { persistProductDelete } from '../redux/products';
-import { addItem } from '../redux/orders';
+import { addItem, fetchNewCart } from '../redux/orders';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -87,13 +87,26 @@ class AllProducts extends Component {
                   </form>
                   <button>BUY NOW</button>
                   <button
-                    onClick={() => {
-                      const quantity = this.state.quantities.get(product.id);
-                      this.props.addItem(
-                        product.id,
-                        this.props.order.id,
-                        quantity
-                      );
+                    onClick={async () => {
+                      try {
+                        const quantity = this.state.quantities.get(product.id);
+                        if (!this.state.order) {
+                          if (!this.props.isLoggedIn) {
+                            await this.props.fetchNewCart();
+                          } else {
+                            await this.props.fetchNewCart(
+                              this.props.cartFetcher
+                            );
+                          }
+                        }
+                        this.props.addItem(
+                          product.id,
+                          this.props.order.id,
+                          quantity
+                        );
+                      } catch (error) {
+                        console.error(error);
+                      }
                     }}
                   >
                     ADD TO CART
@@ -111,7 +124,9 @@ class AllProducts extends Component {
 const mapState = (state) => {
   return {
     products: state.productsReducer.products,
+    isLoggedIn: state.authReducer.id ? true : false,
     role: state.authReducer.role,
+    cartFetcher: state.authReducer.id,
     order: state.orderReducer.order,
   };
 };
@@ -121,6 +136,7 @@ const mapDispatch = (dispatch) => {
     persistProductDelete: (id) => dispatch(persistProductDelete(id)),
     addItem: (productId, orderId, qty) =>
       dispatch(addItem(productId, orderId, qty)),
+    fetchNewCart: (id) => dispatch(fetchNewCart(id)),
   };
 };
 
