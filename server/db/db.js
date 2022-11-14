@@ -1,24 +1,31 @@
 const { Sequelize } = require('sequelize');
+const dbUrl = process.env.DATABASE_URL || `postgres://localhost:5432/${matcha}`;
 
+let config;
 if (process.env.DATABASE_URL) {
-  // the application is executed on Heroku ... use the postgres database
-  const db = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
+  config = {
     logging: false,
-  });
+    ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  };
 } else {
-  // the application is executed on the local machine
-  const db = new Sequelize('postgres://localhost:5432/matcha', {
+  config = {
     logging: false,
-  });
+  };
 }
+const db = new Sequelize(dbUrl, config);
 
+module.exports = db;
+
+//THIS IS HOW WE HAD IT SET UP BEFORE:
 // const db = new Sequelize('postgres://localhost:5432/matcha', {
 //   logging: false,
 // });
-
-module.exports = db;
 
 // testing the connection to the database:
 // async function testing() {
