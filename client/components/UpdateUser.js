@@ -70,48 +70,54 @@ class UpdateUser extends React.Component {
             }
           }}
         >
-          <label>First Name</label>
+          <label>First Name:</label>
           <input
             name="first_name"
             placeholder="first_name"
             value={first_name}
             onChange={this.handleChange}
           ></input>
-          <label>Last Name</label>
+          <br />
+          <label>Last Name:</label>
           <input
             name="last_name"
             placeholder="last_name"
             value={last_name}
             onChange={this.handleChange}
           ></input>
-          <label>Username</label>
+          <br />
+          <label>Username:</label>
           <input
             name="username"
             placeholder="username"
             value={username}
             onChange={this.handleChange}
           ></input>
-          <label>Password</label>
+          <br />
+          <label>Password:</label>
           <input
             name="password"
             placeholder="password"
             value={password}
             onChange={this.handleChange}
           ></input>
-          <label>Email</label>
+          <br />
+          <label>Email:</label>
           <input
             name="email"
             placeholder="email"
             value={email}
             onChange={this.handleChange}
           ></input>
-          <label>Phone Number</label>
+          <br />
+          <label>Phone Number:</label>
           <input
             name="phone"
             placeholder="phone"
             value={phone}
             onChange={this.handleChange}
           ></input>
+          <br />
           <button type="submit">Update</button>
         </form>
         <ToastContainer
