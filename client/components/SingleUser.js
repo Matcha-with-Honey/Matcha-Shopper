@@ -24,6 +24,7 @@ export class SingleUser extends React.Component {
   render() {
     const { id, first_name, last_name, username, phone, email } =
       this.props.user;
+    console.log(this.props.user);
     return (
       <div>
         <h1>Welcome {first_name}</h1>

@@ -147,7 +147,13 @@ class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       quantity = quantity ? quantity : 1;
       if (!this.props.order) {
         if (!this.props.isLoggedIn) {
-          await this.props.fetchNewCart();
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (!guestCart) {
+            await this.props.fetchNewCart();
+            window.localStorage.setItem('guestCart', JSON.stringify(this.props.order));
+          } else {
+            await this.props.setSingleOrder(guestCart);
+          }
           this.props.addItem(product.id, this.props.order.id, quantity);
         } else {
           await this.props.fetchNewCart(this.props.cartFetcher);
@@ -228,7 +234,8 @@ const mapDispatch = dispatch => {
   return {
     persistProductDelete: id => dispatch((0,_redux_products__WEBPACK_IMPORTED_MODULE_3__.persistProductDelete)(id)),
     addItem: (productId, orderId, qty) => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_4__.addItem)(productId, orderId, qty)),
-    fetchNewCart: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_4__.fetchNewCart)(id))
+    fetchNewCart: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_4__.fetchNewCart)(id)),
+    setSingleOrder: order => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_4__.setSingleOrder)(order))
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapState, mapDispatch)(AllProducts));
@@ -251,6 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/users */ "./client/redux/users.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 
 
 
@@ -276,7 +284,10 @@ class AllUsers extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "user",
         key: user.id
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `First Name: ${user.first_name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Last Name: ${user.last_name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `email: ${user.email}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `First Name: ${user.first_name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Last Name: ${user.last_name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `email: ${user.email}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+        to: `/users/${user.id}`,
+        key: user.id
+      }, "detail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
         onClick: () => {
           this.props.deleteUser(user.id);
           this.props.fetchUsers();
@@ -475,13 +486,21 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.handlePurchase = this.handlePurchase.bind(this);
   }
   async componentDidMount() {
-    if (this.props.isLoggedIn) {
-      try {
+    try {
+      if (this.props.isLoggedIn) {
         await this.props.fetchUserLatestOrder(this.props.cartFetcher);
         await this.props.fetchSingleOrder(this.props.order.id);
-      } catch (error) {
-        console.error(error);
+      } else {
+        if (!this.props.order) {
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (guestCart) {
+            await this.props.fetchSingleOrder(guestCart.id);
+            await this.props.fetchSingleCart(this.props.order.id);
+          }
+        }
       }
+    } catch (error) {
+      console.error(error);
     }
   }
   makeOpts(item) {
@@ -531,6 +550,7 @@ class Cart extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         ...this.state,
         checkoutComplete: true
       });
+      window.localStorage.removeItem('guestCart');
     } catch (error) {
       console.error(error);
     }
@@ -589,10 +609,11 @@ const mapState = state => {
 };
 const mapDispatch = dispatch => {
   return {
-    fetchSingleCart: dispatch(() => (0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.fetchSingleCart)()),
+    fetchSingleCart: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.fetchSingleCart)(id)),
     fetchUserLatestOrder: userId => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.fetchUserLatestOrder)(userId)),
     fetchNewCart: () => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.fetchNewCart)()),
     fetchSingleOrder: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.fetchSingleOrder)(id)),
+    setSingleOrder: order => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.setSingleOrder)(order)),
     updateOrderOnPurchase: order => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.updateOrder)(order)),
     updateItem: updatedItem => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.updateItem)(updatedItem)),
     deleteItem: item => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_2__.deleteItem)(item))
@@ -697,10 +718,30 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       try {
         if (this.props.order === null) {
           await this.props.fetchUserLatestOrder(this.props.cartFetcher);
-          await this.props.fetchSingleCart(this.props.order.id);
+          if (this.props.order) {
+            await this.props.fetchSingleCart(this.props.order.id);
+          }
           const cart = this.props.order;
           if (cart && cart.purchase_status === true) {
             await this.props.fetchNewCart(this.props.cartFetcher);
+          }
+        } else {
+          if (!this.props.order.userId) {
+            const guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+            await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+            if (guestCart) {
+              if (!this.props.order.userId) {
+                await this.props.updateOrder(this.props.order, this.props.cartFetcher);
+              } else {
+                const {
+                  id
+                } = guestCart;
+                await this.props.updateItems(id, this.props.order.id);
+              }
+              window.localStorage.removeItem('guestCart');
+            } else {
+              await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+            }
           }
         }
       } catch (error) {
@@ -765,7 +806,9 @@ const mapDispatch = dispatch => {
     fetchNewCart: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.fetchNewCart)(id)),
     fetchSingleCart: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.fetchSingleCart)(id)),
     fetchUserLatestOrder: userId => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.fetchUserLatestOrder)(userId)),
-    fetchSingleOrder: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.fetchSingleOrder)(id))
+    fetchSingleOrder: id => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.fetchSingleOrder)(id)),
+    updateOrder: (orderId, userId) => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.updateOrder)(orderId, userId)),
+    updateItems: (guestOrderId, userOrderId) => dispatch((0,_redux_orders__WEBPACK_IMPORTED_MODULE_7__.updateItems)(guestOrderId, userOrderId))
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapState, mapDispatch)(Main));
@@ -806,8 +849,7 @@ class Navbar extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
       isLoggedIn,
       userId
     } = this.props;
-    console.log(this.props);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Matcha \uD83C\uDF75"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", null, isLoggedIn && this.props.role === 'admin' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "ALL Match"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", null, isLoggedIn && this.props.role === 'admin' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/"
     }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/products"
@@ -916,7 +958,13 @@ class SingleProduct extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       let quantity = this.state.quantityToAdd;
       if (!this.props.order) {
         if (!this.props.isLoggedIn) {
-          await this.props.fetchNewCart();
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (!guestCart) {
+            await this.props.fetchNewCart();
+            window.localStorage.setItem('guestCart', JSON.stringify(this.props.order));
+          } else {
+            await this.props.setSingleOrder(guestCart);
+          }
           this.props.addItem(product.id, this.props.order.id, quantity);
         } else {
           await this.props.fetchNewCart(this.props.cartFetcher);
@@ -1035,6 +1083,7 @@ class SingleUser extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component
       phone,
       email
     } = this.props.user;
+    console.log(this.props.user);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Welcome ", first_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Personal Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Name: ", first_name, " ", last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Username: ", username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Password: **********"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Email: ", email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Phone Number: ", phone)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Order History"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       type: "button"
     }, "Order History")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateUser__WEBPACK_IMPORTED_MODULE_3__["default"], null));
@@ -1248,6 +1297,7 @@ class UpdateUser extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component
       onSubmit: this.handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "First Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       name: "first_name",
+      placeholder: "first_name",
       value: first_name,
       onChange: this.handleChange
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Last Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
@@ -1426,8 +1476,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "setSingleOrder": () => (/* binding */ setSingleOrder),
 /* harmony export */   "setUserLatestOrder": () => (/* binding */ setUserLatestOrder),
 /* harmony export */   "updateItem": () => (/* binding */ updateItem),
+/* harmony export */   "updateItems": () => (/* binding */ updateItems),
 /* harmony export */   "updateOrder": () => (/* binding */ updateOrder),
-/* harmony export */   "updatedItem": () => (/* binding */ updatedItem)
+/* harmony export */   "updatedItem": () => (/* binding */ updatedItem),
+/* harmony export */   "updatedItems": () => (/* binding */ updatedItems)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -1437,6 +1489,7 @@ const SET_SINGLE_ORDER = 'SET_SINGLE_ORDER';
 const SET_SINGLE_CART = 'GET_SINGLE_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const UPDATE_ITEM = 'UPDATE_ITEM';
+const UPDATE_ITEMS = 'UPDATE_ITEMS';
 const DELETE_ITEM = 'DELETE_ITEM';
 const setNewCart = order => ({
   type: SET_NEW_CART,
@@ -1460,6 +1513,10 @@ const setItems = items => ({
 });
 const updatedItem = items => ({
   type: UPDATE_ITEM,
+  items
+});
+const updatedItems = items => ({
+  type: UPDATE_ITEMS,
   items
 });
 const deletedItem = item => ({
@@ -1521,15 +1578,24 @@ const fetchSingleCart = id => {
     }
   };
 };
-const updateOrder = order => {
+const updateOrder = (order, userId = null) => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/orders/${order.id}`, {
-        purchase_status: order.purchase_status
-      });
-      dispatch(setSingleOrder(data));
+      if (userId) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/orders/${order.id}`, {
+          userId
+        });
+        dispatch(setSingleOrder(data));
+      } else {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/orders/${order.id}`, {
+          purchase_status: order.purchase_status
+        });
+        dispatch(setSingleOrder(data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -1577,6 +1643,23 @@ const updateItem = item => {
       if (data) {
         const cartItems = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/cart/${item.orderId}`);
         dispatch(updatedItem(cartItems.data));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+const updateItems = (guestOrderId, userOrderId) => {
+  return async dispatch => {
+    try {
+      const {
+        data
+      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/cart/${guestOrderId}`, {
+        orderId: userOrderId
+      });
+      if (data) {
+        const cartItems = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/cart/${userOrderId}`);
+        dispatch(updatedItems(cartItems.data));
       }
     } catch (error) {
       console.error(error);
@@ -1632,6 +1715,11 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cartItems: action.items
       };
+    case UPDATE_ITEMS:
+      return {
+        ...state,
+        cartItems: action.items
+      };
     case DELETE_ITEM:
       {
         const filtered = state.cartItems.filter(item => item.id !== action.item.id);
@@ -1673,6 +1761,7 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const TOKEN = 'token';
 const setProducts = products => {
   return {
     type: GET_PRODUCTS,
@@ -1730,11 +1819,18 @@ const fetchSingleProduct = id => {
 const persistAddedProduct = product => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/products', product);
-      dispatch(addProduct(data));
-      dispatch(fetchAllProducts());
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/products', product, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(addProduct(data));
+        dispatch(fetchAllProducts());
+      }
     } catch (error) {
       console.error(error);
     }
@@ -1743,10 +1839,17 @@ const persistAddedProduct = product => {
 const persistProductUpdate = (product, productInfo) => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/products/${product.id}`, productInfo);
-      dispatch(updateProduct(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/products/${product.id}`, productInfo, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(updateProduct(data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -1755,11 +1858,18 @@ const persistProductUpdate = (product, productInfo) => {
 const persistProductDelete = id => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](`/api/products/${id}`);
-      dispatch(deleteProduct(data));
-      dispatch(fetchAllProducts());
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](`/api/products/${id}`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(deleteProduct(data));
+        dispatch(fetchAllProducts());
+      }
     } catch (error) {
       console.error(error);
     }
@@ -1820,6 +1930,7 @@ const FETCH_SINGLE_USER = 'FETCH_SINGLE_USER';
 const CREATE_USER = 'CREATE_USER';
 const DELETE_USER = 'DELETE_USER';
 const EDIT_USER = 'EDIT_USER';
+const TOKEN = 'token';
 const getUsers = users => {
   return {
     type: FETCH_USERS,
@@ -1853,10 +1964,17 @@ const _editUser = user => {
 const fetchUsers = () => {
   return async dispatch => {
     try {
-      const {
-        data: users
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/users');
-      dispatch(getUsers(users));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data: users
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/users', {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(getUsers(users));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -1865,10 +1983,17 @@ const fetchUsers = () => {
 const fetchSingleUser = id => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/users/${id}`);
-      dispatch(getSingleUser(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/users/${id}`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(getSingleUser(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -1889,10 +2014,17 @@ const makeUser = user => {
 const deleteUser = userId => {
   return async dispatch => {
     try {
-      const {
-        data: user
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](`/api/users/${userId}`);
-      dispatch(_deleteUser(user));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data: user
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](`/api/users/${userId}`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(_deleteUser(user));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -1901,10 +2033,13 @@ const deleteUser = userId => {
 const editUser = user => {
   return async dispatch => {
     try {
-      const {
-        data: updated
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user);
-      dispatch(_editUser(updated));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data: updated
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user);
+        dispatch(_editUser(updated));
+      }
     } catch (error) {
       console.log(error);
     }

@@ -18,7 +18,7 @@ usersRouter.get('/:userId', requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
       attributes: {
-        exclude: ['id', 'createdAt', 'updatedAt', 'role'],
+        exclude: ['createdAt', 'updatedAt', 'role'],
       },
     });
     res.send(user);
