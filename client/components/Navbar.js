@@ -19,7 +19,7 @@ class Navbar extends React.Component {
     console.log(this.props);
     return (
       <div>
-        <h1>Matcha 🍵</h1>
+        <h1>ALL Match</h1>
         <nav>
           {isLoggedIn && this.props.role === 'admin' && (
             <div>
