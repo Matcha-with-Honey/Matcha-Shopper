@@ -13,11 +13,17 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-const isAdmin = (req, res, next) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).send('You need admin privileges to access this!');
-  } else {
-    next();
+const isAdmin = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    if (user.role !== 'admin') {
+      return res.status(403).send('You need admin privileges to access this!');
+    } else {
+      next();
+    }
+  } catch (error) {
+    next(error);
   }
 };
 

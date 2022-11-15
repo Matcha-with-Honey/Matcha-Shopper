@@ -17,7 +17,9 @@ usersRouter.get('/', requireToken, isAdmin, async (req, res, next) => {
 usersRouter.get('/:userId', requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
-      include: Order,
+      attributes: {
+        exclude: ['id', 'createdAt', 'updatedAt', 'role'],
+      },
     });
     res.send(user);
   } catch (error) {
@@ -51,7 +53,7 @@ usersRouter.delete(
   }
 );
 
-usersRouter.put('/:userId', async (req, res, next) => {
+usersRouter.put('/:userId', requireToken, async (req, res, next) => {
   try {
     const { username, password, first_name, last_name, email, phone } =
       req.body;
