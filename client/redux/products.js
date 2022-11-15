@@ -6,6 +6,7 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const TOKEN = 'token';
 
 const setProducts = (products) => {
   return {
@@ -67,9 +68,16 @@ export const fetchSingleProduct = (id) => {
 export const persistAddedProduct = (product) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/products', product);
-      dispatch(addProduct(data));
-      dispatch(fetchAllProducts());
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.post('/api/products', product, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(addProduct(data));
+        dispatch(fetchAllProducts());
+      }
     } catch (error) {
       console.error(error);
     }
@@ -79,11 +87,19 @@ export const persistAddedProduct = (product) => {
 export const persistProductUpdate = (product, productInfo) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(
-        `/api/products/${product.id}`,
-        productInfo
-      );
-      dispatch(updateProduct(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.put(
+          `/api/products/${product.id}`,
+          productInfo,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+        dispatch(updateProduct(data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -93,9 +109,16 @@ export const persistProductUpdate = (product, productInfo) => {
 export const persistProductDelete = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/api/products/${id}`);
-      dispatch(deleteProduct(data));
-      dispatch(fetchAllProducts());
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.delete(`/api/products/${id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(deleteProduct(data));
+        dispatch(fetchAllProducts());
+      }
     } catch (error) {
       console.error(error);
     }
