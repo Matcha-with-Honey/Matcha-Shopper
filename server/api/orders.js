@@ -20,6 +20,25 @@ ordersRouter.get('/recent/:userId', async (req, res, next) => {
   }
 });
 
+ordersRouter.get('/purchases/:userId', async (req, res, next) => {
+  try {
+    const order = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        purchase_status: true,
+      },
+      include: {
+        model: Order_Product,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+
+    res.status(200).send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
 ordersRouter.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id);
