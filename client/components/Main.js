@@ -34,7 +34,9 @@ class Main extends Component {
       try {
         if (this.props.order === null) {
           await this.props.fetchUserLatestOrder(this.props.cartFetcher);
-          await this.props.fetchSingleCart(this.props.order.id);
+          if (this.props.order) {
+            await this.props.fetchSingleCart(this.props.order.id);
+          }
 
           const cart = this.props.order;
           if (cart && cart.purchase_status === true) {
