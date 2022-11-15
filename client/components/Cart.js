@@ -38,7 +38,6 @@ export class Cart extends Component {
           }
         }
       }
-      console.log('QQ', this.state.quantities);
     } catch (error) {
       console.error(error);
     }
@@ -79,16 +78,12 @@ export class Cart extends Component {
   }
 
   preciseCurrencyMultiplication(val, id) {
-    console.log('id', id);
-    console.log('qS', this.state.quantities);
     const qty = this.state.quantities.get(id);
-    console.log('q', qty);
+
     const splitVal = val.split('');
-    console.log('sp', splitVal);
 
     const intDigits = splitVal.indexOf('.');
     const digitScalingInt = parseInt(splitVal.splice(0, intDigits).join(''));
-    console.log('ds', digitScalingInt);
 
     const multInt = digitScalingInt * qty;
 
@@ -96,7 +91,6 @@ export class Cart extends Component {
     const multDec = (scaledDec * qty) / 100;
 
     const preciseTotal = (multInt + multDec).toFixed(2);
-    console.log('total mult', preciseTotal);
 
     return preciseTotal;
   }
