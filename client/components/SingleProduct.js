@@ -38,7 +38,16 @@ class SingleProduct extends Component {
       let quantity = this.state.quantityToAdd;
       if (!this.props.order) {
         if (!this.props.isLoggedIn) {
-          await this.props.fetchNewCart();
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (!guestCart) {
+            await this.props.fetchNewCart();
+            window.localStorage.setItem(
+              'guestCart',
+              JSON.stringify(this.props.order)
+            );
+          } else {
+            await this.props.setSingleOrder(guestCart);
+          }
           this.props.addItem(product.id, this.props.order.id, quantity);
         } else {
           await this.props.fetchNewCart(this.props.cartFetcher);
