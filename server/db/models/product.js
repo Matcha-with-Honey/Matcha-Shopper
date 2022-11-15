@@ -19,7 +19,7 @@ const Product = db.define('product', {
     type: DataTypes.TEXT,
   },
   image: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
   },
   category: {
     type: DataTypes.STRING,
