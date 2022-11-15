@@ -85,6 +85,7 @@ export class Cart extends Component {
         purchase_status: true,
       });
       this.setState({ ...this.state, checkoutComplete: true });
+      window.localStorage.removeItem('guestCart');
     } catch (error) {
       console.error(error);
     }
