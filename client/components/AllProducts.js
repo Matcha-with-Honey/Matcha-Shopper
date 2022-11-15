@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddProduct from './AddProduct';
 import { persistProductDelete } from '../redux/products';
-import { addItem, fetchNewCart } from '../redux/orders';
+import { addItem, fetchNewCart, setSingleOrder } from '../redux/orders';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -32,7 +32,16 @@ class AllProducts extends Component {
       quantity = quantity ? quantity : 1;
       if (!this.props.order) {
         if (!this.props.isLoggedIn) {
-          await this.props.fetchNewCart();
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (!guestCart) {
+            await this.props.fetchNewCart();
+            window.localStorage.setItem(
+              'guestCart',
+              JSON.stringify(this.props.order)
+            );
+          } else {
+            await this.props.setSingleOrder(guestCart);
+          }
           this.props.addItem(product.id, this.props.order.id, quantity);
         } else {
           await this.props.fetchNewCart(this.props.cartFetcher);
@@ -136,6 +145,7 @@ const mapDispatch = (dispatch) => {
     addItem: (productId, orderId, qty) =>
       dispatch(addItem(productId, orderId, qty)),
     fetchNewCart: (id) => dispatch(fetchNewCart(id)),
+    setSingleOrder: (order) => dispatch(setSingleOrder(order)),
   };
 };
 
