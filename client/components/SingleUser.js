@@ -45,7 +45,6 @@ export class SingleUser extends React.Component {
           <button type="button">Order History</button>
         </Link>
         <hr />
-        <button>Edit</button>
         <UpdateUser />
       </div>
     );

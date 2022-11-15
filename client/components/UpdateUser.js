@@ -51,6 +51,7 @@ class UpdateUser extends React.Component {
           <label>First Name</label>
           <input
             name="first_name"
+            placeholder="first_name"
             value={first_name}
             onChange={this.handleChange}
           ></input>

@@ -215,7 +215,7 @@ class AllProducts extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
             quantities
           });
         }
-      }, this.makeOpts(product))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      }, this.makeOpts(product))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "BUY NOW"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
         onClick: () => this.handleAddItem(product)
       }, "ADD TO CART"));
     })));
@@ -1085,7 +1085,7 @@ class SingleUser extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component
     } = this.props.user;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Welcome ", first_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Personal Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Name: ", first_name, " ", last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Username: ", username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Password: **********"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Email: ", email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Phone Number: ", phone)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Order History"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       type: "button"
-    }, "Order History")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateUser__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+    }, "Order History")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateUser__WEBPACK_IMPORTED_MODULE_3__["default"], null));
   }
 }
 const mapState = state => {
@@ -1296,6 +1296,7 @@ class UpdateUser extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component
       onSubmit: this.handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "First Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       name: "first_name",
+      placeholder: "first_name",
       value: first_name,
       onChange: this.handleChange
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Last Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
@@ -1616,12 +1617,9 @@ const addItem = (productId, orderId, qty) => {
         } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/cart', item);
         added = data;
       } else {
-        console.log('put 2 has data');
         const {
           data
-        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/cart/${item.orderId}/${item.productId}`, {
-          quantity: item.quantity + check.data.quantity
-        });
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/cart/${item.orderId}/${item.productId}`, item);
         added = data;
       }
       if (added) {
@@ -1984,10 +1982,17 @@ const fetchUsers = () => {
 const fetchSingleUser = id => {
   return async dispatch => {
     try {
-      const {
-        data
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/users/${id}`);
-      dispatch(getSingleUser(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].get(`/api/users/${id}`, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(getSingleUser(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -2027,10 +2032,17 @@ const deleteUser = userId => {
 const editUser = user => {
   return async dispatch => {
     try {
-      const {
-        data: updated
-      } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user);
-      dispatch(_editUser(updated));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const {
+          data: updated
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user, {
+          headers: {
+            authorization: token
+          }
+        });
+        dispatch(_editUser(updated));
+      }
     } catch (error) {
       console.log(error);
     }

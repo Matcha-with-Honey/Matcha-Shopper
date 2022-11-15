@@ -64,8 +64,15 @@ const fetchUsers = () => {
 const fetchSingleUser = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}`);
-      dispatch(getSingleUser(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.get(`/api/users/${id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(getSingleUser(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -102,8 +109,19 @@ const deleteUser = (userId) => {
 const editUser = (user) => {
   return async (dispatch) => {
     try {
-      const { data: updated } = await axios.put(`/api/users/${user.id}`, user);
-      dispatch(_editUser(updated));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: updated } = await axios.put(
+          `/api/users/${user.id}`,
+          user,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+        dispatch(_editUser(updated));
+      }
     } catch (error) {
       console.log(error);
     }
