@@ -2,7 +2,7 @@
 
 This is ALL MATCH, an online retail store where you can find all things related to matcha tea. From the finest selection of matcha tea powder to tea sets and accessories, you're sure to discover all your matcha needs!
 
-[Shop Here](<(https://matcha-shop.herokuapp.com/)> 'All Match home')
+[Shop Here]((https://matcha-shop.herokuapp.com/))
 
 ## Team
 
