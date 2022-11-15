@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const dbUrl = process.env.DATABASE_URL || `postgres://localhost:5432/${matcha}`;
+const dbUrl = process.env.DATABASE_URL || `postgres://localhost:5432/matcha`;
 
 let config;
 if (process.env.DATABASE_URL) {

@@ -15,10 +15,10 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, userId } = this.props;
     return (
       <div>
-        <h1>Matcha 🍵</h1>
+        <h1>ALL Match</h1>
         <nav>
           {isLoggedIn && this.props.role === 'admin' && (
             <div>
@@ -35,7 +35,7 @@ class Navbar extends React.Component {
               {/* The navbar will show these links after you log in */}
               <Link to="/">Home</Link>
               <Link to="/products">Products</Link>
-              <Link to="/account">Account</Link>
+              <Link to={`/users/${userId}`}>Account</Link>
               <Link to="/cart">Cart</Link>
               <a onClick={() => this.logoutHandler()}>Logout</a>
             </div>
@@ -63,6 +63,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: state.authReducer.id ? true : false,
     role: state.authReducer.role,
+    userId: state.authReducer.id,
   };
 };
 
