@@ -16,7 +16,6 @@ class Navbar extends React.Component {
 
   render() {
     const { isLoggedIn, userId } = this.props;
-    console.log(this.props);
     return (
       <div>
         <h1>ALL Match</h1>
