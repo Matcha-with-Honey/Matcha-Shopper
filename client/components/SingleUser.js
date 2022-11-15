@@ -28,16 +28,6 @@ export class SingleUser extends React.Component {
       <div>
         <h1>Welcome {first_name}</h1>
         <h3>Personal Information</h3>
-        {/* <ul>
-          <li>
-            Name: {first_name} {last_name}
-          </li>
-          <li>Username: {username}</li>
-          <li>Password: **********</li>
-          <li>Email: {email}</li>
-          <li>Phone Number: {phone}</li>
-       
-        </ul> */}
         <UpdateUser />
         <h3>Order History</h3>
         {/* {PLUG IN ORDERS HERE} */}
