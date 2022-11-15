@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 14
+services:
+  - postgresql
+addons:
+  postgresql: '9.6'
+dist: trusty
+sude: false
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+install: -npm ci
+before_script: -psql -c 'create database "matcha-test";' -U postgres
