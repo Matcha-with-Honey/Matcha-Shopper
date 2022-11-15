@@ -115,7 +115,6 @@ class AllProducts extends Component {
                       {this.makeOpts(product)}
                     </select>
                   </form>
-                  <button>BUY NOW</button>
                   <button onClick={() => this.handleAddItem(product)}>
                     ADD TO CART
                   </button>
