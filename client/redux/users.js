@@ -113,7 +113,12 @@ const editUser = (user) => {
       if (token) {
         const { data: updated } = await axios.put(
           `/api/users/${user.id}`,
-          user
+          user,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
         );
         dispatch(_editUser(updated));
       }

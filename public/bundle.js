@@ -1086,7 +1086,7 @@ class SingleUser extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component
     console.log(this.props.user);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Welcome ", first_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Personal Information"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Name: ", first_name, " ", last_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Username: ", username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Password: **********"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Email: ", email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Phone Number: ", phone)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Order History"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       type: "button"
-    }, "Order History")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", null, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateUser__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+    }, "Order History")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateUser__WEBPACK_IMPORTED_MODULE_3__["default"], null));
   }
 }
 const mapState = state => {
@@ -2037,7 +2037,11 @@ const editUser = user => {
       if (token) {
         const {
           data: updated
-        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user);
+        } = await axios__WEBPACK_IMPORTED_MODULE_0__["default"].put(`/api/users/${user.id}`, user, {
+          headers: {
+            authorization: token
+          }
+        });
         dispatch(_editUser(updated));
       }
     } catch (error) {
