@@ -2,4 +2,3 @@ node_modules
 public/bundle.js
 public/bundle.js.map
 .env
-package-lock.json
