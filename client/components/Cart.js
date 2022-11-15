@@ -16,9 +16,12 @@ export class Cart extends Component {
     super(props);
     this.state = {
       checkoutComplete: false,
+      quantities: new Map(),
     };
     this.sumTotal = this.sumTotal.bind(this);
     this.handlePurchase = this.handlePurchase.bind(this);
+    this.preciseCurrencyMultiplication =
+      this.preciseCurrencyMultiplication.bind(this);
   }
 
   async componentDidMount() {
@@ -74,11 +77,37 @@ export class Cart extends Component {
     return preciseTotal;
   }
 
-  sumTotal(itemsArr) {
-    const priceArr = itemsArr.map((item) => item.product.price);
+  preciseCurrencyMultiplication(val, id) {
+    const qty = this.state.quantities.get(id);
 
-    const total = priceArr.reduce((acc, price) => {
-      return this.preciseCurrencyAddition([acc, price]);
+    const splitVal = val.split('');
+
+    const intDigits = splitVal.indexOf('.');
+    const digitScalingInt = parseInt(splitVal.splice(0, intDigits).join(''));
+
+    const multInt = digitScalingInt * qty;
+
+    const scaledDec = parseFloat(splitVal.join('')) * 100;
+    const multDec = (scaledDec * qty) / 100;
+
+    const preciseTotal = (multInt + multDec).toFixed(2);
+
+    return preciseTotal;
+  }
+
+  sumTotal(itemsArr) {
+    this.props.cartItems.forEach((item) => {
+      const quantities = this.state.quantities;
+      quantities.set(item.productId, item.quantity);
+    });
+    const priceArr = itemsArr.map((item) => [
+      item.product.price,
+      item.productId,
+    ]);
+
+    const total = priceArr.reduce((acc, [price, id]) => {
+      const mult = this.preciseCurrencyMultiplication(price, id);
+      return this.preciseCurrencyAddition([acc, mult]);
     }, '0.00');
 
     return new Intl.NumberFormat('en-US', {
@@ -138,6 +167,9 @@ export class Cart extends Component {
                                   quantity,
                                 };
                                 this.props.updateItem(updatedItem);
+                                const quantities = this.state.quantities;
+                                quantities.set(item.productId, quantity);
+                                this.setState({ ...this.state, quantities });
                               }}
                             >
                               <option value={item.quantity}>
