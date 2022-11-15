@@ -30,7 +30,7 @@ ordersRouter.get('/purchases/:userId', async (req, res, next) => {
       include: {
         model: Order_Product,
       },
-      order: [['createdAt', 'DESC']],
+      order: [['updatedAt', 'DESC']],
     });
 
     res.status(200).send(order);
