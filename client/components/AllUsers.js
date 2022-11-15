@@ -27,9 +27,9 @@ export class AllUsers extends React.Component {
                     <p>{`First Name: ${user.first_name}`}</p>
                     <p>{`Last Name: ${user.last_name}`}</p>
                     <p>{`email: ${user.email}`}</p>
-                    <Link to={`/users/${user.id}`} key={user.id}>
+                    {/* <Link to={`/users/${user.id}`} key={user.id}>
                       detail
-                    </Link>
+                    </Link> */}
 
                     <button
                       onClick={() => {
