@@ -11,6 +11,8 @@ import {
   fetchSingleCart,
   fetchSingleOrder,
   fetchUserLatestOrder,
+  updateItems,
+  updateOrder,
 } from '../redux/orders';
 import SingleProduct from './SingleProduct';
 import Cart from './Cart';
@@ -34,11 +36,35 @@ class Main extends Component {
       try {
         if (this.props.order === null) {
           await this.props.fetchUserLatestOrder(this.props.cartFetcher);
-          await this.props.fetchSingleCart(this.props.order.id);
+
+          if (this.props.order) {
+            await this.props.fetchSingleCart(this.props.order.id);
+          }
 
           const cart = this.props.order;
           if (cart && cart.purchase_status === true) {
             await this.props.fetchNewCart(this.props.cartFetcher);
+          }
+        } else {
+          if (!this.props.order.userId) {
+            const guestCart = JSON.parse(
+              window.localStorage.getItem('guestCart')
+            );
+            await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+            if (guestCart) {
+              if (!this.props.order.userId) {
+                await this.props.updateOrder(
+                  this.props.order,
+                  this.props.cartFetcher
+                );
+              } else {
+                const { id } = guestCart;
+                await this.props.updateItems(id, this.props.order.id);
+              }
+              window.localStorage.removeItem('guestCart');
+            } else {
+              await this.props.fetchUserLatestOrder(this.props.cartFetcher);
+            }
           }
         }
       } catch (error) {
@@ -89,6 +115,9 @@ const mapDispatch = (dispatch) => {
     fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
     fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
+    updateOrder: (orderId, userId) => dispatch(updateOrder(orderId, userId)),
+    updateItems: (guestOrderId, userOrderId) =>
+      dispatch(updateItems(guestOrderId, userOrderId)),
   };
 };
 

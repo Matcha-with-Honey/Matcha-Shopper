@@ -65,6 +65,29 @@ cartRouter.put('/:orderId/:productId', async (req, res, next) => {
   }
 });
 
+cartRouter.put('/:orderId', async (req, res, next) => {
+  try {
+    const data = await Order_Product.findAll({
+      where: {
+        orderId: req.params.orderId,
+      },
+    });
+    const items = data;
+    if (items) {
+      await Order_Product.update(req.body, {
+        where: {
+          orderId: req.params.orderId,
+        },
+      });
+      res.status(200).send(items);
+    } else {
+      console.log('no items to update');
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 cartRouter.delete('/:orderId/:productId', async (req, res, next) => {
   try {
     const data = await Order_Product.findOne({

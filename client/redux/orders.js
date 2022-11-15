@@ -6,6 +6,7 @@ const SET_SINGLE_ORDER = 'SET_SINGLE_ORDER';
 const SET_SINGLE_CART = 'GET_SINGLE_CART';
 const ADD_ITEM = 'ADD_ITEM';
 const UPDATE_ITEM = 'UPDATE_ITEM';
+const UPDATE_ITEMS = 'UPDATE_ITEMS';
 const DELETE_ITEM = 'DELETE_ITEM';
 
 export const setNewCart = (order) => ({
@@ -37,6 +38,12 @@ export const updatedItem = (items) => ({
   type: UPDATE_ITEM,
   items,
 });
+
+export const updatedItems = (items) => ({
+  type: UPDATE_ITEMS,
+  items,
+});
+
 export const deletedItem = (item) => ({
   type: DELETE_ITEM,
   item,
@@ -93,13 +100,20 @@ export const fetchSingleCart = (id) => {
   };
 };
 
-export const updateOrder = (order) => {
+export const updateOrder = (order, userId = null) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/orders/${order.id}`, {
-        purchase_status: order.purchase_status,
-      });
-      dispatch(setSingleOrder(data));
+      if (userId) {
+        const { data } = await axios.put(`/api/orders/${order.id}`, {
+          userId,
+        });
+        dispatch(setSingleOrder(data));
+      } else {
+        const { data } = await axios.put(`/api/orders/${order.id}`, {
+          purchase_status: order.purchase_status,
+        });
+        dispatch(setSingleOrder(data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -152,6 +166,23 @@ export const updateItem = (item) => {
   };
 };
 
+export const updateItems = (guestOrderId, userOrderId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/cart/${guestOrderId}`, {
+        orderId: userOrderId,
+      });
+      if (data) {
+        const cartItems = await axios.get(`/api/cart/${userOrderId}`);
+
+        dispatch(updatedItems(cartItems.data));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const deleteItem = (item) => {
   return async (dispatch) => {
     try {
@@ -179,6 +210,8 @@ const orderReducer = (state = initialState, action) => {
     case ADD_ITEM:
       return { ...state, cartItems: action.items };
     case UPDATE_ITEM:
+      return { ...state, cartItems: action.items };
+    case UPDATE_ITEMS:
       return { ...state, cartItems: action.items };
     case DELETE_ITEM: {
       const filtered = state.cartItems.filter(

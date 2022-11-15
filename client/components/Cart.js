@@ -6,6 +6,7 @@ import {
   fetchSingleCart,
   fetchSingleOrder,
   fetchUserLatestOrder,
+  setSingleOrder,
   updateItem,
   updateOrder,
 } from '../redux/orders';
@@ -21,13 +22,21 @@ export class Cart extends Component {
   }
 
   async componentDidMount() {
-    if (this.props.isLoggedIn) {
-      try {
+    try {
+      if (this.props.isLoggedIn) {
         await this.props.fetchUserLatestOrder(this.props.cartFetcher);
         await this.props.fetchSingleOrder(this.props.order.id);
-      } catch (error) {
-        console.error(error);
+      } else {
+        if (!this.props.order) {
+          let guestCart = JSON.parse(window.localStorage.getItem('guestCart'));
+          if (guestCart) {
+            await this.props.fetchSingleOrder(guestCart.id);
+            await this.props.fetchSingleCart(this.props.order.id);
+          }
+        }
       }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -85,6 +94,7 @@ export class Cart extends Component {
         purchase_status: true,
       });
       this.setState({ ...this.state, checkoutComplete: true });
+      window.localStorage.removeItem('guestCart');
     } catch (error) {
       console.error(error);
     }
@@ -179,10 +189,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchSingleCart: dispatch(() => fetchSingleCart()),
+    fetchSingleCart: (id) => dispatch(fetchSingleCart(id)),
     fetchUserLatestOrder: (userId) => dispatch(fetchUserLatestOrder(userId)),
     fetchNewCart: () => dispatch(fetchNewCart()),
     fetchSingleOrder: (id) => dispatch(fetchSingleOrder(id)),
+    setSingleOrder: (order) => dispatch(setSingleOrder(order)),
     updateOrderOnPurchase: (order) => dispatch(updateOrder(order)),
     updateItem: (updatedItem) => dispatch(updateItem(updatedItem)),
     deleteItem: (item) => dispatch(deleteItem(item)),
