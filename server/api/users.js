@@ -2,9 +2,10 @@ const usersRouter = require('express').Router();
 const {
   models: { User, Order },
 } = require('../db');
+const { requireToken, isAdmin } = require('./gateKeepingMiddleware');
 module.exports = usersRouter;
 
-usersRouter.get('/', async (req, res, next) => {
+usersRouter.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll();
     res.json(users);
@@ -13,10 +14,12 @@ usersRouter.get('/', async (req, res, next) => {
   }
 });
 
-usersRouter.get('/:userId', async (req, res, next) => {
+usersRouter.get('/:userId', requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
-      include: Order,
+      attributes: {
+        exclude: ['id', 'createdAt', 'updatedAt', 'role'],
+      },
     });
     res.send(user);
   } catch (error) {
@@ -26,6 +29,8 @@ usersRouter.get('/:userId', async (req, res, next) => {
 
 usersRouter.post('/', async (req, res, next) => {
   try {
+    const { username, password, first_name, last_name, email, phone } =
+      req.body;
     const newUser = await User.create(req.body);
     res.send(newUser);
   } catch (error) {
@@ -33,18 +38,25 @@ usersRouter.post('/', async (req, res, next) => {
   }
 });
 
-usersRouter.delete('/:userId', async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.params.userId);
-    await user.destroy();
-    res.send(user);
-  } catch (error) {
-    next(error);
+usersRouter.delete(
+  '/:userId',
+  requireToken,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.userId);
+      await user.destroy();
+      res.send(user);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
-usersRouter.put('/:userId', async (req, res, next) => {
+usersRouter.put('/:userId', requireToken, async (req, res, next) => {
   try {
+    const { username, password, first_name, last_name, email, phone } =
+      req.body;
     const user = await User.findByPk(req.params.userId);
     const response = await user.update(req.body);
     res.send(response);

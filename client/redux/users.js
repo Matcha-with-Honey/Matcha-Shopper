@@ -6,6 +6,7 @@ const FETCH_SINGLE_USER = 'FETCH_SINGLE_USER';
 const CREATE_USER = 'CREATE_USER';
 const DELETE_USER = 'DELETE_USER';
 const EDIT_USER = 'EDIT_USER';
+const TOKEN = 'token';
 
 const getUsers = (users) => {
   return {
@@ -45,8 +46,15 @@ const _editUser = (user) => {
 const fetchUsers = () => {
   return async (dispatch) => {
     try {
-      const { data: users } = await axios.get('/api/users');
-      dispatch(getUsers(users));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: users } = await axios.get('/api/users', {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(getUsers(users));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -76,8 +84,15 @@ const makeUser = (user) => {
 const deleteUser = (userId) => {
   return async (dispatch) => {
     try {
-      const { data: user } = await axios.delete(`/api/users/${userId}`);
-      dispatch(_deleteUser(user));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: user } = await axios.delete(`/api/users/${userId}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(_deleteUser(user));
+      }
     } catch (error) {
       console.log(error);
     }
