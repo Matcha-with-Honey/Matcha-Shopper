@@ -140,7 +140,7 @@ export class Cart extends Component {
             <h2>Checkout Complete</h2>
           </div>
         ) : (
-          <div>
+          <div id="has-items">
             <h2>Ready to checkout?</h2>
             <div id="cart-container">
               <div id="item-list">
@@ -150,36 +150,67 @@ export class Cart extends Component {
                     {this.props.cartItems.map((item) => {
                       return (
                         <div key={item.productId} className="cart-item">
-                          <div id="cart-item-left">
-                            <h4>{item.product.name}</h4>
-                            <img src={item.image} />
-                          </div>
+                          <span id="cart-header">
+                            <span>
+                              <h4>{item.product.name}</h4>
+                            </span>
+                            <span id="header-right">
+                              <span id="qty">Qty</span>
+                              <span id="price">Price</span>
+                            </span>
+                          </span>
                           <div id="cart-item-right">
-                            <div id="item-price">{item.product.price}</div>
+                            <form>
+                              <select
+                                name="quantity"
+                                id="quantity-select"
+                                onChange={(e) => {
+                                  const quantity = parseInt(e.target.value);
+                                  const updatedItem = {
+                                    ...item,
+                                    quantity,
+                                  };
+                                  this.props.updateItem(updatedItem);
+                                  const quantities = this.state.quantities;
+                                  quantities.set(item.productId, quantity);
+                                  this.setState({
+                                    ...this.state,
+                                    quantities,
+                                  });
+                                }}
+                              >
+                                <option value={item.quantity}>
+                                  {item.quantity}
+                                </option>
+                                {this.makeOpts(item)}
+                              </select>
+                            </form>
+                            <div id="item-price">
+                              <h4>{item.product.price}</h4>
+                            </div>
                           </div>
-                          <form>
-                            <select
-                              name="quantity"
-                              id="quantity-select"
-                              onChange={(e) => {
-                                const quantity = parseInt(e.target.value);
-                                const updatedItem = {
-                                  ...item,
-                                  quantity,
-                                };
-                                this.props.updateItem(updatedItem);
-                                const quantities = this.state.quantities;
-                                quantities.set(item.productId, quantity);
-                                this.setState({ ...this.state, quantities });
+                          <div id="cart-item-left">
+                            <img
+                              style={{
+                                backgroundImage: `url(${item.product.image})`,
+                                backgroundSize: 'cover',
+                                height: '10rem',
+                                width: '10rem',
+                                borderRadius: '50%',
+                                overflow: 'hidden',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                verticalAlign: 'middle',
+                                whiteSpace: 'nowrap',
                               }}
-                            >
-                              <option value={item.quantity}>
-                                {item.quantity}
-                              </option>
-                              {this.makeOpts(item)}
-                            </select>
-                          </form>
+                            />
+                            <h5 id="cart-item-desc">
+                              {item.product.description}
+                            </h5>
+                          </div>
                           <button
+                            id="removeBtn"
                             onClick={() => {
                               this.props.deleteItem(item);
                             }}
@@ -189,6 +220,27 @@ export class Cart extends Component {
                         </div>
                       );
                     })}
+
+                    <div id="cart-submit">
+                      <span id="summary">
+                        <h3 id="total">
+                          Total:{' '}
+                          {new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                          }).format(this.sumTotal(items))}
+                        </h3>
+                      </span>
+                      <form>
+                        <button
+                          type="submit"
+                          onClick={() => this.handlePurchase()}
+                        >
+                          Complete Purchase
+                        </button>
+                      </form>
+                    </div>
+
                     <h3>
                       Total:{' '}
                       {new Intl.NumberFormat('en-US', {
@@ -204,9 +256,10 @@ export class Cart extends Component {
                         <Link to="/Checkout"> Complete Purchase</Link>
                       </button>
                     </form>
+
                   </div>
                 ) : (
-                  <div>No items in cart</div>
+                  <div>No items in cart.</div>
                 )}
               </div>
             </div>
