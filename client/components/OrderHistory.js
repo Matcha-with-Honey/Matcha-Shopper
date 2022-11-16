@@ -30,7 +30,7 @@ class OrderHistory extends React.Component {
         <div>
           {orderHistory.map((orders) => {
             return (
-              <div key={orders.id}>
+              <div key={orders.id} id="order-history">
                 <p>Order Date: {orders.updatedAt}</p>
                 <p>Order Total: {orders.order_total}</p>
                 <div>
