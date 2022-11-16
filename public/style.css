@@ -38,3 +38,21 @@ nav a {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
+
+#order-history {
+  border: solid black 0.09em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#update-user-form input {
+  padding: 8px 12px;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 2px solid rgb(23, 93, 42);
+}
+
+form label {
+  font-weight: bold;
+}
