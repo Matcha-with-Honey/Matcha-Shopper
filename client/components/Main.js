@@ -77,7 +77,9 @@ class Main extends Component {
     const { isLoggedIn } = this.props;
     return (
       <div>
-        <img src="Untitled-2.png" id="logo"></img>
+        <section id="logo-wrapper">
+          <img src="Untitled-2.png" id="logo"></img>
+        </section>
         {isLoggedIn ? (
           <Routes>
             <Route path="/" element={<Home />} />
