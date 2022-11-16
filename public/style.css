@@ -41,7 +41,6 @@ nav a {
   margin-right: 1.5em;
 }
 
-
 #cart {
   position: relative;
   display: flex;
@@ -173,6 +172,8 @@ nav a {
 #summary {
   float: right;
   margin-right: 5rem;
+}
+
 #order-history {
   border: solid black 0.09em;
   display: flex;
@@ -190,5 +191,4 @@ nav a {
 
 form label {
   font-weight: bold;
-
 }
