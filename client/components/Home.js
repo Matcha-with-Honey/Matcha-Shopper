@@ -16,6 +16,16 @@ export const Home = (props) => {
           to make matcha accessible to anybody and everybody.
         </p>
       </section>
+      <section id="product-highlight">
+        <img
+          src="https://hips.hearstapps.com/hmg-prod/images/green-matcha-tea-powder-top-view-royalty-free-image-904776948-1555092847.jpg"
+          id="product-home"
+        ></img>
+        <div id="product-highlight-text">
+          <p id="product-highlight-desc">A delicious blend of green teas.</p>
+          <Link to="/products/1">LEARN MORE</Link>
+        </div>
+      </section>
     </div>
   );
 };

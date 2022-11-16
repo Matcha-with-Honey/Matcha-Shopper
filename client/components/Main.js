@@ -97,10 +97,10 @@ class Main extends Component {
           </Routes>
         )}
         <footer>
-          <p>
-            <a href="mailto:delossantosshey@gmail.com">CONTACT</a>
-          </p>
-          <p>BASED IN NEW YORK, NY</p>
+          <a href="mailto:delossantosshey@gmail.com" id="footer-contact">
+            CONTACT
+          </a>
+          <span id="footer-based">BASED IN NEW YORK, NY</span>
         </footer>
       </div>
     );
