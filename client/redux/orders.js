@@ -111,6 +111,7 @@ export const updateOrder = (order, userId = null) => {
       } else {
         const { data } = await axios.put(`/api/orders/${order.id}`, {
           purchase_status: order.purchase_status,
+          order_total: order.order_total,
         });
         dispatch(setSingleOrder(data));
       }
