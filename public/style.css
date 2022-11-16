@@ -178,6 +178,26 @@ nav a {
   margin-bottom: 3em;
 }
 
+@media (max-width: 400px) {
+  #about-store p {
+    font-size: 0.7em;
+    margin-left: 5%;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 500px) {
+  #about-store p {
+    font-size: 0.75em;
+    margin-left: 5.5%;
+  }
+}
+@media (min-width: 500px) and (max-width: 810px) {
+  #about-store p {
+    font-size: 1.4em;
+    margin-left: 9%;
+  }
+}
+
 #product-highlight {
   display: flex;
   align-items: center;
