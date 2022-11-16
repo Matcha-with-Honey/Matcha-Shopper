@@ -178,23 +178,23 @@ nav a {
   margin-bottom: 3em;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 300px) {
   #about-store p {
     font-size: 0.7em;
     margin-left: 5%;
   }
 }
 
-@media (min-width: 400px) and (max-width: 500px) {
+@media (min-width: 300px) and (max-width: 450px) {
   #about-store p {
     font-size: 0.75em;
     margin-left: 5.5%;
   }
 }
-@media (min-width: 500px) and (max-width: 810px) {
+@media (min-width: 450px) and (max-width: 850px) {
   #about-store p {
-    font-size: 1.4em;
-    margin-left: 9%;
+    font-size: 1.3em;
+    margin-left: 9.3%;
   }
 }
 
@@ -205,15 +205,35 @@ nav a {
 
 #product-home {
   width: 30em;
-  margin-left: 10em;
+  margin-left: 18%;
   margin-top: 3em;
   margin-bottom: 3em;
+}
+
+@media (max-width: 400px) {
+  #product-home {
+    width: 10em;
+    margin-left: 0.7em;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 850px) {
+  #product-home {
+    width: 25em;
+    margin-left: 2.5em;
+  }
 }
 
 #product-highlight-desc {
   background-image: none;
   margin-left: 2em;
-  font-size: 1.5em;
+  font-size: 1.7em;
+}
+
+@media (max-width: 400px) {
+  #product-highlight-desc {
+    font-size: 1em;
+  }
 }
 
 #product-highlight-text {
@@ -230,6 +250,12 @@ nav a {
   border: solid green 1px;
   border-radius: 6%;
   padding: 0.5em;
+}
+
+@media (max-width: 400px) {
+  #product-highlight-text a {
+    font-size: 0.6em;
+  }
 }
 
 footer {
