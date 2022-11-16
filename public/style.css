@@ -288,6 +288,8 @@ footer span {
   flex-direction: column;
   justify-content: center;
   background-color: white;
+  padding: 1em;
+  margin: 1em;
 }
 
 #order-total,
