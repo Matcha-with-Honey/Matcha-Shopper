@@ -111,7 +111,7 @@ class UpdateProduct extends Component {
         <ToastContainer
           position="top-center"
           autoClose={2700}
-          hideProgressBar={false}
+          hideProgressBar={true}
           closeOnClick="true"
         />
       </section>

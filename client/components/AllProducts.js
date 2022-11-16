@@ -63,21 +63,25 @@ class AllProducts extends Component {
         {role === 'admin' ? (
           <div>
             <AddProduct />
-            <div id="products-container">
+            <div id="products-container-admin">
               {products.map((product) => {
                 return (
                   <div key={product.id} id="product">
                     <img id="product-image" src={product.image} />
                     <Link to={`/products/${product.id}`}>
                       {' '}
-                      <p>{product.name}</p>
+                      <p id="product-name-admin">
+                        {product.name.toUpperCase()}
+                      </p>
                     </Link>
                     <p>Quantity: {product.quantity}</p>
                     <p>Price: {product.price}</p>
-                    <p>Description: {product.description}</p>
+                    <p id="product-description-admin">
+                      Description: {product.description}
+                    </p>
                     <p>Category: {product.quantity}</p>
                     <button
-                      id="delete-product"
+                      id="button-products"
                       onClick={() => {
                         this.props.persistProductDelete(product.id);
                       }}
@@ -123,7 +127,7 @@ class AllProducts extends Component {
                       </form>
                       <button
                         onClick={() => this.handleAddItem(product)}
-                        id="add-to-cart-product"
+                        id="button-products"
                       >
                         add to cart
                       </button>

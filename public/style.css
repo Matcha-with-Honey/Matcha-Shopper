@@ -369,7 +369,7 @@ form label {
   align-items: center;
   justify-content: center;
 }
-#add-to-cart-product {
+#button-products {
   border: solid black 1px;
   border-radius: 1em;
   padding: 0.5em;
@@ -390,4 +390,25 @@ form label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+#add-product-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#product-name-admin {
+  font-size: 1.5em;
+}
+
+#products-container-admin {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* width: 2em; */
+}
+
+#product-description-admin {
+  width: 12em;
 }
