@@ -149,7 +149,6 @@ footer span {
   color: black;
 }
 
-
 #cart {
   position: relative;
   display: flex;
@@ -296,6 +295,25 @@ footer span {
   margin: 8px 0;
   border: none;
   border-bottom: 2px solid rgb(23, 93, 42);
+  background: transparent;
+  border: none;
+}
+#log-in-form-div {
+  padding: 5em 5em;
+}
+
+#log-in-sign-up-form {
+  padding: 10em 10em;
+  margin: auto;
+  text-align: center;
+}
+
+#log-in-sign-up-form input {
+  padding: 8px 12px;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 2px solid rgb(23, 93, 42);
+  background: transparent;
 }
 
 form label {
