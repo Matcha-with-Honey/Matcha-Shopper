@@ -3,6 +3,7 @@ import axios from 'axios';
 import authReducer from './redux/auth';
 import productsReducer from './redux/products';
 import { usersReducer } from './redux/users';
+import { orderHistoryReducer } from './redux/orderHistory';
 import orderReducer from './redux/orders';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   productsReducer,
   usersReducer,
   orderReducer,
+  orderHistoryReducer,
 });
 
 let middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
