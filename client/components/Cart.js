@@ -110,17 +110,17 @@ export class Cart extends Component {
       return this.preciseCurrencyAddition([acc, mult]);
     }, '0.00');
 
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(total);
+    return total;
   }
 
   handlePurchase() {
     try {
+      const total = this.sumTotal(this.props.cartItems);
+      const floatTotal = parseFloat(total);
       this.props.updateOrderOnPurchase({
         ...this.props.order,
         purchase_status: true,
+        order_total: floatTotal,
       });
       this.setState({ ...this.state, checkoutComplete: true });
       window.localStorage.removeItem('guestCart');
@@ -188,7 +188,13 @@ export class Cart extends Component {
                         </div>
                       );
                     })}
-                    <h3>Total: {this.sumTotal(items)}</h3>
+                    <h3>
+                      Total:{' '}
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      }).format(this.sumTotal(items))}
+                    </h3>
                     <form>
                       <button
                         type="submit"
