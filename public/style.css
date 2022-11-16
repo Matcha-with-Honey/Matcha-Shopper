@@ -116,26 +116,26 @@ nav a {
   left: 48%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 490px) {
   #home-desc {
     font-size: 0.8em;
     /* left: 41%; */
   }
 }
-@media (min-width: 400px) and (max-width: 700px) {
+@media (min-width: 490px) and (max-width: 710px) {
   #home-desc {
     font-size: 1.2em;
   }
 }
 
-@media (min-width: 700px) and (max-width: 1100px) {
+@media (min-width: 710px) and (max-width: 1100px) {
   #home-desc {
     font-size: 1.8em;
   }
 }
 
 #home-main a {
-  width: 6em;
+  width: 5.5em;
   position: relative;
   background-image: none;
   text-decoration: none;
@@ -146,19 +146,19 @@ nav a {
   background: none;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 490px) {
   #home-main a {
     font-size: 0.5em;
   }
 }
 
-@media (min-width: 400px) and (max-width: 700px) {
+@media (min-width: 490px) and (max-width: 710px) {
   #home-main a {
     font-size: 0.6em;
   }
 }
 
-@media (min-width: 700px) and (max-width: 1100px) {
+@media (min-width: 710px) and (max-width: 1100px) {
   #home-main a {
     font-size: 0.8em;
   }
