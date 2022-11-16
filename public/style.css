@@ -76,8 +76,8 @@ nav a {
 #logo {
   background-image: none;
   position: relative;
-  width: 60%;
-  margin-top: 10%;
+  width: 40%;
+  margin-top: 6%;
 }
 
 #home-main {
@@ -90,36 +90,53 @@ nav a {
 }
 
 #home-image {
-  width: 33em;
+  width: 50%;
   align-items: center;
-}
-
-@media (max-width: 500px) {
-  #home-image {
-    width: 16em;
-  }
+  position: relative;
 }
 
 #home-desc {
-  width: 10em;
+  width: 11em;
   background-image: none;
   color: white;
-  font-size: 3em;
-  background: none;
-  position: absolute;
-  left: 51%;
-  top: 20%;
-  transform: translate(-50%, -50%);
+  font-size: 2.7em;
+  /* background: none; */
+  /* position: absolute; */
+  /* left: 11.5em; */
+  /* top: 2.6em; */
+  /* transform: translate(-50%, -50%); */
 }
 
-@media (max-width: 500px) {
+#home-main-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 20%;
+  left: 48%;
+}
+
+@media (max-width: 400px) {
   #home-desc {
-    font-size: 1em;
-    left: 41%;
+    font-size: 0.8em;
+    /* left: 41%; */
+  }
+}
+@media (min-width: 400px) and (max-width: 700px) {
+  #home-desc {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1100px) {
+  #home-desc {
+    font-size: 1.8em;
   }
 }
 
 #home-main a {
+  width: 6em;
+  position: relative;
   background-image: none;
   text-decoration: none;
   background-color: 170, 194, 128;
@@ -127,33 +144,23 @@ nav a {
   padding: 0.5em;
   color: white;
   background: none;
-  position: absolute;
-  left: 37.8%;
-  top: 39%;
-  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 400px) {
   #home-main a {
     font-size: 0.5em;
-    top: 35%;
-    left: 26%;
   }
 }
 
-@media (min-width: 400px) and (max-width: 500px) {
+@media (min-width: 400px) and (max-width: 700px) {
   #home-main a {
-    font-size: 0.5em;
-    top: 35%;
-    left: 27.5%;
+    font-size: 0.6em;
   }
 }
 
-@media (min-width: 500px) and (max-width: 850px) {
+@media (min-width: 700px) and (max-width: 1100px) {
   #home-main a {
     font-size: 0.8em;
-    top: 37%;
-    left: 26%;
   }
 }
 
@@ -549,13 +556,13 @@ form label {
 }
 
 #single-product-container img {
-  width: 40em;
+  width: 50%;
   /* margin-left: 15%; */
   margin-bottom: 2em;
 }
 
 #product-image-single {
-  width: 5em;
+  /* width: 5em; */
   border-radius: 20%;
 }
 
@@ -564,20 +571,38 @@ form label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #inner-single-product h2 {
   font-size: 2.6em;
 }
 
+@media (max-width: 600px) {
+  #inner-single-product h2 {
+    font-size: 1.5em;
+  }
+}
+
 #product-desc {
   font-size: 1.8em;
+}
+
+@media (max-width: 600px) {
+  #product-desc {
+    font-size: 1em;
+  }
 }
 
 #product-single-price {
   font-size: 1.5em;
 }
 
+@media (max-width: 450px) {
+  #product-single-price {
+    font-size: 1em;
+  }
+}
 #button-and-form {
   display: flex;
   align-items: center;
@@ -592,11 +617,23 @@ form label {
   border-radius: 0.3em;
 }
 
+@media (max-width: 450px) {
+  .quantity-selector-single {
+    font-size: 0.8em;
+  }
+}
+
 #button-products-single {
   border: solid black 1px;
   border-radius: 1em;
   padding: 0.5em;
   font-size: 1.2em;
+}
+
+@media (max-width: 450px) {
+  #button-products-single {
+    font-size: 0.8em;
+  }
 }
 
 #update-product-form {

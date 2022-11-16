@@ -7,8 +7,10 @@ export const Home = (props) => {
     <div>
       <section id="home-main">
         <img id="home-image" src="homePage.jpg"></img>
-        <p id="home-desc">Where you find all things matcha</p>
-        <Link to="/products">SHOP NOW</Link>
+        <div id="home-main-text-wrapper">
+          <p id="home-desc">Where you find all things matcha</p>
+          <Link to="/products">SHOP NOW</Link>
+        </div>
       </section>
       <section id="about-store">
         <p>
