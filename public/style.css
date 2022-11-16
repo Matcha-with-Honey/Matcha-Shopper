@@ -38,35 +38,62 @@ nav a {
   /* overflow-wrap: break-word; */
 }
 
-@media (max-width: 800px) {
+@media (max-width: 500px) {
+  nav a {
+    font-size: 0.6em;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 850px) {
   nav a {
     font-size: 0.8em;
   }
 }
 
 #welcome-nav {
-  /* flex-shrink: 1; */
   font-size: 1.5em;
   background-image: none;
   margin-left: 5%;
   margin-right: 5%;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 500px) {
   #welcome-nav {
-    font-size: 1em;
+    font-size: 0.6em;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 850px) {
+  #welcome-nav {
+    font-size: 0.8em;
   }
 }
 
 #logo {
   background-image: none;
+  position: relative;
   width: 30em;
   margin-left: 33%;
-  margin-top: 2em;
+  margin-top: 10%;
+}
+
+@media (max-width: 500px) {
+  #logo {
+    width: 12em;
+    margin-left: 25%;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 850px) {
+  #logo {
+    width: 25em;
+    margin-left: 26%;
+  }
 }
 
 #home-main {
   display: flex;
+  position: relative;
   flex-direction: column;
   background-image: none;
   justify-items: center;
@@ -78,6 +105,12 @@ nav a {
   align-items: center;
 }
 
+@media (max-width: 500px) {
+  #home-image {
+    width: 16em;
+  }
+}
+
 #home-desc {
   width: 10em;
   background-image: none;
@@ -86,8 +119,15 @@ nav a {
   background: none;
   position: absolute;
   left: 51%;
-  top: 53%;
+  top: 20%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 500px) {
+  #home-desc {
+    font-size: 1em;
+    left: 41%;
+  }
 }
 
 #home-main a {
@@ -100,8 +140,32 @@ nav a {
   background: none;
   position: absolute;
   left: 37.8%;
-  top: 71%;
+  top: 39%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 400px) {
+  #home-main a {
+    font-size: 0.5em;
+    top: 35%;
+    left: 26%;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 500px) {
+  #home-main a {
+    font-size: 0.5em;
+    top: 35%;
+    left: 27.5%;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 850px) {
+  #home-main a {
+    font-size: 0.8em;
+    top: 37%;
+    left: 26%;
+  }
 }
 
 #about-store p {
