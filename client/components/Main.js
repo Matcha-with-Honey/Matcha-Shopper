@@ -100,7 +100,7 @@ class Main extends Component {
           </Routes>
         )}
         <footer>
-          <a href="mailto:delossantosshey@gmail.com" id="footer-contact">
+          <a href="mailto:info@allmatcha.com" id="footer-contact">
             CONTACT
           </a>
           <span id="footer-based">BASED IN NEW YORK, NY</span>
