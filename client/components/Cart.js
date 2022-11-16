@@ -99,7 +99,6 @@ export class Cart extends Component {
   }
 
   preciseCurrencyMultiplicationDirect(val, qty) {
-    console.log(val, qty);
 
     const splitVal = val.split('');
 
@@ -112,7 +111,6 @@ export class Cart extends Component {
     const multDec = (scaledDec * qty) / 100;
 
     const preciseTotal = (multInt + multDec).toFixed(2);
-    console.log(preciseTotal);
     return preciseTotal;
   }
 
