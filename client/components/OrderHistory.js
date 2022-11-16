@@ -38,6 +38,11 @@ class OrderHistory extends React.Component {
                     return (
                       <div key={item.id}>
                         <p>Item:</p>
+                        {this.props.products.map((product) => {
+                          if (product.id === item.id) {
+                            return <div>{product.name}</div>;
+                          }
+                        })}
                         <p>Quantity: {item.quantity}</p>
                       </div>
                     );
@@ -47,8 +52,6 @@ class OrderHistory extends React.Component {
             );
           })}
         </div>
-        {/* <div>{order_products.map}</div>
-        <p>Total: {order_total}<p/> */}
       </section>
     );
   }
@@ -57,6 +60,7 @@ class OrderHistory extends React.Component {
 const mapState = (state) => {
   return {
     orderHistory: state.orderHistoryReducer,
+    products: state.productsReducer.products,
   };
 };
 
