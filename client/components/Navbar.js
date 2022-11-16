@@ -18,11 +18,11 @@ class Navbar extends React.Component {
     const { isLoggedIn, userId, userName } = this.props;
 
     return (
-      <section id="nav-bar">
+      <section>
         {/* <h1>ALL Match</h1> */}
         <nav>
           {isLoggedIn && this.props.role === 'admin' && (
-            <div>
+            <div id="nav-bar">
               {/* The navbar will show these links after you log in */}
               <Link to="/">HOME</Link>
               <Link to="/products">PRODUCTS</Link>
@@ -35,7 +35,7 @@ class Navbar extends React.Component {
             </div>
           )}{' '}
           {isLoggedIn && this.props.role === 'member' && (
-            <div>
+            <div id="nav-bar">
               {/* The navbar will show these links after you log in */}
               <Link to="/" id="home-nav">
                 HOME
@@ -52,7 +52,7 @@ class Navbar extends React.Component {
             </div>
           )}
           {!isLoggedIn && (
-            <div>
+            <div id="nav-bar">
               {/* The navbar will show these links before you log in */}
               <Link to="/">HOME</Link>
               <Link to="/products">PRODUCTS</Link>
@@ -61,7 +61,7 @@ class Navbar extends React.Component {
               </span>{' '}
               <Link to="/cart">CART</Link>
               <Link to="/login">LOGIN</Link>
-              <Link to="/signup">SIGN UP</Link>
+              <Link to="/signup">JOIN</Link>
             </div>
           )}
         </nav>
