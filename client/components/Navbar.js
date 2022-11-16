@@ -15,44 +15,58 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { isLoggedIn, userId } = this.props;
+    const { isLoggedIn, userId, userName } = this.props;
+
     return (
-      <div>
-        <h1>ALL Match</h1>
+      <section id="nav-bar">
+        {/* <h1>ALL Match</h1> */}
         <nav>
           {isLoggedIn && this.props.role === 'admin' && (
             <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/products">Products</Link>
-              <Link to="/users">Users</Link>
-              <Link to="/cart">Cart</Link>
-              <a onClick={() => this.logoutHandler()}>Logout</a>
+              <Link to="/">HOME</Link>
+              <Link to="/products">PRODUCTS</Link>
+              <span id="welcome-nav">
+                {`WELCOME ${userName.toUpperCase()}! HOW ABOUT A CUP OF TEA?`}
+              </span>{' '}
+              <Link to="/users">USERS</Link>
+              <Link to="/cart">CART</Link>
+              <Link onClick={() => this.logoutHandler()}>Logout</Link>
             </div>
           )}{' '}
           {isLoggedIn && this.props.role === 'member' && (
             <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/products">Products</Link>
-              <Link to={`/users/${userId}`}>Account</Link>
-              <Link to="/cart">Cart</Link>
-              <a onClick={() => this.logoutHandler()}>Logout</a>
+              <Link to="/" id="home-nav">
+                HOME
+              </Link>
+              {/* <div id="nav-line"></div> */}
+              <Link to="/products">PRODUCTS</Link>
+              <span id="welcome-nav">
+                {`WELCOME ${userName.toUpperCase()}! HOW ABOUT A CUP OF TEA?`}
+              </span>
+
+              <Link to={`/users/${userId}`}>ACCOUNT</Link>
+              <Link to="/cart">CART</Link>
+              <Link onClick={() => this.logoutHandler()}>LOGOUT</Link>
             </div>
           )}
           {!isLoggedIn && (
             <div>
               {/* The navbar will show these links before you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-              <Link to="/products">Products</Link>
-              <Link to="/cart">Cart</Link>
+
+              <Link to="/login">LOGIN</Link>
+              <Link to="/signup">SIGN UP</Link>
+              <span id="welcome-nav">
+                {`WELCOME! HOW ABOUT A CUP OF TEA?`}
+              </span>{' '}
+              <Link to="/products">PRODUCTS</Link>
+              <Link to="/cart">CART</Link>
+
             </div>
           )}
         </nav>
-        <hr />
-      </div>
+      </section>
     );
   }
 }
@@ -65,6 +79,7 @@ const mapState = (state) => {
     isLoggedIn: state.authReducer.id ? true : false,
     role: state.authReducer.role,
     userId: state.authReducer.id,
+    userName: state.authReducer.first_name,
   };
 };
 
