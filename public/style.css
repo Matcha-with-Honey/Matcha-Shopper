@@ -287,7 +287,16 @@ footer span {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgb(236, 233, 233);
+  background-color: white;
+}
+
+#order-total,
+#order-qty {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-right: 3rem;
+  justify-content: flex-end;
 }
 
 #update-user-form input {
@@ -296,7 +305,6 @@ footer span {
   border: none;
   border-bottom: 2px solid rgb(23, 93, 42);
   background: transparent;
-  border: none;
 }
 #log-in-form-div {
   padding: 5em 5em;

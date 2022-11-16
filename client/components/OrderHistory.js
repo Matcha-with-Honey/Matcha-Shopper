@@ -30,9 +30,9 @@ class OrderHistory extends React.Component {
             return (
               <div key={index} id="order-history">
                 <p>Order Date: {orders.updatedAt.slice(0, 10)}</p>
-                <p>
+                <div id="order-total">
                   Order Total: <strong>${orders.order_total}</strong>
-                </p>
+                </div>
                 <div>
                   {orders.order_products.map((item, index) => {
                     return (
@@ -42,7 +42,7 @@ class OrderHistory extends React.Component {
                             return <strong>{product.name}</strong>;
                           }
                         })}
-                        <p>Quantity: {item.quantity}</p>
+                        <p id="order-qty">Quantity: {item.quantity}</p>
                       </div>
                     );
                   })}
