@@ -68,27 +68,16 @@ nav a {
     font-size: 0.8em;
   }
 }
+#logo-wrapper {
+  display: flex;
+  justify-content: center;
+}
 
 #logo {
   background-image: none;
   position: relative;
-  width: 30em;
-  margin-left: 33%;
+  width: 60%;
   margin-top: 10%;
-}
-
-@media (max-width: 500px) {
-  #logo {
-    width: 12em;
-    margin-left: 25%;
-  }
-}
-
-@media (min-width: 500px) and (max-width: 850px) {
-  #logo {
-    width: 25em;
-    margin-left: 26%;
-  }
 }
 
 #home-main {
@@ -168,79 +157,68 @@ nav a {
   }
 }
 
+#about-store {
+  display: flex;
+  justify-content: center;
+  /* width: 70%; */
+}
+
 #about-store p {
   background-image: none;
-  width: 30em;
-  font-size: 1.9em;
-  font-weight: 100;
-  margin-left: 18%;
+  width: 80%;
+  font-size: 1.7em;
+  /* font-weight: 100%; */
+  /* margin-left: 18%; */
   margin-top: 5em;
   margin-bottom: 3em;
 }
 
-@media (max-width: 300px) {
+@media (max-width: 500px) {
   #about-store p {
-    font-size: 0.7em;
+    font-size: 0.9em;
     margin-left: 5%;
   }
 }
 
-@media (min-width: 300px) and (max-width: 450px) {
+/* @media (min-width: 300px) and (max-width: 450px) {
   #about-store p {
     font-size: 0.75em;
     margin-left: 5.5%;
   }
-}
-@media (min-width: 450px) and (max-width: 850px) {
+} */
+/* @media (min-width: 450px) and (max-width: 850px) {
   #about-store p {
     font-size: 1.3em;
     margin-left: 9.3%;
   }
-}
-
+} */
 #product-highlight {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #product-home {
-  width: 30em;
-  margin-left: 18%;
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
-
-@media (max-width: 400px) {
-  #product-home {
-    width: 10em;
-    margin-left: 0.7em;
-  }
-}
-
-@media (min-width: 400px) and (max-width: 850px) {
-  #product-home {
-    width: 25em;
-    margin-left: 2.5em;
-  }
+  width: 50%;
+  position: relative;
+  /* margin-bottom: 3em; */
 }
 
 #product-highlight-desc {
   background-image: none;
-  margin-left: 2em;
   font-size: 1.7em;
-}
-
-@media (max-width: 400px) {
-  #product-highlight-desc {
-    font-size: 1em;
-  }
+  padding-left: 1em;
 }
 
 #product-highlight-text {
+  position: relative;
+  width: 30%;
   background-image: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #product-highlight-text a {
@@ -252,9 +230,15 @@ nav a {
   padding: 0.5em;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
+  #product-highlight-desc {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 500px) {
   #product-highlight-text a {
-    font-size: 0.6em;
+    font-size: 0.4em;
   }
 }
 
