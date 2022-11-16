@@ -54,6 +54,7 @@ class Navbar extends React.Component {
           {!isLoggedIn && (
             <div>
               {/* The navbar will show these links before you log in */}
+
               <Link to="/login">LOGIN</Link>
               <Link to="/signup">SIGN UP</Link>
               <span id="welcome-nav">
@@ -61,6 +62,7 @@ class Navbar extends React.Component {
               </span>{' '}
               <Link to="/products">PRODUCTS</Link>
               <Link to="/cart">CART</Link>
+
             </div>
           )}
         </nav>

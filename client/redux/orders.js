@@ -131,7 +131,6 @@ export const addItem = (productId, orderId, qty) => {
         const { data } = await axios.post('/api/cart', item);
         added = data;
       } else {
-        console.log('put 2 has data');
         const { data } = await axios.put(
           `/api/cart/${item.orderId}/${item.productId}`,
           { quantity: item.quantity + check.data.quantity }

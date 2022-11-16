@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { persistProductUpdate } from '../redux/products';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class UpdateProduct extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleAlert = this.handleAlert.bind(this);
   }
 
   handleSubmit(evt) {
@@ -43,10 +46,29 @@ class UpdateProduct extends Component {
     }
   }
 
+  handleAlert(event) {
+    event.preventDefault();
+    return toast('Name, price, quantity and category must be defined.');
+  }
+
   render() {
     return (
       <section>
-        <form id="update-product-form" onSubmit={this.handleSubmit}>
+        <form
+          id="update-product-form"
+          onSubmit={(event) => {
+            if (
+              event.target.name.value !== '' &&
+              event.target.price.value !== '' &&
+              event.target.quantity.value !== '' &&
+              event.target.category.value !== ''
+            ) {
+              this.handleSubmit(event);
+            } else {
+              this.handleAlert(event);
+            }
+          }}
+        >
           <input
             name="name"
             placeholder="product name"
@@ -86,6 +108,12 @@ class UpdateProduct extends Component {
           ></input>
           <button type="submit">UPDATE</button>
         </form>
+        <ToastContainer
+          position="top-center"
+          autoClose={2700}
+          hideProgressBar={false}
+          closeOnClick="true"
+        />
       </section>
     );
   }

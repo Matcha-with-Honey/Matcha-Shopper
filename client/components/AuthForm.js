@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { authenticate } from '../redux/auth';
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
+
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -16,7 +19,6 @@ const AuthForm = (props) => {
             <input type="text" name="email" placeholder="email" />
             <input type="text" name="phone" placeholder="phone number" />
             <button type="submit">{displayName}</button>
-            {error && error.response && <div> {error.response.data} </div>}
           </div>
         ) : (
           <div>
@@ -27,6 +29,12 @@ const AuthForm = (props) => {
           </div>
         )}
       </form>
+      <ToastContainer
+        position="top-center"
+        autoClose={2700}
+        hideProgressBar={false}
+        closeOnClick="true"
+      />
     </div>
   );
 };
@@ -60,6 +68,16 @@ const mapDispatch = (dispatch) => {
         const email = evt.target.email.value;
         const phone = evt.target.phone.value;
         const role = 'member';
+        console.log(username);
+        if (
+          username === '' ||
+          password === '' ||
+          first_name === '' ||
+          last_name === '' ||
+          email === ''
+        ) {
+          return toast('All fields except phone number must be defined.');
+        }
         dispatch(
           authenticate(
             { username, password, first_name, last_name, email, role, phone },
