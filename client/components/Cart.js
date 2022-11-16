@@ -23,6 +23,8 @@ export class Cart extends Component {
     this.handlePurchase = this.handlePurchase.bind(this);
     this.preciseCurrencyMultiplication =
       this.preciseCurrencyMultiplication.bind(this);
+    this.preciseCurrencyMultiplicationDirect =
+      this.preciseCurrencyMultiplicationDirect.bind(this);
   }
 
   async componentDidMount() {
@@ -92,7 +94,23 @@ export class Cart extends Component {
     const multDec = (scaledDec * qty) / 100;
 
     const preciseTotal = (multInt + multDec).toFixed(2);
+    console.log(preciseTotal);
+    return preciseTotal;
+  }
 
+  preciseCurrencyMultiplicationDirect(val, qty) {
+
+    const splitVal = val.split('');
+
+    const intDigits = splitVal.indexOf('.');
+    const digitScalingInt = parseInt(splitVal.splice(0, intDigits).join(''));
+
+    const multInt = digitScalingInt * qty;
+
+    const scaledDec = parseFloat(splitVal.join('')) * 100;
+    const multDec = (scaledDec * qty) / 100;
+
+    const preciseTotal = (multInt + multDec).toFixed(2);
     return preciseTotal;
   }
 
@@ -186,7 +204,14 @@ export class Cart extends Component {
                               </select>
                             </form>
                             <div id="item-price">
-                              <h4>{item.product.price}</h4>
+                              <span>
+                                <h4>
+                                  {this.preciseCurrencyMultiplicationDirect(
+                                    item.product.price,
+                                    item.quantity
+                                  )}
+                                </h4>
+                              </span>
                             </div>
                           </div>
                           <div id="cart-item-left">
@@ -240,23 +265,6 @@ export class Cart extends Component {
                         </button>
                       </form>
                     </div>
-
-                    <h3>
-                      Total:{' '}
-                      {new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      }).format(this.sumTotal(items))}
-                    </h3>
-                    <form>
-                      <button
-                        type="submit"
-                        onClick={() => this.handlePurchase()}
-                      >
-                        <Link to="/Checkout"> Complete Purchase</Link>
-                      </button>
-                    </form>
-
                   </div>
                 ) : (
                   <div>No items in cart.</div>
