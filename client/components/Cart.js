@@ -139,7 +139,7 @@ export class Cart extends Component {
             <h2>Checkout Complete</h2>
           </div>
         ) : (
-          <div>
+          <div id="has-items">
             <h2>Ready to checkout?</h2>
             <div id="cart-container">
               <div id="item-list">
@@ -151,7 +151,21 @@ export class Cart extends Component {
                         <div key={item.productId} className="cart-item">
                           <div id="cart-item-left">
                             <h4>{item.product.name}</h4>
-                            <img src={item.image} />
+                            <img
+                              style={{
+                                backgroundImage: `url(${item.product.image})`,
+                                backgroundSize: 'cover',
+                                height: '8rem',
+                                width: '8rem',
+                                borderRadius: '50%',
+                                overflow: 'hidden',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                verticalAlign: 'middle',
+                                whiteSpace: 'nowrap',
+                              }}
+                            />
                           </div>
                           <div id="cart-item-right">
                             <div id="item-price">{item.product.price}</div>
