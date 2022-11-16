@@ -412,3 +412,61 @@ form label {
 #product-description-admin {
   width: 12em;
 }
+
+#single-product-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#single-product-container img {
+  width: 40em;
+  /* margin-left: 15%; */
+  margin-bottom: 2em;
+}
+
+#product-image-single {
+  width: 5em;
+  border-radius: 20%;
+}
+
+#inner-single-product {
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inner-single-product h2 {
+  font-size: 2.6em;
+}
+
+#product-desc {
+  font-size: 1.8em;
+}
+
+#product-single-price {
+  font-size: 1.5em;
+}
+
+#button-and-form {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.quantity-selector-single {
+  font-size: 1.4em;
+  background-color: white;
+  margin-right: 0.8em;
+  margin-left: 2em;
+  border-radius: 0.3em;
+}
+
+#button-products-single {
+  border: solid black 1px;
+  border-radius: 1em;
+  padding: 0.5em;
+  font-size: 1.2em;
+}
