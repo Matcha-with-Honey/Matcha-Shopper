@@ -17,7 +17,6 @@ export class Cart extends Component {
     this.state = {
       checkoutComplete: false,
       quantities: new Map(),
-      totalPrice: 0.0,
     };
     this.sumTotal = this.sumTotal.bind(this);
     this.handlePurchase = this.handlePurchase.bind(this);
