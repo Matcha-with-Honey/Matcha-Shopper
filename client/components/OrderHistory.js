@@ -22,15 +22,13 @@ class OrderHistory extends React.Component {
   }
 
   render() {
-    console.log('====', this.props.orderHistory);
     const { orderHistory } = this.props;
-
     return (
       <section>
         <div>
           {orderHistory.map((orders) => {
             return (
-              <div key={orders.id}>
+              <div key={orders.id} id="order-history">
                 <p>Order Date: {orders.updatedAt}</p>
                 <p>Order Total: {orders.order_total}</p>
                 <div>

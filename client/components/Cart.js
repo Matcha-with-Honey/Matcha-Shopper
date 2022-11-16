@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   deleteItem,
   fetchNewCart,
@@ -219,6 +220,7 @@ export class Cart extends Component {
                         </div>
                       );
                     })}
+
                     <div id="cart-submit">
                       <span id="summary">
                         <h3 id="total">
@@ -238,6 +240,23 @@ export class Cart extends Component {
                         </button>
                       </form>
                     </div>
+
+                    <h3>
+                      Total:{' '}
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      }).format(this.sumTotal(items))}
+                    </h3>
+                    <form>
+                      <button
+                        type="submit"
+                        onClick={() => this.handlePurchase()}
+                      >
+                        <Link to="/Checkout"> Complete Purchase</Link>
+                      </button>
+                    </form>
+
                   </div>
                 ) : (
                   <div>No items in cart.</div>
