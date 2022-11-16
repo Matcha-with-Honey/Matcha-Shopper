@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticate } from '../redux/auth';
+import { Link } from 'react-router-dom';
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
@@ -25,7 +26,9 @@ const AuthForm = (props) => {
             <br></br>
             <input type="text" name="phone" placeholder="phone number" />
             <br></br>
-            <button type="submit">{displayName}</button>
+            <Link to="/">
+              <button type="submit">{displayName}</button>{' '}
+            </Link>
           </div>
         ) : (
           <div>
@@ -33,7 +36,9 @@ const AuthForm = (props) => {
             <br></br>
             <input type="text" name="password" placeholder="password" />
             <br></br>
-            <button type="submit">{displayName}</button>
+            <Link to="/">
+              <button type="submit">{displayName}</button>
+            </Link>
             {error && error.response && <div> {error.response.data} </div>}
           </div>
         )}
