@@ -10,6 +10,7 @@ import {
   updateItem,
   updateOrder,
 } from '../redux/orders';
+import OrderHistory from './OrderHistory';
 
 export class Cart extends Component {
   constructor(props) {
