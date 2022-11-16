@@ -31,7 +31,7 @@ class Navbar extends React.Component {
               </span>{' '}
               <Link to="/users">USERS</Link>
               <Link to="/cart">CART</Link>
-              <Link onClick={() => this.logoutHandler()}>Logout</Link>
+              <Link onClick={() => this.logoutHandler()}>LOGOUT</Link>
             </div>
           )}{' '}
           {isLoggedIn && this.props.role === 'member' && (
@@ -54,15 +54,14 @@ class Navbar extends React.Component {
           {!isLoggedIn && (
             <div>
               {/* The navbar will show these links before you log in */}
-
-              <Link to="/login">LOGIN</Link>
-              <Link to="/signup">SIGN UP</Link>
+              <Link to="/">HOME</Link>
+              <Link to="/products">PRODUCTS</Link>
               <span id="welcome-nav">
                 {`WELCOME! HOW ABOUT A CUP OF TEA?`}
               </span>{' '}
-              <Link to="/products">PRODUCTS</Link>
               <Link to="/cart">CART</Link>
-
+              <Link to="/login">LOGIN</Link>
+              <Link to="/signup">SIGN UP</Link>
             </div>
           )}
         </nav>
