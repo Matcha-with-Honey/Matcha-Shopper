@@ -99,7 +99,6 @@ export class Cart extends Component {
   }
 
   preciseCurrencyMultiplicationDirect(val, qty) {
-
     const splitVal = val.split('');
 
     const intDigits = splitVal.indexOf('.');
@@ -206,6 +205,7 @@ export class Cart extends Component {
                             <div id="item-price">
                               <span>
                                 <h4>
+                                  $
                                   {this.preciseCurrencyMultiplicationDirect(
                                     item.product.price,
                                     item.quantity
