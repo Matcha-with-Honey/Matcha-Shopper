@@ -1,6 +1,7 @@
 * {
   font-family: 'Gayathri', sans-serif;
 }
+
 body {
   background-image: linear-gradient(
     to right,
@@ -40,7 +41,6 @@ nav a {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
-
 
 #cart {
   position: relative;
@@ -173,6 +173,8 @@ nav a {
 #summary {
   float: right;
   margin-right: 5rem;
+}
+
 #order-history {
   border: solid black 0.09em;
   display: flex;
@@ -190,5 +192,64 @@ nav a {
 
 form label {
   font-weight: bold;
+}
 
+#products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#product {
+  margin-top: 5em;
+  margin-right: 3em;
+  margin-left: 3em;
+  margin-bottom: 5em;
+}
+
+#product-image {
+  width: 14em;
+  height: 14em;
+  border: none;
+  border-radius: 50%;
+}
+
+#product a {
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+#product-price {
+  margin-top: 0.2em;
+  text-align: center;
+  font-size: 0.9em;
+}
+#add-to-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#add-to-cart-product {
+  border: solid black 1px;
+  border-radius: 1em;
+  padding: 0.5em;
+}
+
+#product-info {
+  display: flex;
+}
+
+.quantity-selector {
+  background-color: white;
+  margin-right: 0.8em;
+  margin-left: 2em;
+  border-radius: 0.3em;
+}
+
+#inner-product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

@@ -60,7 +60,6 @@ class AllProducts extends Component {
     const { role } = this.props;
     return (
       <section>
-        <h2 id="products-title">ALL PRODUCTS</h2>
         {role === 'admin' ? (
           <div>
             <AddProduct />
@@ -68,11 +67,11 @@ class AllProducts extends Component {
               {products.map((product) => {
                 return (
                   <div key={product.id} id="product">
+                    <img id="product-image" src={product.image} />
                     <Link to={`/products/${product.id}`}>
                       {' '}
                       <p>{product.name}</p>
                     </Link>
-                    <img id="product-image" src={product.image} />
                     <p>Quantity: {product.quantity}</p>
                     <p>Price: {product.price}</p>
                     <p>Description: {product.description}</p>
@@ -95,29 +94,41 @@ class AllProducts extends Component {
             {products.map((product) => {
               return (
                 <div key={product.id} id="product">
-                  <Link to={`/products/${product.id}`}>
-                    {' '}
-                    <p>{product.name}</p>
-                    <img id="product-image" src={product.image} />
-                  </Link>
-                  <p>{product.price}</p>
-                  <form>
-                    <select
-                      name="quantity"
-                      id={`quantity-select-${product.id}`}
-                      onChange={(e) => {
-                        const quantityToAdd = parseInt(e.target.value);
-                        const quantities = this.state.quantities;
-                        quantities.set(product.id, quantityToAdd);
-                        this.setState({ ...this.state, quantities });
-                      }}
-                    >
-                      {this.makeOpts(product)}
-                    </select>
-                  </form>
-                  <button onClick={() => this.handleAddItem(product)}>
-                    ADD TO CART
-                  </button>
+                  <img id="product-image" src={product.image} />
+                  <div id="product-info">
+                    <div id="inner-product-details">
+                      <Link to={`/products/${product.id}`}>
+                        {' '}
+                        <span id="product-name">
+                          {product.name.toUpperCase()}
+                        </span>
+                      </Link>
+                      <span id="product-price">{`$ ${product.price}`}</span>
+                    </div>
+                    <div id="add-to-cart">
+                      <form>
+                        <select
+                          name="quantity"
+                          id={`quantity-select-${product.id}`}
+                          className="quantity-selector"
+                          onChange={(e) => {
+                            const quantityToAdd = parseInt(e.target.value);
+                            const quantities = this.state.quantities;
+                            quantities.set(product.id, quantityToAdd);
+                            this.setState({ ...this.state, quantities });
+                          }}
+                        >
+                          {this.makeOpts(product)}
+                        </select>
+                      </form>
+                      <button
+                        onClick={() => this.handleAddItem(product)}
+                        id="add-to-cart-product"
+                      >
+                        add to cart
+                      </button>
+                    </div>
+                  </div>
                 </div>
               );
             })}
