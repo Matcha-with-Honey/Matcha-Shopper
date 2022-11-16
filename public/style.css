@@ -39,10 +39,11 @@ nav a {
   margin-right: 1.5em;
 }
 
-#store-name {
+#logo {
   background-image: none;
-  font-weight: 5000;
-  font-size: 4em;
+  width: 30em;
+  position: absolute;
+  margin-left: 33%;
 }
 
 #home-main {
@@ -54,19 +55,20 @@ nav a {
 }
 
 #home-image {
-  /* margin-left: 25%;
-  margin-top: 3em; */
-  width: 60%;
+  /* margin-left: 25%; */
+  margin-top: 9em;
+  width: 33em;
 }
 
 #home-desc {
+  width: 10em;
   background-image: none;
   color: white;
-  font-size: 2em;
+  font-size: 3em;
   background: none;
   position: absolute;
-  left: 50%;
-  top: 45%;
+  left: 51%;
+  top: 53%;
   transform: translate(-50%, -50%);
 }
 
@@ -79,7 +81,7 @@ nav a {
   color: white;
   background: none;
   position: absolute;
-  left: 31%;
-  top: 57%;
+  left: 37.8%;
+  top: 71%;
   transform: translate(-50%, -50%);
 }
