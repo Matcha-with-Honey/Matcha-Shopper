@@ -6,10 +6,15 @@ export const Home = (props) => {
   return (
     <div>
       <section id="home-main">
-        <h1 id="store-name">ALL MATCHA</h1>
         <img id="home-image" src="homePage.jpg"></img>
         <p id="home-desc">Where you find all things matcha</p>
         <Link to="/products">SHOP NOW</Link>
+      </section>
+      <section id="about-store">
+        <p>
+          At All Matcha we truly care about your tea experience. Our mission is
+          to make matcha accessible to anybody and everybody.
+        </p>
       </section>
     </div>
   );
