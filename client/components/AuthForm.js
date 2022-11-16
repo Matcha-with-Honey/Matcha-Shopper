@@ -3,14 +3,20 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticate } from '../redux/auth';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
     <div id="log-in-form-div">
-      <form id="log-in-sign-up-form" onSubmit={handleSubmit} name={name}>
+      <form
+        id="log-in-sign-up-form"
+        onSubmit={(evt) => {
+          handleSubmit(evt);
+        }}
+        name={name}
+      >
         {name === 'signup' ? (
           <div>
             <br></br>
@@ -69,7 +75,7 @@ const mapSignup = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt) {
+    async handleSubmit(evt) {
       evt.preventDefault();
       const formName = evt.target.name;
       const username = evt.target.username.value;
@@ -90,14 +96,16 @@ const mapDispatch = (dispatch) => {
         ) {
           return toast('All fields except phone number must be defined.');
         }
-        dispatch(
+        await dispatch(
           authenticate(
             { username, password, first_name, last_name, email, role, phone },
             formName
           )
         );
+        window.location.href = '/';
       }
-      dispatch(authenticate({ username, password }, formName));
+      await dispatch(authenticate({ username, password }, formName));
+      window.location.href = '/';
     },
   };
 };
