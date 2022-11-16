@@ -26,19 +26,20 @@ class OrderHistory extends React.Component {
     return (
       <section>
         <div>
-          {orderHistory.map((orders) => {
+          {orderHistory.map((orders, index) => {
             return (
-              <div key={orders.id} id="order-history">
-                <p>Order Date: {orders.updatedAt}</p>
-                <p>Order Total: {orders.order_total}</p>
+              <div key={index} id="order-history">
+                <p>Order Date: {orders.updatedAt.slice(0, 10)}</p>
+                <p>
+                  Order Total: <strong>${orders.order_total}</strong>
+                </p>
                 <div>
-                  {orders.order_products.map((item) => {
+                  {orders.order_products.map((item, index) => {
                     return (
-                      <div key={item.id}>
-                        <p>Item:</p>
+                      <div key={index}>
                         {this.props.products.map((product) => {
                           if (product.id === item.id) {
-                            return <div>{product.name}</div>;
+                            return <strong>{product.name}</strong>;
                           }
                         })}
                         <p>Quantity: {item.quantity}</p>
