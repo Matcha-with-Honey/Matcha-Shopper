@@ -22,16 +22,18 @@ export class AllUsers extends React.Component {
             <h1>User List</h1>
             {users.map((user) => {
               return (
-                <div className="user" key={user.id}>
+                <div className="user-list-container" key={user.id}>
                   <div>
                     <p>{`First Name: ${user.first_name}`}</p>
                     <p>{`Last Name: ${user.last_name}`}</p>
                     <p>{`email: ${user.email}`}</p>
-                    <Link to={`/users/${user.id}`} key={user.id}>
-                      detail
-                    </Link>
-
+                    <button id="user-list-button">
+                      <Link to={`/users/${user.id}`} key={user.id}>
+                        Detail
+                      </Link>
+                    </button>
                     <button
+                      id="user-list-button"
                       onClick={() => {
                         this.props.deleteUser(user.id);
                         this.props.fetchUsers();

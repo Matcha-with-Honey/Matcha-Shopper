@@ -412,3 +412,18 @@ form label {
 #product-description-admin {
   width: 12em;
 }
+
+.user-list-container {
+  border: solid black 0.09em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  padding: 1em;
+  margin: 1em;
+}
+
+#user-list-button {
+  padding-top: 5px;
+  margin-top: 1rem;
+}
