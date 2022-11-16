@@ -4,7 +4,7 @@ const app = require('./server');
 const { db } = require('./server/db');
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
-
+console.log(process.env.STRIPE_SECRET_KEY);
 const init = async () => {
   try {
     if (process.env.SEED === 'true') {

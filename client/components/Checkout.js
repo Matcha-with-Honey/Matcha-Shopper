@@ -7,7 +7,7 @@ class CheckOut extends React.Component {
   }
 
   render() {
-    return <div>hi</div>;
+    return <div>This is where Stripe will be</div>;
   }
 }
 
