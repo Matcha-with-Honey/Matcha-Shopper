@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   deleteItem,
   fetchNewCart,
@@ -200,7 +201,7 @@ export class Cart extends Component {
                         type="submit"
                         onClick={() => this.handlePurchase()}
                       >
-                        Complete Purchase
+                        <Link to="/Checkout"> Complete Purchase</Link>
                       </button>
                     </form>
                   </div>

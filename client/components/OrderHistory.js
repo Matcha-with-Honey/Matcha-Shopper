@@ -22,9 +22,7 @@ class OrderHistory extends React.Component {
   }
 
   render() {
-    console.log('====', this.props.orderHistory);
     const { orderHistory } = this.props;
-
     return (
       <section>
         <div>
