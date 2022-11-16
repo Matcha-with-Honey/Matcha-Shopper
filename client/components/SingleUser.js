@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSingleUser } from '../redux/users';
 import { useParams, Link } from 'react-router-dom';
 import UpdateUser from './UpdateUser';
+import OrderHistory from './OrderHistory';
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;
@@ -39,11 +40,7 @@ export class SingleUser extends React.Component {
           {/* click to edit */}
         </ul>
         <h3>Order History</h3>
-        {/* {PLUG IN ORDERS HERE} */}
-        <hr />
-        <Link>
-          <button type="button">Order History</button>
-        </Link>
+        <OrderHistory />
         <hr />
         <UpdateUser />
       </div>
