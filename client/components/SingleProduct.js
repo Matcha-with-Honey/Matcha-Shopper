@@ -69,13 +69,14 @@ class SingleProduct extends Component {
       <div>
         {role === 'admin' ? (
           <section id="single-product-container">
-            <h2 id="product-name">{product.name}</h2>
             <img src={product.image} />
-            <p>Quantity: {product.quantity}</p>
-            <p>Price: {product.price}</p>
-            <p>Description: {product.description}</p>
-            <p>Category: {product.category}</p>
-
+            <div id="inner-single-product">
+              <h2 id="product-name">{product.name}</h2>
+              <p>Quantity: {product.quantity}</p>
+              <p>Price: {product.price}</p>
+              <p>Description: {product.description}</p>
+              <p>Category: {product.category}</p>
+            </div>
             <UpdateProduct />
           </section>
         ) : (
