@@ -11,8 +11,6 @@ import {
   updateItem,
   updateOrder,
 } from '../redux/orders';
-import CheckOut from './Checkout';
-import OrderHistory from './OrderHistory';
 
 export class Cart extends Component {
   constructor(props) {
