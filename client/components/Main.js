@@ -77,6 +77,7 @@ class Main extends Component {
     const { isLoggedIn } = this.props;
     return (
       <div>
+        <img src="Untitled-2.png" id="logo"></img>
         {isLoggedIn ? (
           <Routes>
             <Route path="/" element={<Home />} />
@@ -98,6 +99,12 @@ class Main extends Component {
             <Route path="/checkout" element={<CheckOut />} />
           </Routes>
         )}
+        <footer>
+          <a href="mailto:delossantosshey@gmail.com" id="footer-contact">
+            CONTACT
+          </a>
+          <span id="footer-based">BASED IN NEW YORK, NY</span>
+        </footer>
       </div>
     );
   }
