@@ -26,9 +26,7 @@ const AuthForm = (props) => {
             <br></br>
             <input type="text" name="phone" placeholder="phone number" />
             <br></br>
-            <Link to="/">
-              <button type="submit">{displayName}</button>{' '}
-            </Link>
+            <button type="submit">{displayName}</button>{' '}
           </div>
         ) : (
           <div>
@@ -36,9 +34,9 @@ const AuthForm = (props) => {
             <br></br>
             <input type="text" name="password" placeholder="password" />
             <br></br>
-            <Link to="/">
-              <button type="submit">{displayName}</button>
-            </Link>
+
+            <button type="submit">{displayName}</button>
+
             {error && error.response && <div> {error.response.data} </div>}
           </div>
         )}
