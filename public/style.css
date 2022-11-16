@@ -38,3 +38,48 @@ nav a {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
+
+#store-name {
+  background-image: none;
+  font-weight: 5000;
+  font-size: 4em;
+}
+
+#home-main {
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  background-image: none;
+  align-items: center;
+}
+
+#home-image {
+  /* margin-left: 25%;
+  margin-top: 3em; */
+  width: 60%;
+}
+
+#home-desc {
+  background-image: none;
+  color: white;
+  font-size: 2em;
+  background: none;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
+#home-main a {
+  background-image: none;
+  text-decoration: none;
+  background-color: 170, 194, 128;
+  border: solid green 1px;
+  padding: 0.5em;
+  color: white;
+  background: none;
+  position: absolute;
+  left: 31%;
+  top: 57%;
+  transform: translate(-50%, -50%);
+}
