@@ -56,6 +56,7 @@ class UpdateUser extends React.Component {
     return (
       <section>
         <form
+          id="update-user-form"
           onSubmit={(event) => {
             if (
               event.target.first_name.value !== '' &&

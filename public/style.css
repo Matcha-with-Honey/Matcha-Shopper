@@ -1,5 +1,7 @@
 * {
   font-family: 'Gayathri', sans-serif;
+}
+body {
   background-image: linear-gradient(
     to right,
     rgb(248, 217, 236),
@@ -38,6 +40,7 @@ nav a {
   margin-left: 1.5em;
   margin-right: 1.5em;
 }
+
 
 #logo {
   background-image: none;
@@ -145,4 +148,154 @@ footer span {
   background-image: none;
   text-decoration: none;
   color: black;
+}
+
+#cart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  background: none;
+  align-items: center;
+}
+
+#cart h2 {
+  font-size: 2.5rem;
+  margin-left: 3rem;
+}
+
+#cart h3 {
+  font-size: 2rem;
+}
+
+#cart h4 {
+  font-size: 1.5rem;
+}
+
+#cart-container {
+  background-color: white;
+  border: solid black 0.09em;
+  border-radius: 25px;
+  padding-left: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#has-items {
+  width: 90vw;
+}
+
+#item-list {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#item-list div {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#item-list img {
+  margin-left: 2rem;
+}
+#cart-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+#cart-item-left {
+  display: flex;
+  flex-direction: row;
+}
+
+#item-list button {
+  padding-top: 5px;
+  margin-top: 1rem;
+}
+#removeBtn {
+  /* margin-left: 10rem; */
+  align-self: flex-end;
+}
+
+#item-list form {
+  float: right;
+  padding-right: 3rem;
+}
+
+#item-list form > button {
+  border: solid black 0.09em;
+  border-radius: 1em;
+  font-size: 1.25rem;
+  margin-top: 0.5em;
+  align-self: flex-end;
+}
+#item-list form > button:hover {
+  background-color: rgb(248, 217, 236);
+}
+
+#cart-item-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-right: 3rem;
+  justify-content: flex-end;
+}
+
+#cart-header {
+  display: inline-block;
+  width: 100%;
+}
+
+#header-right {
+  float: right;
+}
+
+#qty {
+  margin-right: 2rem;
+}
+#price {
+  margin-right: 5rem;
+}
+
+#item-price {
+  float: right;
+}
+
+#item-price h4 {
+  margin: 0px;
+}
+
+#cart-item-desc {
+  margin-left: 5rem;
+  font-size: 1rem;
+}
+
+#cart-submit {
+  display: flex;
+  flex-direction: column;
+  float: right;
+}
+
+#summary {
+  float: right;
+  margin-right: 5rem;
+#order-history {
+  border: solid black 0.09em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(236, 233, 233);
+}
+
+#update-user-form input {
+  padding: 8px 12px;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 2px solid rgb(23, 93, 42);
+}
+
+form label {
+  font-weight: bold;
 }

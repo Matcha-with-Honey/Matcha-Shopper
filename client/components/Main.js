@@ -18,6 +18,7 @@ import SingleProduct from './SingleProduct';
 import Cart from './Cart';
 import AllUsers from './AllUsers';
 import SingleUser from './SingleUser';
+import CheckOut from './Checkout';
 
 class Main extends Component {
   componentDidMount() {
@@ -85,6 +86,7 @@ class Main extends Component {
             <Route path="/cart" element={<Cart />} />
             <Route path="/users" element={<AllUsers />} />
             <Route path="/users/:userId" element={<SingleUser />} />
+            <Route path="/checkout" element={<CheckOut />} />
           </Routes>
         ) : (
           <Routes>
@@ -94,6 +96,7 @@ class Main extends Component {
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<CheckOut />} />
           </Routes>
         )}
         <footer>
