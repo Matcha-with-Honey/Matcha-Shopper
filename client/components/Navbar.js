@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/auth';
-import Home from './Home';
 
 class Navbar extends React.Component {
   constructor(props) {
