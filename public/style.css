@@ -45,12 +45,13 @@ nav a {
 #logo {
   background-image: none;
   width: 30em;
-  position: absolute;
+  /* position: absolute; */
+  /* position: sticky; */
   margin-left: 33%;
+  margin-top: 2em;
 }
 
 #home-main {
-  margin-top: 3em;
   display: flex;
   flex-direction: column;
   background-image: none;
@@ -58,8 +59,6 @@ nav a {
 }
 
 #home-image {
-  /* margin-left: 25%; */
-  margin-top: 9em;
   width: 33em;
 }
 
@@ -130,7 +129,6 @@ nav a {
   text-decoration: none;
   border: solid green 1px;
   border-radius: 6%;
-  /* background-color: rgb(101, 181, 101); */
   padding: 0.5em;
 }
 
@@ -154,7 +152,7 @@ footer span {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 4rem;
+  /* padding-top: 4rem; */
   background: none;
   align-items: center;
 }
@@ -310,11 +308,13 @@ footer span {
   background: transparent;
 }
 #log-in-form-div {
-  padding: 5em 5em;
+  /* padding: 5em 5em; */
+  padding-bottom: 13em;
 }
 
 #log-in-sign-up-form {
-  padding: 10em 10em;
+  /* padding: 10em 10em; */
+  /* padding-bottom: 1em; */
   margin: auto;
   text-align: center;
 }
@@ -332,16 +332,17 @@ form label {
 }
 
 #products-container {
+  /* margin-top: 2em; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 #product {
-  margin-top: 5em;
+  /* margin-top: 8em; */
   margin-right: 3em;
   margin-left: 3em;
-  margin-bottom: 5em;
+  margin-bottom: 8em;
 }
 
 #product-image {
