@@ -69,39 +69,44 @@ class SingleProduct extends Component {
       <div>
         {role === 'admin' ? (
           <section id="single-product-container">
-            <h2 id="product-name">{product.name}</h2>
             <img src={product.image} />
-            <p>Quantity: {product.quantity}</p>
-            <p>Price: {product.price}</p>
-            <p>Description: {product.description}</p>
-            <p>Category: {product.category}</p>
-
+            <div id="inner-single-product">
+              <h2 id="product-name">{product.name}</h2>
+              <p>Quantity: {product.quantity}</p>
+              <p>Price: {product.price}</p>
+              <p>Description: {product.description}</p>
+              <p>Category: {product.category}</p>
+            </div>
             <UpdateProduct />
           </section>
         ) : (
           <section id="single-product-container">
-            <h2 id="product-name">{product.name}</h2>
-            <img src={product.image} />
-            <p>{product.price}</p>
-            <p>{product.description}</p>
-            <form>
-              <select
-                name="quantity"
-                id="quantity-select"
-                onChange={(e) => {
-                  const quantityToAdd = parseInt(e.target.value);
-                  this.setState({ ...this.state, quantityToAdd });
-                }}
-              >
-                {this.makeOpts(this.props.product)}
-              </select>
-            </form>
-            <button
-              id="add-to-cart"
-              onClick={() => this.handleAddItem(product)}
-            >
-              Add To Cart
-            </button>
+            <img src={product.image} id="product-image-single" />
+            <div id="inner-single-product">
+              <h2 id="product-name">{product.name}</h2>
+              <p id="product-desc">{product.description}</p>
+              <p id="product-single-price">{product.price}</p>
+              <div id="button-and-form">
+                <form>
+                  <select
+                    name="quantity"
+                    className="quantity-selector-single"
+                    onChange={(e) => {
+                      const quantityToAdd = parseInt(e.target.value);
+                      this.setState({ ...this.state, quantityToAdd });
+                    }}
+                  >
+                    {this.makeOpts(this.props.product)}
+                  </select>
+                </form>
+                <button
+                  id="button-products-single"
+                  onClick={() => this.handleAddItem(product)}
+                >
+                  Add To Cart
+                </button>
+              </div>
+            </div>
           </section>
         )}
       </div>
