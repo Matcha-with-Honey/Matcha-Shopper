@@ -1,5 +1,13 @@
 * {
   font-family: 'Gayathri', sans-serif;
+  /* background-image: linear-gradient(
+    to right,
+    rgb(248, 217, 236),
+    white,
+    rgb(170, 194, 128)
+  ); */
+}
+body {
   background-image: linear-gradient(
     to right,
     rgb(248, 217, 236),
@@ -37,4 +45,39 @@ nav a {
   background-image: none;
   margin-left: 1.5em;
   margin-right: 1.5em;
+}
+
+#cart {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  background: none;
+  align-items: center;
+}
+
+#cart-container {
+  background-color: white;
+  border: solid black 0.09em;
+  border-radius: 25px;
+  padding-left: 3rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+#has-items {
+  width: 90vw;
+}
+
+#item-list {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#item-list div {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#item-list button {
+  padding-top: 5px;
+  margin-top: 1rem;
 }
