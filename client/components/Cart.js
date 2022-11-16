@@ -149,14 +149,52 @@ export class Cart extends Component {
                     {this.props.cartItems.map((item) => {
                       return (
                         <div key={item.productId} className="cart-item">
+                          <span id="cart-header">
+                            <span>
+                              <h4>{item.product.name}</h4>
+                            </span>
+                            <span id="header-right">
+                              <span id="qty">Qty</span>
+                              <span id="price">Price</span>
+                            </span>
+                          </span>
+                          <div id="cart-item-right">
+                            <form>
+                              <select
+                                name="quantity"
+                                id="quantity-select"
+                                onChange={(e) => {
+                                  const quantity = parseInt(e.target.value);
+                                  const updatedItem = {
+                                    ...item,
+                                    quantity,
+                                  };
+                                  this.props.updateItem(updatedItem);
+                                  const quantities = this.state.quantities;
+                                  quantities.set(item.productId, quantity);
+                                  this.setState({
+                                    ...this.state,
+                                    quantities,
+                                  });
+                                }}
+                              >
+                                <option value={item.quantity}>
+                                  {item.quantity}
+                                </option>
+                                {this.makeOpts(item)}
+                              </select>
+                            </form>
+                            <div id="item-price">
+                              <h4>{item.product.price}</h4>
+                            </div>
+                          </div>
                           <div id="cart-item-left">
-                            <h4>{item.product.name}</h4>
                             <img
                               style={{
                                 backgroundImage: `url(${item.product.image})`,
                                 backgroundSize: 'cover',
-                                height: '8rem',
-                                width: '8rem',
+                                height: '10rem',
+                                width: '10rem',
                                 borderRadius: '50%',
                                 overflow: 'hidden',
                                 display: 'flex',
@@ -166,33 +204,12 @@ export class Cart extends Component {
                                 whiteSpace: 'nowrap',
                               }}
                             />
+                            <h5 id="cart-item-desc">
+                              {item.product.description}
+                            </h5>
                           </div>
-                          <div id="cart-item-right">
-                            <div id="item-price">{item.product.price}</div>
-                          </div>
-                          <form>
-                            <select
-                              name="quantity"
-                              id="quantity-select"
-                              onChange={(e) => {
-                                const quantity = parseInt(e.target.value);
-                                const updatedItem = {
-                                  ...item,
-                                  quantity,
-                                };
-                                this.props.updateItem(updatedItem);
-                                const quantities = this.state.quantities;
-                                quantities.set(item.productId, quantity);
-                                this.setState({ ...this.state, quantities });
-                              }}
-                            >
-                              <option value={item.quantity}>
-                                {item.quantity}
-                              </option>
-                              {this.makeOpts(item)}
-                            </select>
-                          </form>
                           <button
+                            id="removeBtn"
                             onClick={() => {
                               this.props.deleteItem(item);
                             }}
@@ -202,24 +219,28 @@ export class Cart extends Component {
                         </div>
                       );
                     })}
-                    <h3>
-                      Total:{' '}
-                      {new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      }).format(this.sumTotal(items))}
-                    </h3>
-                    <form>
-                      <button
-                        type="submit"
-                        onClick={() => this.handlePurchase()}
-                      >
-                        Complete Purchase
-                      </button>
-                    </form>
+                    <div id="cart-submit">
+                      <span id="summary">
+                        <h3 id="total">
+                          Total:{' '}
+                          {new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                          }).format(this.sumTotal(items))}
+                        </h3>
+                      </span>
+                      <form>
+                        <button
+                          type="submit"
+                          onClick={() => this.handlePurchase()}
+                        >
+                          Complete Purchase
+                        </button>
+                      </form>
+                    </div>
                   </div>
                 ) : (
-                  <div>No items in cart</div>
+                  <div>No items in cart.</div>
                 )}
               </div>
             </div>
