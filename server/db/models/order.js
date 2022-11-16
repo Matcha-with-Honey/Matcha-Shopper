@@ -6,7 +6,6 @@ const Order = db.define('order', {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
     validate: {
-      isInt: true,
       notEmpty: true,
       min: 0.0,
       max: 10000000.0,
