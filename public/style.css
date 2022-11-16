@@ -42,6 +42,114 @@ nav a {
 }
 
 
+#logo {
+  background-image: none;
+  width: 30em;
+  position: absolute;
+  margin-left: 33%;
+}
+
+#home-main {
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  background-image: none;
+  align-items: center;
+}
+
+#home-image {
+  /* margin-left: 25%; */
+  margin-top: 9em;
+  width: 33em;
+}
+
+#home-desc {
+  width: 10em;
+  background-image: none;
+  color: white;
+  font-size: 3em;
+  background: none;
+  position: absolute;
+  left: 51%;
+  top: 53%;
+  transform: translate(-50%, -50%);
+}
+
+#home-main a {
+  background-image: none;
+  text-decoration: none;
+  background-color: 170, 194, 128;
+  border: solid green 1px;
+  padding: 0.5em;
+  color: white;
+  background: none;
+  position: absolute;
+  left: 37.8%;
+  top: 71%;
+  transform: translate(-50%, -50%);
+}
+
+#about-store p {
+  background-image: none;
+  width: 30em;
+  font-size: 1.9em;
+  font-weight: 100;
+  margin-left: 18%;
+  margin-top: 5em;
+  margin-bottom: 3em;
+}
+
+#product-highlight {
+  display: flex;
+  align-items: center;
+}
+
+#product-home {
+  width: 30em;
+  margin-left: 10em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+#product-highlight-desc {
+  background-image: none;
+  margin-left: 2em;
+  font-size: 1.5em;
+}
+
+#product-highlight-text {
+  background-image: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#product-highlight-text a {
+  background-image: none;
+  color: black;
+  text-decoration: none;
+  border: solid green 1px;
+  border-radius: 6%;
+  /* background-color: rgb(101, 181, 101); */
+  padding: 0.5em;
+}
+
+footer {
+  margin-top: 5em;
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: space-around;
+}
+footer span {
+  background-image: none;
+}
+
+#footer-contact {
+  background-image: none;
+  text-decoration: none;
+  color: black;
+}
+
 #cart {
   position: relative;
   display: flex;
@@ -190,5 +298,4 @@ nav a {
 
 form label {
   font-weight: bold;
-
 }
