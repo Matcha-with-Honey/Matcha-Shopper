@@ -41,7 +41,7 @@ const AuthForm = (props) => {
       <ToastContainer
         position="top-center"
         autoClose={2700}
-        hideProgressBar={false}
+        hideProgressBar={true}
         closeOnClick="true"
       />
     </div>
