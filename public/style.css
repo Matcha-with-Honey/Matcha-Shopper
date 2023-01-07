@@ -521,7 +521,7 @@ form label {
 }
 
 #product-name-admin {
-  font-size: 1.5em;
+  font-size: 120%;
 }
 
 #products-container-admin {
@@ -654,16 +654,23 @@ table {
 }
 
 th {
-  width: 12em;
-  height: 2em;
-  font-size: 1.5em;
+  width: 10%;
+  font-size: 120%;
 }
 
 td {
   border: 0.1em solid black;
-  width: 10em;
   height: 2em;
   padding: 0.5em;
   align-self: center;
   justify-self: center;
+}
+
+@media (max-device-width: 690px) {
+  #product-name-admin,
+  td,
+  th {
+    width: 10%;
+    font-size: 40%;
+  }
 }
