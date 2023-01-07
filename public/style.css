@@ -255,6 +255,7 @@ footer {
   display: flex;
   justify-content: space-around;
 }
+
 footer span {
   background-image: none;
 }
@@ -645,4 +646,24 @@ form label {
 
 #update-product-form input {
   width: 10em;
+}
+
+table {
+  display: flex;
+  flex-direction: column;
+}
+
+th {
+  width: 12em;
+  height: 2em;
+  font-size: 1.5em;
+}
+
+td {
+  border: 0.1em solid black;
+  width: 10em;
+  height: 2em;
+  padding: 0.5em;
+  align-self: center;
+  justify-self: center;
 }
