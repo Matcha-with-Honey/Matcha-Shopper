@@ -63,35 +63,47 @@ class AllProducts extends Component {
         {role === 'admin' ? (
           <div>
             <AddProduct />
-            <div id="products-container-admin">
-              {products.map((product) => {
-                return (
-                  <div key={product.id} id="product">
-                    <img id="product-image" src={product.image} />
-                    <Link to={`/products/${product.id}`}>
-                      {' '}
-                      <p id="product-name-admin">
-                        {product.name.toUpperCase()}
-                      </p>
-                    </Link>
-                    <p>Quantity: {product.quantity}</p>
-                    <p>Price: {product.price}</p>
-                    <p id="product-description-admin">
-                      Description: {product.description}
-                    </p>
-                    <p>Category: {product.quantity}</p>
-                    <button
-                      id="button-products"
-                      onClick={() => {
-                        this.props.persistProductDelete(product.id);
-                      }}
-                    >
-                      DELETE
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
+            <table id="product">
+              <tbody>
+                <tr>
+                  <th>PRODUCT NAME</th>
+                  <th>ID</th>
+                  <th>QUANTITY</th>
+                  <th>PRICE</th>
+                  <th>DESCRIPTION</th>
+                  <th>CATEGORY</th>
+                  <th>DELETE PRODUCT</th>
+                </tr>
+                {products.map((product) => {
+                  return (
+                    <tr key={product.id}>
+                      <td id="product-name-admin">
+                        <a id="see-more" href={`/products/${product.id}`}>
+                          {product.name}
+                        </a>
+                      </td>
+                      <td>{product.id}</td>
+                      <td>{product.quantity}</td>
+                      <td>{product.price}</td>
+                      <td id="product-description-admin">
+                        {product.description}
+                      </td>
+                      <td>{product.category}</td>
+                      <td>
+                        <button
+                          id="button-products"
+                          onClick={() => {
+                            this.props.persistProductDelete(product.id);
+                          }}
+                        >
+                          x
+                        </button>{' '}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         ) : (
           <div id="products-container">
