@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { me } from '../redux/auth';
 import Home from './Home';
 import AllProducts from './AllProducts';
-import { fetchAllProducts, fetchSingleProduct } from '../redux/products';
+import { fetchAllProducts } from '../redux/products';
 import {
   fetchNewCart,
   fetchSingleCart,
@@ -19,6 +19,7 @@ import Cart from './Cart';
 import AllUsers from './AllUsers';
 import SingleUser from './SingleUser';
 import CheckOut from './Checkout';
+import AddProduct from './AddProduct';
 
 class Main extends Component {
   componentDidMount() {
@@ -75,6 +76,7 @@ class Main extends Component {
   }
   render() {
     const { isLoggedIn } = this.props;
+    const { isAdmin } = this.props;
     return (
       <div>
         <section id="logo-wrapper">
@@ -82,6 +84,11 @@ class Main extends Component {
         </section>
         {isLoggedIn ? (
           <Routes>
+            {isAdmin ? (
+              <Route exact path="products-add" element={<AddProduct />} />
+            ) : (
+              <Route path="/products" element={<AllProducts />} />
+            )}
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
@@ -114,6 +121,7 @@ class Main extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: state.authReducer.id ? true : false,
+    isAdmin: state.authReducer.role === 'admin' ? true : false,
     cartFetcher: state.authReducer.id,
     order: state.orderReducer.order,
   };

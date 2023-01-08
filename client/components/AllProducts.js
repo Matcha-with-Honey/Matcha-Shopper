@@ -62,7 +62,9 @@ class AllProducts extends Component {
       <section>
         {role === 'admin' ? (
           <div>
-            <AddProduct />
+            <Link id="add-product-link" to={'/products-add'}>
+              ADD PRODUCT
+            </Link>
             <table id="product">
               <tbody>
                 <tr>
@@ -84,7 +86,7 @@ class AllProducts extends Component {
                       </td>
                       <td>{product.id}</td>
                       <td>{product.quantity}</td>
-                      <td>{product.price}</td>
+                      <td>${product.price}</td>
                       <td id="product-description-admin">
                         {product.description}
                       </td>

@@ -41,12 +41,14 @@ class AddProduct extends Component {
       <section>
         <form id="add-product-form" onSubmit={this.handleSubmit}>
           <input
+            id="product-name-form"
             name="name"
             placeholder="product name"
             value={this.state.name}
             onChange={this.handleChange}
           ></input>
           <input
+            id="product-desc-form"
             name="description"
             placeholder="description"
             value={this.state.description}
@@ -60,23 +62,22 @@ class AddProduct extends Component {
           ></input>
           <input
             name="image"
-            placeholder="image"
+            placeholder="image url"
             value={this.state.image}
             onChange={this.handleChange}
           ></input>
           <input
             name="price"
-            price
             placeholder="price"
             value={this.state.price}
             onChange={this.handleChange}
           ></input>
-          <input
-            name="category"
-            placeholder="category"
-            value={this.state.category}
-            onChange={this.handleChange}
-          ></input>
+          <label id="category-label">CATEGORY:</label>
+          <select name="category" onChange={this.handleChange}>
+            <option></option>
+            <option value={'tea'}>tea</option>
+            <option value={'accessories'}>accessories</option>
+          </select>
           <button type="submit">ADD PRODUCT</button>
         </form>
       </section>
