@@ -86,9 +86,7 @@ class Main extends Component {
           <Routes>
             {isAdmin ? (
               <Route exact path="products-add" element={<AddProduct />} />
-            ) : (
-              <Route path="/products" element={<AllProducts />} />
-            )}
+            ) : null}
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/products/:productId" element={<SingleProduct />} />
