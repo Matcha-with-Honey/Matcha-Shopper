@@ -99,6 +99,7 @@ export const persistProductUpdate = (product, productInfo) => {
           }
         );
         dispatch(updateProduct(data));
+        dispatch(fetchAllProducts());
       }
     } catch (error) {
       console.error(error);

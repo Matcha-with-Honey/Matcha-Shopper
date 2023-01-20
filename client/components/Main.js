@@ -80,12 +80,12 @@ class Main extends Component {
     return (
       <div>
         <section id="logo-wrapper">
-          <img src="Untitled-2.png" id="logo"></img>
+          <img src="allMatchaLogo.png" id="logo"></img>
         </section>
         {isLoggedIn ? (
           <Routes>
             {isAdmin ? (
-              <Route exact path="products-add" element={<AddProduct />} />
+              <Route exact path="/products-add" element={<AddProduct />} />
             ) : null}
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<AllProducts />} />
