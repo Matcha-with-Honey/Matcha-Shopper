@@ -1,4 +1,5 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 import authReducer from './redux/auth';
 import productsReducer from './redux/products';
@@ -16,8 +17,13 @@ const appReducer = combineReducers({
   orderHistoryReducer,
 });
 
-let middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
+let middleware;
+if (process.env.NODE_ENV === 'development') {
+  middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
+} else {
+  middleware = [thunkMiddleware.withExtraArgument({ axios })];
+}
 
-const store = createStore(appReducer, applyMiddleware(...middleware));
+const store = configureStore({ reducer: appReducer, middleware: middleware });
 
 export default store;
