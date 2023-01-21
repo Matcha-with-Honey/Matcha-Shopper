@@ -6,7 +6,6 @@ module.exports = {
     path: __dirname,
     filename: './public/bundle.js',
   },
-  mode: 'development',
   context: __dirname,
   devtool: 'source-map',
   // resolve: {
@@ -25,6 +24,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+        type: 'asset',
       },
     ],
   },
