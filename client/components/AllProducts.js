@@ -74,7 +74,7 @@ class AllProducts extends Component {
                   <th>PRICE</th>
                   <th>DESCRIPTION</th>
                   <th>CATEGORY</th>
-                  <th>DELETE PRODUCT</th>
+                  <th>DELETE</th>
                 </tr>
                 {products.map((product) => {
                   return (

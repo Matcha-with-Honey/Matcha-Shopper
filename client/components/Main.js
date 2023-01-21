@@ -20,6 +20,7 @@ import AllUsers from './AllUsers';
 import SingleUser from './SingleUser';
 import CheckOut from './Checkout';
 import AddProduct from './AddProduct';
+import logo from '../../public/allMatchaLogo.png';
 
 class Main extends Component {
   componentDidMount() {
@@ -80,7 +81,7 @@ class Main extends Component {
     return (
       <div>
         <section id="logo-wrapper">
-          <img src="allMatchaLogo.png" id="logo"></img>
+          <img src={logo} id="logo"></img>
         </section>
         {isLoggedIn ? (
           <Routes>

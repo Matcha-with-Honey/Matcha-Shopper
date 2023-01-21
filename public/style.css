@@ -591,7 +591,7 @@ form label {
 }
 
 #inner-single-product h2 {
-  font-size: 2.6em;
+  font-size: 100%;
 }
 
 #inner-single-product-update {
@@ -614,13 +614,13 @@ form label {
 #inner-single-product-update label {
   background: none;
   border: none;
-  font-size: 100%;
+  font-size: 110%;
   width: 90%;
   margin: 1.5%;
 }
 
 #inner-single-product-update #product-name-update {
-  font-size: 160%;
+  font-size: 130%;
 }
 
 #inner-single-product-update #product-description-update {
@@ -719,7 +719,7 @@ table {
 }
 
 th {
-  width: 10%;
+  width: 5%;
   font-size: 95%;
 }
 
