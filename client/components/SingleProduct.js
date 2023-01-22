@@ -172,8 +172,8 @@ class SingleProduct extends Component {
           <section id="single-product-container">
             <img src={product.image} id="product-image-single" />
             <div id="inner-single-product">
-              <h2 id="product-name">{product.name}</h2>
-              <p id="product-desc">{product.description}</p>
+              <h2 id="single-product-name">{product.name}</h2>
+              <p id="single-product-desc">{product.description}</p>
               <p id="product-single-price">${product.price}</p>
               <div id="button-and-form">
                 <form>
