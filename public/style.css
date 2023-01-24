@@ -570,122 +570,73 @@ form label {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  font-size: 110%;
 }
 
 #single-product-container img {
   width: 33%;
-  margin-bottom: 2em;
-  margin-right: 2em;
-}
-
-#product-image-single {
-  border-radius: 20%;
-}
-
-#inner-single-product {
-  margin-left: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#inner-single-product h2 {
-  font-size: 100%;
+  padding: 5%;
+  border-radius: 33%;
 }
 
 #inner-single-product-update {
-  margin-left: 2em;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 #inner-single-product-update input {
+  font-weight: 800;
   background: none;
   border: black solid 0.04em;
   border-radius: 1em;
   padding: 3%;
-  font-size: 100%;
+  padding-left: 5%;
   width: 90%;
-  margin: 1.5%;
   margin-bottom: 4%;
 }
+
 #inner-single-product-update label {
   background: none;
   border: none;
-  font-size: 110%;
   width: 90%;
-  margin: 1.5%;
+  padding: 2%;
 }
 
-#inner-single-product-update #product-name-update {
-  font-size: 130%;
-}
-
-#inner-single-product-update #product-description-update {
-  font-size: 130%;
-  padding: 5%;
-}
-
-#inner-single-product-update button {
+#single-product-container button {
+  background-color: white;
   border: solid black 1px;
   border-radius: 1em;
   padding: 0.5em;
-  font-size: 100%;
+  font-size: 90%;
   width: fit-content;
 }
 
-#inner-single-product button {
-  border: solid black 1px;
-  border-radius: 1em;
-  padding: 0.5em;
-  font-size: 1.2em;
+#inner-single-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 130%;
 }
 
 @media (max-width: 600px) {
-  #inner-single-product h2 {
-    font-size: 1.5em;
+  #inner-single-product-update,
+  #inner-single-product {
+    font-size: 70%;
   }
 }
 
-#product-desc {
-  font-size: 1.8em;
-}
-
-@media (max-width: 600px) {
-  #product-desc {
-    font-size: 1em;
-  }
-}
-
-#product-single-price {
-  font-size: 1.5em;
-}
-
-@media (max-width: 450px) {
-  #product-single-price {
-    font-size: 1em;
-  }
-}
 #button-and-form {
   display: flex;
   align-items: center;
-  margin-top: 0.5em;
 }
 
 .quantity-selector-single {
-  font-size: 1.4em;
   background-color: white;
   margin-right: 0.8em;
-  margin-left: 2em;
   border-radius: 0.3em;
-}
-
-@media (max-width: 450px) {
-  .quantity-selector-single {
-    font-size: 0.8em;
-  }
 }
 
 #button-products-single {
